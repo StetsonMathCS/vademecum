@@ -29,8 +29,9 @@
 % sideways pages
 \usepackage{pdflscape}
 
-% poetry (verse mode)
 \setlength{\vleftmargin}{0em}
+
+\usepackage{longtable}
 
 % hyphenation tolerance; higher means less chance of overfull boxes
 \tolerance=10000
@@ -78,7 +79,7 @@
 \texttt{=[move] ==} & auto-indent lines \\
 \texttt{<[move] <{}<} & unindent one step \\
 \texttt{>[move] >{}>} & indent one step \\
-\texttt{:![cmd]} & pipe file through command, e.g., \texttt{:!sort} \\
+\texttt{:![cmd]} & pipe file through shell command, e.g., \texttt{:!sort} \\
 & \\
 \texttt{:w :wq ZZ} & write, write and quit, write and quit \\
 \texttt{:q :q!} & quit, quit even if unsaved changes \\
@@ -640,7 +641,7 @@ Many pressures tend to make programs more complicated (and therefore more expens
 \begin{quote}
 The notion of ``intricate and beautiful complexities'' is almost an oxymoron. Unix programmers vie with each other for ``simple and beautiful'' honors -- a point that's implicit in these rules, but is well worth making overt.
  
--- Doug McIlroy	
+-- Doug McIlroy    
 \end{quote}
 
 Even more often (at least in the commercial software world) excessive complexity comes from project requirements that are based on the marketing fad of the month rather than the reality of what customers want or software can actually deliver. Many a good design has been smothered under marketing's pile of ``checklist features'' -- features that, often, no customer will ever use. And a vicious circle operates; the competition thinks it has to compete with chrome by adding more chrome. Pretty soon, massive bloat is the industry standard and everyone is using huge, buggy programs not even their developers can love.
@@ -1162,6 +1163,236 @@ See Also: \ul{LearningObjectOrientedProgramming}, \ul{BenefitsOfOo}, \ul{Argumen
 \vskip 0.1in
 
 \ul{CategoryObjectOrientation} \ul{CategoryDataOrientation}
+
+
+\chapter{tmux}
+
+
+\chapter{Why do my compiles take so long?}
+
+From {\footnotesize\texttt{http://www.stroustrup.com/bs\_faq2.html}}
+
+\vskip 0.2in
+
+\noindent You may have a problem with your compiler. It may be old, you may have it installed wrongly, or your computer might be an antique. I can't help you with such problems.
+
+However, it is more likely that the program that you are trying to compile is poorly designed, so that compiling it involves the compiler examining hundreds of header files and tens of thousands of lines of code. In principle, this can be avoided. If this problem is in your library vendor's design, there isn't much you can do (except changing to a better library/vendor), but you can structure your own code to minimize re-compilation after changes. Designs that do that are typically better, more maintainable, designs because they exhibit better separation of concerns.
+
+Consider a classical example of an object-oriented program:
+
+{\footnotesize
+\begin{verbatim}
+class Shape {
+public: // interface to users of Shapes
+    virtual void draw() const;
+    virtual void rotate(int degrees);
+    // ...
+protected: // common data (for implementers of Shapes)
+    Point center;
+    Color col;
+    // ...
+};
+
+class Circle : public Shape {
+public:    
+    void draw() const;
+    void rotate(int) { }
+    // ...
+protected:
+    int radius;
+    // ...
+};
+
+class Triangle : public Shape {
+public:    
+    void draw() const;
+    void rotate(int);
+    // ...
+protected:
+    Point a, b, c;
+    // ...
+};    
+\end{verbatim}
+}
+
+\noindent The idea is that users manipulate shapes through Shape's public interface, and that implementers of derived classes (such as Circle and Triangle) share aspects of the implementation represented by the protected members.
+
+There are three serious problems with this apparently simple idea:
+\begin{itemize}
+\item It is not easy to define shared aspects of the implementation that are helpful to all derived classes. For that reason, the set of protected members is likely to need changes far more often than the public interface. For example, even though ``center'' is arguably a valid concept for all Shapes, it is a nuisance to have to maintain a point "center" for a Triangle -- for triangles, it makes more sense to calculate the center if and only if someone expresses interest in it.
+\item The protected members are likely to depend on ``implementation'' details that the users of Shapes would rather not have to depend on. For example, many (most?) code using a Shape will be logically independent of the definition of ``Color'', yet the presence of Color in the definition of Shape will probably require compilation of header files defining the operating system's notion of color.
+\item When something in the protected part changes, users of Shape have to recompile -- even though only implementers of derived classes have access to the protected members.
+\end{itemize}
+Thus, the presence of ``information helpful to implementers'' in the base class that also acts as the interface to users is the source of instability in the implementation, spurious recompilation of user code (when implementation information changes), and excess inclusion of header files into user code (because the ``information helpful to implementers'' needs those headers). This is sometimes known as the ``brittle base class problem.''
+
+The obvious solution is to omit the ``information helpful to implementers'' for classes that are used as interfaces to users. That is, to make interfaces, pure interfaces. That is, to represent interfaces as abstract classes:
+
+{\footnotesize
+\begin{verbatim}
+class Shape {
+public: // interface to users of Shapes
+    virtual void draw() const = 0;
+    virtual void rotate(int degrees) = 0;
+    virtual Point center() const = 0;
+    // ...
+
+    // no data
+};
+
+class Circle : public Shape {
+public:    
+    void draw() const;
+    void rotate(int) { }
+    Point center() const { return cent; }
+    // ...
+protected:
+    Point cent;
+    Color col;
+    int radius;
+    // ...
+};
+
+class Triangle : public Shape {
+public:    
+    void draw() const;
+    void rotate(int);
+    Point center() const;
+    // ...
+protected:
+    Color col;
+    Point a, b, c;
+    // ...
+};    
+\end{verbatim}
+}
+
+\noindent The users are now insulated from changes to implementations of derived classes. I have seen this technique decrease build times by orders of magnitudes.
+
+But what if there really is some information that is common to all derived classes (or simply to several derived classes)? Simply make that information a class and derive the implementation classes from that also:
+
+{\footnotesize
+\begin{verbatim}
+class Shape {
+public: // interface to users of Shapes
+    virtual void draw() const = 0;
+    virtual void rotate(int degrees) = 0;
+    virtual Point center() const = 0;
+    // ...
+
+    // no data
+};
+
+struct Common {
+    Color col;
+    // ...
+};
+        
+class Circle : public Shape, protected Common {
+public:    
+    void draw() const;
+    void rotate(int) { }
+    Point center() const { return cent; }
+    // ...
+protected:
+    Point cent;
+    int radius;
+};
+
+class Triangle : public Shape, protected Common {
+public:    
+    void draw() const;
+    void rotate(int);
+    Point center() const;
+    // ...
+protected:
+    Point a, b, c;
+};    
+\end{verbatim}
+}
+
+
+\chapter{Editor war (Wikipedia)}
+
+Editor war is the common name for the rivalry between users of the Emacs and vi (Vim) text editors. The rivalry has become a lasting part of hacker culture and the free software community.
+
+The Emacs vs vi debate was one of the original ``holy wars'' conducted on Usenet groups, with many flame wars fought between those insisting that their editor of choice is the paragon of editing perfection, and insulting the other, since at least 1985. Related battles have been fought over operating systems, programming languages, version control systems, and even source code indent style. Notably, unlike other wars (ie, UNIX vs ITS vs VMS, C vs Pascal vs Fortran), the editor war has yet to be resolved with a clear winner, and the hacker community remains split roughly 50/50.
+
+\section{Differences between vi and Emacs}
+
+The most important differences between vi and Emacs are presented in the following list.
+
+\subsection{Keystroke execution}
+
+\textbf{vi} retains each permutation of typed keys. This creates a path in the decision tree which unambiguously identifies any command.
+
+\textbf{Emacs} commands are key combinations for which modifier keys are held down while other keys are pressed; a command gets executed once completely typed. This still forms a decision tree of commands, but not one of individual keystrokes. A vim-inspired Emacs package (undo-tree) provides a user interface to the tree.
+
+\subsection{Memory usage and customizability}
+
+\textbf{vi} is a smaller and faster program, but with less capacity for customization. The vim version of vi has evolved to provide significantly more functionality and customization than vi, making it comparable to Emacs. vi start-up time is near instantaneous for small text files, while vim is almost as fast.
+
+\textbf{Emacs} executes many actions on startup, many of which may execute arbitrary user code. This makes Emacs take longer to start up (even compared to vim) and require more memory. However, it is highly customizable and includes a large number of features, as it is essentially an execution environment for a Lisp program designed for text-editing. Emacs 18 (released in 1987) introduced a server mode designed to run continuously in the background. Various instances of Emacs can then be started in client mode, attaching to this server and sharing state. Emacs client startup time is practically instantaneous as all it does is provoke the existing Emacs process to redraw the display.
+
+\subsection{User environment}
+
+\textbf{vi} was originally exclusively used inside of a text-mode console, offering no graphical user interface (GUI). Most modern vi derivatives, e.g. MacVim and gVim, include GUIs. However, support for proportionally spaced fonts remains absent. Also lacking is support for different sized fonts in the same document.
+
+\textbf{Emacs}, while also initially designed for use on a console, grew a TUI fairly early on due to its Lisp machine heritage. X11 GUI support was added in Emacs 18, and made the default in version 19. Current Emacs GUIs include full support for proportionate spacing and font-size variation. Emacs also supports embedded images and hypertext.
+
+\subsection{Function/navigation interface}
+
+\textbf{vi} uses distinct editing modes. Under ``insert mode'', keys insert characters into the document. Under ``normal mode'' (also known as ``command mode''), bare keypresses execute vi commands.
+
+\textbf{Emacs} uses metakey chords. Keys or key chords can be defined as prefix keys, which put Emacs into a mode where it waits for additional key presses that constitute a key binding. Key bindings can be mode-specific, further customizing the interaction style. Emacs provides a command line accessed by M-x that can be configured to autocomplete in various ways. Emacs also provides a defalias macro, allowing alternate names for commands.
+
+\subsection{Keyboard}
+
+\textbf{vi} uses no <Alt> key and seldom uses the <Ctrl> key. vi's keyset is mainly restricted to the alphanumeric keys, and the escape key. This is an enduring relic of its teletype heritage, but has the effect of making most of vi's functionality accessible without frequent awkward finger reaches.
+
+The expansion of one of \textbf{Emacs}' backronyms is Escape, Meta, Alt, Control, Shift, which neatly summarizes most of the modifier keys it uses, only leaving out Super. Emacs was developed on Lisp Machines with Space-cadet keyboards that were more ergonomic with respect to modifiers than modern layouts. There are multiple emacs packages, such as spacemacs or ergoemacs that replace these key combinations with ones easier to type, or customization can be done ad hoc by the user.
+
+\subsection{Language and script support}
+
+\textbf{vi} has rudimentary support for languages other than English. Vim is partially multilingual, with support for European, Arabic, Hebrew, and Far East Asian language support only. Notably, Indic language and script support is absent.
+
+\textbf{Emacs} has full support for all Unicode-compatible writing systems and allows multiple scripts to be freely intermixed.
+
+\section{Benefits of Emacs}
+
+\begin{itemize}
+\item Emacs has a non-modal interface
+\item One of the most ported computer programs. It runs in text mode and under graphical user interfaces on a wide variety of operating systems, including most Unix-like systems (Linux, the various BSDs, Solaris, AIX, IRIX, macOS, etc.), MS-DOS, Microsoft Windows, AmigaOS, and OpenVMS. Unix systems, both free and proprietary, frequently provide Emacs bundled with the operating system.
+\item Emacs server architecture allows multiple clients to attach to the same Emacs instance and share the buffer list, kill ring, undo history and other state.
+\item Pervasive online help system with keybindings, functions and commands documented on the fly.
+\item Extensible and customizable Lisp programming language variant (Emacs Lisp), with features that include:
+\begin{itemize}
+\item Ability to emulate vi and vim (using Evil, Viper or Vimpulse).
+\item A powerful and extensible file manager (dired), integrated debugger, and a large set of development and other tools.
+\item Having every command be an Emacs Lisp function enables commands to DWIM (Do What I Mean) by programmatically responding to past actions and document state. For example, a switch-or-split-window command could switch to another window if one exists, or create one if needed. This cuts down on the number of keystrokes and commands a user must remember.
+\item ``An OS inside an OS''. Emacs Lisp enables Emacs to be programmed far beyond editing features. Even a base install contains several dozen applications, including two web browsers, news readers, several mail agents, four IRC clients, a version of ELIZA, and a variety of games. All of these applications are available anywhere Emacs runs, with the same user interface and functionality. Starting with version 24, Emacs includes a package manager, making it easy to install additional applications including alternate web browsers, EMMS (Emacs Multimedia System), and more. Also available are numerous packages for programming, including some targeted at specific language/library combinations or coding styles.
+\end{itemize}
+\end{itemize}
+
+\section{Benefits of vi-like editors}
+\begin{itemize}
+\item Edit commands are composable
+\item Vi has a modal interface (which Emacs can emulate)
+\item Historically, vi loads faster than Emacs.
+\item While deeply associated with UNIX tradition, it runs on all systems that can implement the standard C library, including UNIX, Linux, AmigaOS, DOS, Windows, Mac, BeOS, OpenVMS, IRIX, AIX, HP-UX, BSD and POSIX-compliant systems.
+\item Extensible and customizable through VimScript or APIs for interpreted languages such as Python, Ruby, Perl, and Lua
+\item Ubiquitous. Essentially all Unix and Unix-like systems come with vi (or a variant) built-in. Vi (and ex, but not vim) is specified in the POSIX standard.
+\item System rescue environments, embedded systems (notably those with busybox) and other constrained environments often include vi, but not emacs.
+\end{itemize}
+
+\section{Today}
+
+In the past, many small editors modeled after or derived from vi flourished. This was due to the importance of conserving memory with the comparatively minuscule amount available at the time. As computers have become more powerful, many vi clones, Vim in particular, have grown in size and code complexity. These vi variants of today, as with the old lightweight Emacs variants, tend to have many of the perceived benefits and drawbacks of the opposing side. For example, Vim without any extensions requires about ten times the disk space required by vi, and recent versions of Vim can have more extensions and run slower than Emacs. In \emph{The Art of Unix Programming}, Eric S. Raymond called Vim's supposed light weight when compared with Emacs ``a shared myth.'' Moreover, with the large amounts of RAM in modern computers, both Emacs and vi are lightweight compared to large integrated development environments such as Eclipse, which tend to draw derision from Emacs and vi users alike.
+
+Tim O'Reilly said, in 1999, that O'Reilly Media's tutorial on vi sells twice as many copies as that on Emacs (but noted that Emacs came with a free manual). Many programmers use either Emacs and vi or their various offshoots, including Linus Torvalds who uses MicroEMACS. Also in 1999, vi creator Bill Joy said that vi was ``written for a world that doesn't exist anymore'' and stated that Emacs was written on much more capable machines with faster displays so they could have ``funny commands with the screen shimmering and all that, and meanwhile, I'm sitting at home in sort of World War II surplus housing at Berkeley with a modem and a terminal that can just barely get the cursor off the bottom line.''
+
+In addition to Emacs and vi workalikes, pico and its free and open source clone nano and other text editors such as ne often have their own third-party advocates in the editor wars, though not to the extent of Emacs and vi.
+
+As of 2014, both Emacs and vi can lay claim to being among the longest-lived application programs of all time, as well as being the two most commonly used text editors on Linux and Unix. Many operating systems, especially Linux and BSD derivatives, bundle multiple text editors with the operating system to cater to user demand. For example, a default installation of macOS contains Emacs, ed, nano, TextEdit, and Vim.
 
 
 \chapter{The Story of Mel}
