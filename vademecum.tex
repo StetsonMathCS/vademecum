@@ -39,52 +39,50 @@
 
 {\footnotesize
 \begin{tabular}{ll}
-{\texttt 0 \^{} \$} & move to front of line, first char, end \\
-{\texttt h j k l} & move left, down, up, right \\
-{\texttt H M L} & move to top, middle, bottom of screen \\
-{\texttt w W} & move forward to start of words w/wo punc \\
-{\texttt e E} & move forward to end of words w/wo punc \\
-{\texttt b B} & move backward by word w/wo punc \\
-{\texttt \} \verb|{| } & move forward/backward by paragraph \\
-{\texttt \%} & move to matching (), \{\}, [] \\
-{\texttt gg G} & move to top/bottom of file \\
-{\texttt :[num][enter]} & move to line number \\
-{\texttt /[regex]} & search forward for regex and move to first match \\
-{\texttt ?[regex]} & search backward for regex and move to last match \\
-{\texttt n N} & repeat prior search in same / opposite direction \\
+\texttt{0 \^{} \$} & move to front of line, first char, end \\
+\texttt{h j k l} & move left, down, up, right \\
+\texttt{w W} & move forward to start of words w/wo punc \\
+\texttt{e E} & move forward to end of words w/wo punc \\
+\texttt{b B} & move backward by word w/wo punc \\
+\texttt{\} \{} & move forward/backward by paragraph \\
+\texttt{\%} & move to matching (), \{\}, [] \\
+\texttt{gg G} & move to top/bottom of file \\
+\texttt{:[num][enter]} & move to line number \\
+\texttt{/[regex]} & search forward for regex and move to first match \\
+\texttt{?[regex]} & search backward for regex and move to last match \\
+\texttt{n N} & repeat prior search in same / opposite direction \\
 & \\
-{\texttt i I} & insert at cursor, beginning of line \\
-{\texttt a A} & append after cursor, end of line \\
-{\texttt o O} & open blank line below, above current line \\
+\texttt{i I} & insert at cursor, beginning of line \\
+\texttt{a A} & append after cursor, end of line \\
+\texttt{o O} & open blank line below, above current line \\
 & \\
-{\texttt c[move] cc} & change until move point, entire line \\
-{\texttt d[move] dd} & delete until move point, entire line \\
-{\texttt y[move] yy} & yank until move point, entire line \\
-{\texttt p P} & put yanked content after / before cursor \\
-{\texttt x X} & delete current / previous character \\
-{\texttt r R} & replace a single character, multiple characters\\
-{\texttt :s/[old]/[new]/[g]} & replace text on this line; g for all occurrences \\
-{\texttt :\%s/[old]/[new]/[g]} & replace text in file; g for all occurrences \\
+\texttt{c[move] cc} & change until move point, entire line \\
+\texttt{d[move] dd} & delete until move point, entire line \\
+\texttt{y[move] yy} & yank (copy) until move point, entire line \\
+\texttt{p P} & put (paste) yanked content after / before cursor \\
+\texttt{x X} & delete current / previous character \\
+\texttt{r R} & replace a single character, multiple characters\\
+\texttt{:s/[old]/[new]/g} & replace text on this line; \texttt{g} for all occurrences \\
+\texttt{:\%s/[old]/[new]/g} & replace text in file; \texttt{g} for all occurrences \\
 & \\
-{\texttt J} & join following line with current line \\
-{\texttt =[move] \verb|==|} & auto-indent lines \\
-{\texttt <[move] \verb|<<|} & unindent one step \\
-{\texttt >[move] \verb|>>|} & indent one step \\
-{\texttt :![cmd]} & pipe file through command, e.g., {\texttt :!sort} \\
+\texttt{=[move] ==} & auto-indent lines \\
+\texttt{<[move] <{}<} & unindent one step \\
+\texttt{>[move] >{}>} & indent one step \\
+\texttt{:![cmd]} & pipe file through command, e.g., \texttt{:!sort} \\
 & \\
-{\texttt :w :wq ZZ} & write, write and quit, write and quit \\
-{\texttt :q :q!} & quit, quit even if unsaved changes \\
-{\texttt :e :ls :buf [num]} & edit another file, list buffers, switch to buffer \\
-{\texttt :vsplit :hsplit} & split window \\
-{\texttt Ctrl-w [hjkl]} & switch window \\
-{\texttt u Ctrl+r} & undo, redo \\
-{\texttt .} & repeat last action \\
+\texttt{:w :wq ZZ} & write, write and quit, write and quit \\
+\texttt{:q :q!} & quit, quit even if unsaved changes \\
+\texttt{:e :ls :buf [num]} & edit another file, list buffers, switch to buffer \\
+\texttt{:vsplit :hsplit} & split window \\
+\texttt{Ctrl-w [hjkl]} & switch window \\
+\texttt{u Ctrl+r .} & undo, redo, repeat last action \\
 \end{tabular}
 
 \vskip 0.1in
 \noindent
-Nearly all commands support a prefix number, e.g., {\texttt 5dd} delete 5 lines.
+Nearly all commands support a prefix number, e.g., \texttt{5dd} delete 5 lines.
 }
+
 
 \chapter{Beating the Averages (Paul Graham)}
 
@@ -359,6 +357,61 @@ The lesson to be learned from this is that it is often undesirable to go for the
 A wrong lesson is to take the parable literally and to conclude that C is the right vehicle for AI software. The 50\% solution has to be basically right, and in this case it isn't.
 
 But, one can conclude only that the Lisp community needs to seriously rethink its position on Lisp design. I will say more about this later.
+
+
+\chapter{Emacs}
+
+{\footnotesize
+Note, \texttt{C-} means Ctrl- and \texttt{M-} means Meta- (Alt- or Esc-).
+
+\vskip 0.2in
+\begin{tabular}{ll}
+\texttt{C-f C-b} & move forward, backward one character \\
+\texttt{C-n C-p} & move down, up one line \\
+\texttt{M-f M-b} & move forward, backward one word \\
+\texttt{C-a C-e} & move to beginning, end of line \\
+\texttt{M-a M-e} & move to beginning, end of sentence \\
+\texttt{M-\{ M-\}} & move to beginning, end of paragraph \\
+\texttt{M-< M->} & move to beginning, end of buffer \\
+\texttt{C-v M-v} & page down, page up \\
+\texttt{M-g g} & go to line \\
+& \\
+\texttt{C-d Del} & delete forward, backward one character \\
+\texttt{M-d M-Del} & delete forward, backward one word \\
+\texttt{C-k, M-0 C-k} & delete forward, backward one line \\
+\texttt{M-k, C-x Del} & delete forward, backward one sentence \\
+& \\
+\texttt{C-Space} & start highlighting region \\
+\texttt{C-w M-w} & kill (cut) region, copy region \\
+\texttt{C-y, M-y} & yank (paste) last thing killed, prior kill \\
+& \\
+\texttt{C-s C-r} & search forward, search reverse \\
+\texttt{C-M-s C-M-r} & search regex forward, reverse \\
+\texttt{M-\%} & replace string \\
+\texttt{Tab C-M-\textbackslash} & indent line, region \\
+& \\
+\texttt{C-x C-f} & open file \\
+\texttt{C-x C-s, C-x s} & save buffer, save all buffers \\
+\texttt{C-x C-w} & save buffer with new name \\
+\texttt{C-x C-c} & quit \\
+\texttt{C-g} & abort a command \\
+\texttt{M-x} & run a function \\
+\texttt{C-h a} & apropos: show commands matching some string \\
+\texttt{C-h k} & describe a key \\
+& \\
+\texttt{C-x 2, C-x 3} & split window (hsplit), split window (vsplit) \\
+\texttt{C-x 1} & close all other windows \\
+\texttt{C-x o} & switch to other window \\
+\texttt{C-x b} & switch buffers \\
+\texttt{C-x C-b} & list buffers \\
+\texttt{C-x k} & kill buffer \\
+\end{tabular}
+
+\vskip 0.1in
+\noindent
+Nearly all commands support a prefix number, e.g., \texttt{C-u 5 C-k} delete 5 lines.
+}
+
 
 
 \chapter{Basics of the Unix Philosophy (Eric S. Raymond)}
