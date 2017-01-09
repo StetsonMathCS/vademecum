@@ -33,6 +33,9 @@
 
 \usepackage{longtable}
 
+% for backticks in verbatim
+\usepackage{upquote}
+
 % hyphenation tolerance; higher means less chance of overfull boxes
 \tolerance=10000
 
@@ -41,7 +44,6 @@
 \maxsecnumdepth{none}
 
 \begin{document}
-
 
 \pagestyle{empty}
 
@@ -439,7 +441,8 @@ But, one can conclude only that the Lisp community needs to seriously rethink it
 Note, \texttt{C-} means Ctrl- and \texttt{M-} means Meta- (Alt- or Esc-).
 
 \vskip 0.2in
-\begin{tabular}{ll}
+
+\noindent \begin{tabular}{ll}
 \texttt{C-f C-b} & move forward, backward one character \\
 \texttt{C-n C-p} & move down, up one line \\
 \texttt{M-f M-b} & move forward, backward one word \\
@@ -809,7 +812,85 @@ When you design code, organize it so future developers will be able to plug new 
 You'll be there in the future too, maintaining code you may have half forgotten under the press of more recent projects. When you design for the future, the sanity you save may be your own.
 
 
-\chapter{Linux / Bash}
+\chapter{Bash}
+
+\section{Running commands}
+
+{\footnotesize
+\noindent \begin{tabular}{ll}
+\texttt{cmd ; cmd2} & run cmd2 after cmd \\
+\texttt{cmd \&\& cmd2} & run cmd2 after cmd if cmd is successful \\
+\texttt{cmd || cmd2} & run cmd2 after cmd if cmd is not successful \\
+\texttt{cmd \&} & run cmd and send to background as a job \\
+\texttt{jobs} & list background jobs \\
+\texttt{fg} & bring recent background job back to foreground \\
+\texttt{fg [num]} & bring specific job to foreground \\
+\texttt{C-z} & in most programs, suspend \\
+\texttt{bg} & send suspended job to background (and resume running) \\
+\texttt{bg [num]} & send specific job to background \\
+\end{tabular}
+}
+
+\section{Input tricks}
+
+{\footnotesize
+\noindent \begin{tabular}{ll}
+\texttt{C-a C-e} & jump to beginning, end of line \\
+\texttt{C-r C-s} & search reverse, forward in history \\
+\texttt{C-u C-k} & delete before, after cursor \\
+\texttt{C-x C-e} & open editor with current command line contents \\
+\texttt{C-\_} & undo typing \\
+\texttt{M-.} & (Alt- or Esc-.) last command arg; repeat for each arg \\
+\texttt{!!} & repeat last command, e.g., \texttt{sudo !!} \\
+\texttt{\$!~!*} & refer to last command: last arg, all args \\
+\texttt{\^{}foo\^{}bar} & replace last command \texttt{foo} with \texttt{bar} \\
+\texttt{\{a,b,c\}} & expand variations, e.g., \texttt{cp foo\{.txt,.txt2\}} \\
+\texttt{:()\{ :|:\& \};:} & fork bomb \\
+\end{tabular}
+}
+
+\section{Variables and Quoting}
+
+{\footnotesize
+\noindent \begin{tabular}{ll}
+\texttt{foo=bar} & set variable \\
+\texttt{\$foo} & use variable \\
+\verb|`cmd`| & run command and return its stdout \\
+\verb|foo=`cmd`| & save cmd's stdout to variable \\
+\verb|foo=`expr 5*2`| & perform math \\
+\texttt{\$0 \$1 \$2 \dots} & script name, first arg, second arg, \dots \\
+\end{tabular}
+}
+
+
+\section{Redirection and Pipes}
+
+{\footnotesize
+\noindent \begin{tabular}{ll}
+\texttt{cmd < file} & stdin comes from file \\
+\texttt{cmd > file} & save stdout to file \\
+\texttt{cmd >{}> file} & save stdout to file, appending \\
+\texttt{cmd | cmd2} & cmd stdout becomes cmd2 stdin \\
+\end{tabular}
+}
+
+\section{Conditionals and Loops}
+
+{\footnotesize
+\noindent \begin{tabular}{ll}
+\texttt{if [ \dots~]~; then \dots; fi} & if-then structure \\
+\texttt{elif [ \dots~]; then} & else-if snippet \\
+\texttt{else;} & else snippet \\
+\texttt{for i in list; do \dots; done} & for loop \\
+\texttt{-r -w -x} & file is readable, writable, executable \\
+\texttt{-f -d -e} & file is normal file, directory, exists \\
+\texttt{= !=} & string comparisons \\
+\texttt{-eq -ne -lt -le -gt -ge} & numeric comparisons \\
+\texttt{!~-a -o} & boolean operators (not, and, or) \\
+\end{tabular}
+}
+
+
 
 \chapter{Object Oriented Programming}
 
@@ -1167,6 +1248,38 @@ See Also: \ul{LearningObjectOrientedProgramming}, \ul{BenefitsOfOo}, \ul{Argumen
 
 \chapter{tmux}
 
+{\footnotesize
+
+Note, \texttt{C-} means Ctrl, e.g., \texttt{C-b} is Ctrl-b.
+
+\vskip 0.2in
+
+\noindent \begin{tabular}{ll}
+\texttt{tmux} & start new session \\
+\texttt{tmux new -s [name]} & start new session with name \\
+\texttt{tmux attach} & attach to most recent session \\
+\texttt{tmux attach -t [name]} & attach to named session \\
+\texttt{tmux ls} & list sessions \\
+\texttt{tmux kill-session -t [name]} & kill a named session \\
+& \\
+\texttt{C-b c} & create window \\
+\texttt{C-b w} & list windows \\
+\texttt{C-b n} & next window \\
+\texttt{C-b p} & previous window \\
+\texttt{C-b ,} & set name for window \\
+\texttt{C-b \&} & kill window \\
+\texttt{C-b d} & detach \\
+& \\
+\texttt{C-b \%} & split pane (vsplit) \\
+\texttt{C-b "} & split pane (hsplit) \\
+\texttt{C-b o} & switch panes \\
+\texttt{C-b x} & kill pane \\
+\texttt{C-b +} & change pane into window \\
+\texttt{C-b -} & restore pane from window \\
+\texttt{C-b [} & copy and scrollback mode \\
+\texttt{C-b ?} & show key commands \\
+\end{tabular}
+}
 
 \chapter{Why do my compiles take so long?}
 
@@ -1311,6 +1424,57 @@ protected:
 }
 
 
+\chapter{Numbers every programmer should know}
+
+From {\footnotesize\texttt{https://gist.github.com/hellerbarde/2843375}}
+
+\vskip 0.2in
+
+{\footnotesize
+\noindent \begin{tabular}{lrr}
+L1 cache reference & 0.5 ns & \\
+Branch mispredict & 5 ns & \\
+L2 cache reference & 7 ns & \\
+Mutex lock/unlock & 25 ns & \\
+Main memory reference & 100 ns & \\
+Compress 1K bytes with Zippy & 3,000 ns & 3 $\mu${}s \\
+Send 2K bytes over 1 Gbps network & 20,000 ns & 20 $\mu${}s \\
+SSD random read & 150,000 ns & 150 $\mu${}s \\
+Read 1 MB sequentially from memory & 250,000 ns & 25 $\mu${}s \\
+Round trip within same datacenter & 500,000 ns & 0.5 ms \\
+Read 1 MB sequentially from SSD & 1,000,000 ns & 1 ms \\
+Disk seek & 10,000,000 ns & 10 ms \\
+Read 1 MB sequentially from disk & 20,000,000 ns & 20 ms \\
+Send packet CA$\rightarrow$Netherlands$\rightarrow$CA & 150,000,000 ns & 150 ms \\
+\end{tabular}
+}
+
+\vskip 0.2in
+
+\noindent Multiply all values by 1 billion:
+
+\vskip 0.2in
+
+{\footnotesize
+\noindent \begin{tabular}{lll}
+L1 cache reference & 0.5 s & one heart beat \\
+Branch mispredict & 5 s & yawn \\
+L2 cache reference & 7 s & long yawn \\
+Mutex lock/unlock & 25 s & making a coffee \\
+Main memory reference & 100 s & brushing your teeth \\
+Compress 1K bytes & 50 min & TV show \\
+Send 2K bytes over 1 Gbps & 5.5 hr & half a work day \\
+SSD random read & 1.7 days & weekend \\
+Read 1 MB from memory & 2.9 days & long weekend \\
+Round trip in datacenter & 5.8 days & vacation \\
+Read 1 MB from SSD & 11.6 days & long vacation \\
+Disk seek & 16.5 weeks & a semester in university \\
+Read 1 MB from disk & 7.8 months & nearly length of pregnancy \\
+Send packet CA$\rightarrow$NL$\rightarrow$CA & 4.8 years & time to bachelor's degree \\
+\end{tabular}
+}
+
+
 \chapter{Editor war (Wikipedia)}
 
 Editor war is the common name for the rivalry between users of the Emacs and vi (Vim) text editors. The rivalry has become a lasting part of hacker culture and the free software community.
@@ -1393,6 +1557,62 @@ Tim O'Reilly said, in 1999, that O'Reilly Media's tutorial on vi sells twice as 
 In addition to Emacs and vi workalikes, pico and its free and open source clone nano and other text editors such as ne often have their own third-party advocates in the editor wars, though not to the extent of Emacs and vi.
 
 As of 2014, both Emacs and vi can lay claim to being among the longest-lived application programs of all time, as well as being the two most commonly used text editors on Linux and Unix. Many operating systems, especially Linux and BSD derivatives, bundle multiple text editors with the operating system to cater to user demand. For example, a default installation of macOS contains Emacs, ed, nano, TextEdit, and Vim.
+
+
+\chapter{Powers of 2}
+
+{\footnotesize
+\begin{tabular}{rrrr}
+0 & 1 & 1 & 1 \\
+1 & 2 & 2 & 2 \\
+2 & 4 & 4 & 4 \\
+3 & 8 & 8 & 10 \\
+4 & 16 & 10 & 20 \\
+5 & 32 & 20 & 40 \\
+6 & 64 & 40 & 100 \\
+7 & 128 & 80 & 200 \\
+8 & 256 & 100 & 400 \\
+9 & 512 & 200 & 1000 \\
+10 & 1,024 & 400 & 2000 \\
+11 & 2,048 & 800 & 4000 \\
+12 & 4,096 & 1000 & 10000 \\
+13 & 8,192 & 2000 & 20000 \\
+14 & 16,384 & 4000 & 40000 \\
+15 & 32,768 & 8000 & 100000 \\
+16 & 65,536 & 10000 & 200000 \\
+17 & 131,072 & 20000 & 400000 \\
+18 & 262,144 & 40000 & 1000000 \\
+19 & 524,288 & 80000 & 2000000 \\
+20 & 1,048,576 & 100000 & 4000000 \\
+21 & 2,097,152 & 200000 & 10000000 \\
+22 & 4,194,304 & 400000 & 20000000 \\
+23 & 8,388,608 & 800000 & 40000000 \\
+24 & 16,777,216 & 1000000 & 100000000 \\
+25 & 33,554,432 & 2000000 & 200000000 \\
+26 & 67,108,864 & 4000000 & 400000000 \\
+27 & 134,217,728 & 8000000 & 1000000000 \\
+28 & 268,435,456 & 10000000 & 2000000000 \\
+29 & 536,870,912 & 20000000 & 4000000000 \\
+30 & 1,073,741,824 & 40000000 & 10000000000 \\
+31 & 2,147,483,648 & 80000000 & 20000000000 \\
+32 & 4,294,967,296 & 100000000 & 40000000000 \\
+\end{tabular}
+}
+
+\vskip 0.3in
+
+{\footnotesize
+\begin{verbatim}
+base =: dyad define
+syms =. ((48 + i. 10),(65 + i.0>.x-10)) { a.
+idxs =. ((1+>.x^.y)#x)#:y
+idxs { syms
+)
+b=:10 16 8
+n=:33
+(|:((#b),n)$n#b)base"0((n,#b)$(#b)#(2^i.n))
+\end{verbatim}
+}
 
 
 \chapter{The Story of Mel}
