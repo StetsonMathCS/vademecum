@@ -61,55 +61,6 @@
 \pagestyle{empty}
 
 
-\chapter{Vim}
-
-{\footnotesize
-\begin{tabular}{ll}
-\texttt{0 \^{} \$} & move to front of line, first char, end \\
-\texttt{h j k l} & move left, down, up, right \\
-\texttt{w W} & move forward to start of words w/wo punc \\
-\texttt{e E} & move forward to end of words w/wo punc \\
-\texttt{b B} & move backward by word w/wo punc \\
-\texttt{\} \{} & move forward/backward by paragraph \\
-\texttt{\%} & move to matching (), \{\}, [] \\
-\texttt{gg G} & move to top/bottom of file \\
-\texttt{:[num][enter]} & move to line number \\
-\texttt{/[regex]} & search forward for regex and move to first match \\
-\texttt{?[regex]} & search backward for regex and move to last match \\
-\texttt{n N} & repeat prior search in same / opposite direction \\
-& \\
-\texttt{i I} & insert at cursor, beginning of line \\
-\texttt{a A} & append after cursor, end of line \\
-\texttt{o O} & open blank line below, above current line \\
-& \\
-\texttt{c[move] cc} & change until move point, entire line \\
-\texttt{d[move] dd} & delete until move point, entire line \\
-\texttt{y[move] yy} & yank (copy) until move point, entire line \\
-\texttt{p P} & put (paste) yanked content after / before cursor \\
-\texttt{x X} & delete current / previous character \\
-\texttt{r R} & replace a single character, multiple characters\\
-\texttt{:s/[old]/[new]/g} & replace text on this line; \texttt{g} for all occurrences \\
-\texttt{:\%s/[old]/[new]/g} & replace text in file; \texttt{g} for all occurrences \\
-& \\
-\texttt{=[move] ==} & auto-indent lines \\
-\texttt{<[move] <{}<} & unindent one step \\
-\texttt{>[move] >{}>} & indent one step \\
-\texttt{:![cmd]} & pipe file through shell command, e.g., \texttt{:!sort} \\
-& \\
-\texttt{:w :wq ZZ} & write, write and quit, write and quit \\
-\texttt{:q :q!} & quit, quit even if unsaved changes \\
-\texttt{:e :ls :buf [num]} & edit another file, list buffers, switch to buffer \\
-\texttt{:vsplit :hsplit} & split window \\
-\texttt{Ctrl-w [hjkl]} & switch window \\
-\texttt{u Ctrl+r .} & undo, redo, repeat last action \\
-\end{tabular}
-
-\vskip 0.1in
-\noindent
-Nearly all commands support a prefix number, e.g., \texttt{5dd} delete 5 lines.
-}
-
-
 \chapter{Beating the Averages (Paul Graham)}
 
 In the summer of 1995, my friend Robert Morris and I started a startup called Viaweb. Our plan was to write software that would let end users build online stores. What was novel about this software, at the time, was that it ran on our server, using ordinary Web pages as the interface.
@@ -140,7 +91,7 @@ Robert and I both knew Lisp well, and we couldn't see any reason not to trust ou
 
 This is especially true in a startup. In a big company, you can do what all the other big companies are doing. But a startup can't do what all the other startups do. I don't think a lot of people realize this, even in startups.
 
-The average big company grows at about ten percent a year. So if you're running a big company and you do everything the way the average big company does it, you can expect to do as well as the average big company-- that is, to grow about ten percent a year.
+The average big company grows at about ten percent a year. So if you're running a big company and you do everything the way the average big company does it, you can expect to do as well as the average big company -- that is, to grow about ten percent a year.
 
 The same thing will happen if you're running a startup, of course. If you do everything the way the average startup does it, you should expect average performance. The problem here is, average performance means that you'll go out of business. The survival rate for startups is way less than fifty percent. So if you're running a startup, you had better be doing something odd. If not, you're in trouble.
 
@@ -156,7 +107,7 @@ So you could say that using Lisp was an experiment. Our hypothesis was that if w
 
 What were the results of this experiment? Somewhat surprisingly, it worked. We eventually had many competitors, on the order of twenty to thirty of them, but none of their software could compete with ours. We had a wysiwyg online store builder that ran on the server and yet felt like a desktop application. Our competitors had cgi scripts. And we were always far ahead of them in features. Sometimes, in desperation, competitors would try to introduce features that we didn't have. But with Lisp our development cycle was so fast that we could sometimes duplicate a new feature within a day or two of a competitor announcing it in a press release. By the time journalists covering the press release got round to calling us, we would have the new feature too.
 
-It must have seemed to our competitors that we had some kind of secret weapon-- that we were decoding their Enigma traffic or something. In fact we did have a secret weapon, but it was simpler than they realized. No one was leaking news of their features to us. We were just able to develop software faster than anyone thought possible.
+It must have seemed to our competitors that we had some kind of secret weapon -- that we were decoding their Enigma traffic or something. In fact we did have a secret weapon, but it was simpler than they realized. No one was leaking news of their features to us. We were just able to develop software faster than anyone thought possible.
 
 When I was about nine I happened to get hold of a copy of The Day of the Jackal, by Frederick Forsyth. The main character is an assassin who is hired to kill the president of France. The assassin has to get past the police to get up to an apartment that overlooks the president's route. He walks right by them, dressed up as an old man on crutches, and they never suspect him.
 
@@ -206,7 +157,7 @@ Lisp code is made out of Lisp data objects. And not in the trivial sense that th
 
 If you understand how compilers work, what's really going on is not so much that Lisp has a strange syntax as that Lisp has no syntax. You write programs in the parse trees that get generated within the compiler when other languages are parsed. But these parse trees are fully accessible to your programs. You can write programs that manipulate them. In Lisp, these programs are called macros. They are programs that write programs.
 
-Programs that write programs? When would you ever want to do that? Not very often, if you think in Cobol. All the time, if you think in Lisp. It would be convenient here if I could give an example of a powerful macro, and say there! how about that? But if I did, it would just look like gibberish to someone who didn't know Lisp; there isn't room here to explain everything you'd need to know to understand what it meant. In Ansi Common Lisp I tried to move things along as fast as I could, and even so I didn't get to macros until page 160.
+Programs that write programs? When would you ever want to do that? Not very often, if you think in Cobol. All the time, if you think in Lisp. It would be convenient here if I could give an example of a powerful macro, and say there! how about that? But if I did, it would just look like gibberish to someone who didn't know Lisp; there isn't room here to explain everything you'd need to know to understand what it meant. In \emph{ANSI Common Lisp} I tried to move things along as fast as I could, and even so I didn't get to macros until page 160.
 
 But I think I can give a kind of argument that might be convincing. The source code of the Viaweb editor was probably about 20-25\% macros. Macros are harder to write than ordinary Lisp functions, and it's considered to be bad style to use them when they're not necessary. So every macro in that code is there because it has to be. What that means is that at least 20-25\% of the code in this program is doing things that you can't easily do in any other language. However skeptical the Blub programmer might be about my claims for the mysterious powers of Lisp, this ought to make him curious. We weren't writing this code for our own amusement. We were a tiny startup, programming as hard as we could in order to put technical barriers between us and our competitors.
 
@@ -214,9 +165,9 @@ A suspicious person might begin to wonder if there was some correlation here. A 
 
 \section{Aikido for Startups}
 
-But I don't expect to convince anyone (over 25) to go out and learn Lisp. The purpose of this article is not to change anyone's mind, but to reassure people already interested in using Lisp-- people who know that Lisp is a powerful language, but worry because it isn't widely used. In a competitive situation, that's an advantage. Lisp's power is multiplied by the fact that your competitors don't get it.
+But I don't expect to convince anyone (over 25) to go out and learn Lisp. The purpose of this article is not to change anyone's mind, but to reassure people already interested in using Lisp -- people who know that Lisp is a powerful language, but worry because it isn't widely used. In a competitive situation, that's an advantage. Lisp's power is multiplied by the fact that your competitors don't get it.
 
-If you think of using Lisp in a startup, you shouldn't worry that it isn't widely understood. You should hope that it stays that way. And it's likely to. It's the nature of programming languages to make most people satisfied with whatever they currently use. Computer hardware changes so much faster than personal habits that programming practice is usually ten to twenty years behind the processor. At places like MIT they were writing programs in high-level languages in the early 1960s, but many companies continued to write code in machine language well into the 1980s. I bet a lot of people continued to write machine language until the processor, like a bartender eager to close up and go home, finally kicked them out by switching to a risc instruction set.
+If you think of using Lisp in a startup, you shouldn't worry that it isn't widely understood. You should hope that it stays that way. And it's likely to. It's the nature of programming languages to make most people satisfied with whatever they currently use. Computer hardware changes so much faster than personal habits that programming practice is usually ten to twenty years behind the processor. At places like MIT they were writing programs in high-level languages in the early 1960s, but many companies continued to write code in machine language well into the 1980s. I bet a lot of people continued to write machine language until the processor, like a bartender eager to close up and go home, finally kicked them out by switching to a RISC instruction set.
 
 Ordinarily technology changes fast. But programming languages are different: programming languages are not just technology, but what programmers think in. They're half technology and half religion.~[6] And so the median language, meaning whatever language the median programmer uses, moves as slow as an iceberg. Garbage collection, introduced by Lisp in about 1960, is now widely considered to be a good thing. Runtime typing, ditto, is growing in popularity. Lexical closures, introduced by Lisp in the early 1970s, are now, just barely, on the radar screen. Macros, introduced by Lisp in the mid 1960s, are still terra incognita.
 
@@ -226,7 +177,7 @@ If you work for a big company, this may not be easy. You will have a hard time c
 
 If you ever do find yourself working for a startup, here's a handy tip for evaluating competitors. Read their job listings. Everything else on their site may be stock photos or the prose equivalent, but the job listings have to be specific about what they want, or they'll get the wrong candidates.
 
-During the years we worked on Viaweb I read a lot of job descriptions. A new competitor seemed to emerge out of the woodwork every month or so. The first thing I would do, after checking to see if they had a live online demo, was look at their job listings. After a couple years of this I could tell which companies to worry about and which not to. The more of an IT flavor the job descriptions had, the less dangerous the company was. The safest kind were the ones that wanted Oracle experience. You never had to worry about those. You were also safe if they said they wanted C++ or Java developers. If they wanted Perl or Python programmers, that would be a bit frightening-- that's starting to sound like a company where the technical side, at least, is run by real hackers. If I had ever seen a job posting looking for Lisp hackers, I would have been really worried.
+During the years we worked on Viaweb I read a lot of job descriptions. A new competitor seemed to emerge out of the woodwork every month or so. The first thing I would do, after checking to see if they had a live online demo, was look at their job listings. After a couple years of this I could tell which companies to worry about and which not to. The more of an IT flavor the job descriptions had, the less dangerous the company was. The safest kind were the ones that wanted Oracle experience. You never had to worry about those. You were also safe if they said they wanted C++ or Java developers. If they wanted Perl or Python programmers, that would be a bit frightening -- that's starting to sound like a company where the technical side, at least, is run by real hackers. If I had ever seen a job posting looking for Lisp hackers, I would have been really worried.
 
 \section{Notes}
 
@@ -245,510 +196,145 @@ In January 2003, Yahoo released a new version of the editor written in C++ and P
 [6] As a result, comparisons of programming languages either take the form of religious wars or undergraduate textbooks so determinedly neutral that they're really works of anthropology. People who value their peace, or want tenure, avoid the topic. But the question is only half a religious one; there is something there worth studying, especially if you want to design new languages.
 
 
-\chapter{Linux base binaries}
+\chapter{Powers of 2}
 
 {\footnotesize
-\begin{longtable}{p{0.18\linewidth}p{0.77\linewidth}}
-apropos           & search the manual page names and descriptions \\
-autopoint         & copies standard gettext infrastructure \\
-b2sum             & compute and check BLAKE2 message digest \\
-base32            & base32 encode/decode data and print to standard output \\
-base64            & base64 encode/decode data and print to standard output \\
-basename          & strip directory and suffix from filenames \\
-bash              & GNU Bourne-Again SHell \\
-bashbug           & report a bug in bash \\
-bunzip2           & a block-sorting file compressor, v1.0.6 \\
-bzcat             & decompresses files to stdout \\
-bzip2             & a block-sorting file compressor, v1.0.6 \\
-bzip2recover      & recovers data from damaged bzip2 files \\
-cal               & display a calendar \\
-cat               & concatenate files and print on the standard output \\
-chage             & change user password expiry information \\
-chattr            & change file attributes on a Linux file system \\
-chcon             & change file security context \\
-chfn              & change your finger information \\
-chgrp             & change group ownership \\
-chmod             & change file mode bits \\
-chown             & change file owner and group \\
-chroot            & run command or interactive shell with special root directory \\
-chrt              & manipulate the real-time attributes of a process \\
-chsh              & change your login shell \\
-cksum             & checksum and count the bytes in a file \\
-cmp               & compare two files byte by byte \\
-col               & filter reverse line feeds from input \\
-colcrt            & filter nroff output for CRT previewing \\
-colrm             & remove columns from a file \\
-column            & columnate lists \\
-comm              & compare two sorted files line by line \\
-compile\_et        & error table compiler \\
-cp                & copy files and directories \\
-csplit            & split a file into sections determined by context lines \\
-cut               & remove sections from each line of files \\
-date              & print or set the system date and time \\
-dd                & convert and copy a file \\
-df                & report file system disk space usage \\
-diff              & compare files line by line \\
-diff3             & compare three files line by line \\
-dir               & list directory contents \\
-dircolors         & color setup for ls \\
-dirname           & strip last component from file name \\
-dmesg             & print or control the kernel ring buffer \\
-dnsdomainname     & show DNS domain name \\
-du                & estimate file space usage \\
-echo              & display a line of text \\
-edit              & text editor \\
-egrep             & print lines matching a pattern \\
-eject             & eject removable media \\
-env               & run a program in a modified environment \\
-envsubst          & substitutes environment variables in shell format strings \\
-ex                & text editor \\
-expand            & convert tabs to spaces \\
-expiry            & check and enforce password expiration policy \\
-expr              & evaluate expressions \\
-factor            & factor numbers \\
-fallocate         & preallocate or deallocate space to a file \\
-false             & do nothing, unsuccessfully \\
-fgrep             & print lines matching a pattern \\
-file              & determine file type \\
-find              & search for files in a directory hierarchy \\
-flock             & manage locks from shell scripts \\
-fmt               & simple optimal text formatter \\
-fold              & wrap each input line to fit in specified width \\
-free              & Display amount of free and used memory in the system \\
-ftp               & File Transfer Protocol client. \\
-fuser             & identify processes using files or sockets \\
-gawk              & pattern scanning and processing language \\
-getent            & get entries from Name Service Switch libraries \\
-getopt            & parse command options (enhanced) \\
-gettext           & translate message \\
-gettextize        & install or upgrade gettext infrastructure \\
-gpasswd           & administer /etc/group and /etc/gshadow \\
-grep              & print lines matching a pattern \\
-groups            & display current group names \\
-gunzip            & compress or expand files \\
-gzexe             & compress executable files in place \\
-gzip              & compress or expand files \\
-head              & output the first part of files \\
-hexdump           & display file contents in hexadecimal, decimal, octal, or ascii \\
-hostid            & print the numeric identifier for the current host \\
-hostname          & show or set system host name \\
-iconv             & convert text from one character encoding to another \\
-id                & print real and effective user and group IDs \\
-igawk             & gawk with include files \\
-info              & read Info documents \\
-init              & systemd system and service manager \\
-install           & copy files and set attributes \\
-install-info      & update info/dir entries \\
-ionice            & set or get process I/O scheduling class and priority \\
-ipcmk             & make various IPC resources \\
-ipcrm             & remove certain IPC resources \\
-ipcs              & show information on IPC facilities \\
-join              & join lines of two files on a common field \\
-kill              & terminate a process \\
-killall           & kill processes by name \\
-last              & show a listing of last logged in users \\
-lastb             & show a listing of last logged in users \\
-ldd               & print shared object dependencies \\
-less              & opposite of more \\
-lessecho          & expand metacharacters \\
-lesskey           & specify key bindings for less \\
-lexgrog           & parse header information in man pages \\
-link              & call the link function to create a link to a file \\
-ln                & make links between files \\
-locale            & get locale-specific information \\
-localedef         & compile locale definition files \\
-logger            & enter messages into the system log \\
-login             & begin session on the system \\
-logname           & print user's login name \\
-look              & display lines beginning with a given string \\
-ls                & list directory contents \\
-lsattr            & list file attributes on a Linux second extended file system \\
-lscpu             & display information about the CPU architecture \\
-lsipc             & show information on IPC facilities currently employed in the system \\
-lslogins          & display information about known users in the system \\
-mail              & send and receive Internet mail \\
-mailx             & send and receive Internet mail \\
-makeinfo          & translate Texinfo documents \\
-man               & an interface to the on-line reference manuals \\
-manpath           & determine search path for manual pages \\
-mcookie           & generate magic cookies for xauth \\
-md5sum            & compute and check MD5 message digest \\
-mesg              & display (or do not display) messages from other users \\
-mk\_cmds           & error table compiler \\
-mkdir             & make directories \\
-mkfifo            & make FIFOs (named pipes) \\
-mknod             & make block or character special files \\
-mktemp            & create a temporary file or directory \\
-more              & file perusal filter for crt viewing \\
-mountpoint        & see if a directory or file is a mountpoint \\
-msgattrib         & attribute matching and manipulation on message catalog \\
-msgcat            & combines several message catalogs \\
-msgcmp            & compare message catalog and template \\
-msgcomm           & match two message catalogs \\
-msgconv           & character set conversion for message catalog \\
-msgen             & create English message catalog \\
-msgexec           & process translations of message catalog \\
-msgfilter         & edit translations of message catalog \\
-msgfmt            & compile message catalog to binary format \\
-msggrep           & pattern matching on message catalog \\
-msginit           & initialize a message catalog \\
-msgmerge          & merge message catalog and template \\
-msgunfmt          & uncompile message catalog from binary format \\
-msguniq           & unify duplicate translations in message catalog \\
-mtrace            & interpret the malloc trace log \\
-mv                & move (rename) files \\
-namei             & follow a pathname until a terminal point is found \\
-nano              & Nano's ANOther editor, an enhanced free Pico clone \\
-netctl            & Control the netctl network profile manager \\
-netctl-auto       & Control automatic selection of wireless netctl profiles \\
-newgidmap         & set the gid mapping of a user namespace \\
-newgrp            & log in to a new group \\
-newuidmap         & set the uid mapping of a user namespace \\
-ngettext          & translate message and choose plural form \\
-nice              & run a program with modified scheduling priority \\
-nl                & number lines of files \\
-nohup             & run a command immune to hangups, with output to a non-tty \\
-nproc             & print the number of processing units available \\
-nsenter           & run program with namespaces of other processes \\
-numfmt            & Convert numbers from/to human-readable strings \\
-od                & dump files in octal and other formats \\
-passwd            & change user password \\
-paste             & merge lines of files \\
-pathchk           & check whether file names are valid or portable \\
-pdftexi2dvi       & convert Texinfo documents to DVI or PDF \\
-peekfd            & peek at file descriptors of running processes \\
-pgrep             & look up or signal processes based on name and other attributes \\
-pidof             & find the process ID of a running program. \\
-pinky             & lightweight finger \\
-pkill             & look up or signal processes based on name and other attributes \\
-pldd              & display dynamic shared objects linked into a process \\
-pmap              & report memory map of a process \\
-pod2texi          & convert Pod to Texinfo \\
-pr                & convert text files for printing \\
-printenv          & print all or part of environment \\
-printf            & format and print data \\
-prlimit           & get and set process resource limits \\
-prtstat           & print statistics of a process \\
-ps                & report a snapshot of the current processes. \\
-pstree            & display a tree of processes \\
-ptx               & produce a permuted index of file contents \\
-pwd               & print name of current/working directory \\
-pwdx              & report current working directory of a process \\
-rcp               & Remote copy \\
-readlink          & print resolved symbolic links or canonical file names \\
-realpath          & print the resolved path \\
-rename            & rename files \\
-renice            & alter priority of running processes \\
-rev               & reverse lines characterwise \\
-rlogin            & Remote login \\
-rm                & remove files or directories \\
-rmdir             & remove empty directories \\
-rnano             & a restricted nano \\
-rsh               & Remote shell client \\
-runcon            & run command with specified security context \\
-runuser           & run a command with substitute user and group ID \\
-script            & make typescript of terminal session \\
-scriptreplay      & play back typescripts, using timing information \\
-sdiff             & side-by-side merge of file differences \\
-sed               & stream editor for filtering and transforming text \\
-seq               & print a sequence of numbers \\
-setsid            & run a program in a new session \\
-setterm           & set terminal attributes \\
-sg                & execute command as different group ID \\
-sha1sum           & compute and check SHA1 message digest \\
-sha224sum         & compute and check SHA224 message digest \\
-sha256sum         & compute and check SHA256 message digest \\
-sha384sum         & compute and check SHA384 message digest \\
-sha512sum         & compute and check SHA512 message digest \\
-shred             & overwrite a file to hide its contents, and optionally delete it \\
-shuf              & generate random permutations \\
-slabtop           & display kernel slab cache information in real time \\
-sleep             & delay for a specified amount of time \\
-sort              & sort lines of text files \\
-split             & split a file into pieces \\
-sprof             & read and display shared object profiling data \\
-stat              & display file or file system status \\
-stdbuf            & Run COMMAND, with modified buffering operations for its standard streams. \\
-stty              & change and print terminal line settings \\
-su                & run a command with substitute user and group ID \\
-sum               & checksum and count the blocks in a file \\
-sync              & Synchronize cached writes to persistent storage \\
-systool           & view system device information by bus, class, and topology \\
-tac               & concatenate and print files in reverse \\
-tail              & output the last part of files \\
-talk              & Talk client \\
-tar               & an archiving utility \\
-taskset           & set or retrieve a process's CPU affinity \\
-tee               & read from standard input and write to standard output and files \\
-telnet            & User interface to TELNET \\
-test              & check file types and compare values \\
-texi2any          & translate Texinfo documents \\
-texi2dvi          & convert Texinfo documents to DVI or PDF \\
-texi2pdf          & convert Texinfo documents to DVI or PDF \\
-texindex          & sort Texinfo index files \\
-timeout           & run a command with a time limit \\
-tload             & graphic representation of system load average \\
-top               & display Linux processes \\
-touch             & change file timestamps \\
-tr                & translate or delete characters \\
-true              & do nothing, successfully \\
-truncate          & shrink or extend the size of a file to the specified size \\
-tsort             & perform topological sort \\
-tty               & print the file name of the terminal connected to standard input \\
-ul                & do underlining \\
-uname             & print system information \\
-unexpand          & convert spaces to tabs \\
-uniq              & report or omit repeated lines \\
-unlink            & call the unlink function to remove the specified file \\
-unshare           & run program with some namespaces unshared from parent \\
-uptime            & Tell how long the system has been running. \\
-usb-devices       & print USB device details \\
-users             & print the user names of users currently logged in to the current host \\
-utmpdump          & dump UTMP and WTMP files in raw format \\
-uuidgen           & create a new UUID value \\
-vdir              & list directory contents \\
-vedit             & screen oriented (visual) display editor based on ex \\
-vi                & screen oriented (visual) display editor based on ex \\
-view              & screen oriented (visual) display editor based on ex \\
-w                 & Show who is logged on and what they are doing. \\
-wall              & write a message to all users \\
-watch             & execute a program periodically, showing output fullscreen \\
-wc                & print newline, word, and byte counts for each file \\
-whatis            & display one-line manual page descriptions \\
-whereis           & locate the binary, source, and manual page files for a command \\
-which             & shows the full path of (shell) commands. \\
-who               & show who is logged on \\
-whoami            & print effective userid \\
-write             & send a message to another user \\
-xargs             & build and execute command lines from standard input \\
-xgettext          & extract gettext strings from source \\
-yes               & output a string repeatedly until killed \\
-zcat              & compress or expand files \\
-zcmp              & compare compressed files \\
-zdiff             & compare compressed files \\
-zforce            & force a '.gz' extension on all gzip files \\
-zgrep             & search possibly compressed files for a regular expression \\
-zless             & file perusal filter for crt viewing of compressed text \\
-zmore             & file perusal filter for crt viewing of compressed text \\
-znew              & recompress .Z files to .gz files \\ 
-\end{longtable}
+\begin{tabular}{rrrr}
+0 & 1 & 1 & 1 \\
+1 & 2 & 2 & 2 \\
+2 & 4 & 4 & 4 \\
+3 & 8 & 8 & 10 \\
+4 & 16 & 10 & 20 \\
+5 & 32 & 20 & 40 \\
+6 & 64 & 40 & 100 \\
+7 & 128 & 80 & 200 \\
+8 & 256 & 100 & 400 \\
+9 & 512 & 200 & 1000 \\
+10 & 1,024 & 400 & 2000 \\
+11 & 2,048 & 800 & 4000 \\
+12 & 4,096 & 1000 & 10000 \\
+13 & 8,192 & 2000 & 20000 \\
+14 & 16,384 & 4000 & 40000 \\
+15 & 32,768 & 8000 & 100000 \\
+16 & 65,536 & 10000 & 200000 \\
+17 & 131,072 & 20000 & 400000 \\
+18 & 262,144 & 40000 & 1000000 \\
+19 & 524,288 & 80000 & 2000000 \\
+20 & 1,048,576 & 100000 & 4000000 \\
+21 & 2,097,152 & 200000 & 10000000 \\
+22 & 4,194,304 & 400000 & 20000000 \\
+23 & 8,388,608 & 800000 & 40000000 \\
+24 & 16,777,216 & 1000000 & 100000000 \\
+25 & 33,554,432 & 2000000 & 200000000 \\
+26 & 67,108,864 & 4000000 & 400000000 \\
+27 & 134,217,728 & 8000000 & 1000000000 \\
+28 & 268,435,456 & 10000000 & 2000000000 \\
+29 & 536,870,912 & 20000000 & 4000000000 \\
+30 & 1,073,741,824 & 40000000 & 10000000000 \\
+31 & 2,147,483,648 & 80000000 & 20000000000 \\
+32 & 4,294,967,296 & 100000000 & 40000000000 \\
+\end{tabular}
 }
 
-\vskip 0.2in
+\vskip 0.3in
 
 {\footnotesize
 \begin{verbatim}
-for pkg in `pacman -Ss | grep '(base[ )]' | \
-  grep -o core/[-a-z0-9]* | sed 's/core\///'`; \
-  do pacman -Ql $pkg | grep -o '/usr/bin/.*' | \
-  sed 's/\/usr\/bin\///' | xargs whatis -s 1 | \
-  grep -v 1p | grep -v 1ssl | sed 's/(1)//'; \
-  done 2>/dev/null | grep -v "whatis what" | sort
+base =: dyad define
+syms =. ((48 + i. 10),(65 + i.0>.x-10)) { a.
+idxs =. ((1+>.x^.y)#x)#:y
+idxs { syms
+)
+b=:10 16 8
+n=:33
+(|:((#b),n)$n#b)base"0((n,#b)$(#b)#(2^i.n))
 \end{verbatim}
 }
 
 
-\chapter{Manifesto for Agile Software Development}
-
-We are uncovering better ways of developing software by doing it and helping others do it. Through this work we have come to value:
-
-\begin{itemize}
-\item \textbf{Individuals and interactions} over processes and tools
-\item \textbf{Working software} over comprehensive documentation
-\item \textbf{Customer collaboration} over contract negotiation
-\item \textbf{Responding to change} over following a plan
-\end{itemize}
-That is, while there is value in the items on
-the right, we value the items on the left more.
-
-\begin{verse}
-\poemtitle{Principles behind the Agile Manifesto}
-\emph{We follow these principles:}
-
-Our highest priority is to satisfy the customer \\
-through early and continuous delivery \\
-of valuable software.
-
-Welcome changing requirements, even late in \\
-development. Agile processes harness change for \\
-the customer's competitive advantage.
-
-Deliver working software frequently, from a \\
-couple of weeks to a couple of months, with a \\
-preference to the shorter timescale.
-
-Business people and developers must work \\
-together daily throughout the project.
-
-Build projects around motivated individuals. \\
-Give them the environment and support they need, \\
-and trust them to get the job done.
-
-The most efficient and effective method of \\
-conveying information to and within a development \\
-team is face-to-face conversation.
-
-Working software is the primary measure of progress.
-
-Agile processes promote sustainable development. \\
-The sponsors, developers, and users should be able \\
-to maintain a constant pace indefinitely.
-
-Continuous attention to technical excellence \\
-and good design enhances agility.
-
-Simplicity--the art of maximizing the amount \\
-of work not done--is essential.
-
-The best architectures, requirements, and designs \\
-emerge from self-organizing teams.
-
-At regular intervals, the team reflects on how \\
-to become more effective, then tunes and adjusts \\
-its behavior accordingly.  
-\end{verse}
-
-
-\chapter{ASCII}
+\chapter{tmux}
 
 {\footnotesize
-\begin{verbatim}
-     2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120
-   -------------      ---------------------------------
-  0:   0 @ P ` p     0:    (  2  <  F  P  Z  d   n   x
-  1: ! 1 A Q a q     1:    )  3  =  G  Q  [  e   o   y
-  2: " 2 B R b r     2:    *  4  >  H  R  \  f   p   z
-  3: # 3 C S c s     3: !  +  5  ?  I  S  ]  g   q   {
-  4: $ 4 D T d t     4: "  ,  6  @  J  T  ^  h   r   |
-  5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }
-  6: & 6 F V f v     6: $  .  8  B  L  V  `  j   t   ~
-  7: ' 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL
-  8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v
-  9: ) 9 I Y i y     9: '  1  ;  E  O  Y  c  m   w
-  A: * : J Z j z
-  B: + ; K [ k {
-  C: , < L \ l |
-  D: - = M ] m }
-  E: . > N ^ n ~
-  F: / ? O _ o DEL  
-\end{verbatim}
-}
 
-\noindent From the Jargon File: \textbf{ASCII}: /as'kee/, n.
-
-[originally an acronym (American Standard Code for Information Interchange) but now merely conventional] The predominant character set encoding of present-day computers. The standard version uses 7 bits for each character, whereas most earlier codes (including early drafts of ASCII prior to June 1961) used fewer. This change allowed the inclusion of lowercase letters -- a major win -- but it did not provide for accented letters or any other letterforms not used in English (such as the German {\ss} or ligature {\ae} which is a letter in, for example, Norwegian). It could be worse, though. It could be much worse. See EBCDIC to understand how.
-
-Computers are much pickier and less flexible about spelling than humans; thus, hackers need to be very precise when talking about characters, and have developed a considerable amount of verbal shorthand for them. Every character has one or more names -- some formal, some concise, some silly. Common jargon names for ASCII characters are collected here. See also individual entries for bang, excl, open, ques, semi, shriek, splat, twiddle, and Yu-Shiang Whole Fish.
-
-This list derives from revision 2.3 of the Usenet ASCII pronunciation guide. Single characters are listed in ASCII order; character pairs are sorted in by first member. For each character, common names are given in rough order of popularity, followed by names that are reported but rarely seen; official ANSI/CCITT names are surrounded by brokets: <>. Square brackets mark the particularly silly names introduced by INTERCAL. The abbreviations ``l/r'' and ``o/c'' stand for left/right and ``open/close'' respectively. Ordinary parentheticals provide some usage information.
+Note, \texttt{C-} means Ctrl, e.g., \texttt{C-b} is Ctrl-b.
 
 \vskip 0.2in
 
-{\footnotesize
-\begin{itemize}
-
-\item[{\ttfamily !}] Common: bang ; pling; excl; not; shriek; ball-bat; <exclamation mark>. Rare: factorial; exclam; smash; cuss; boing; yell; wow; hey; wham; eureka; [spark-spot]; soldier, control.
-\item[{\ttfamily "}] Common: double quote; quote. Rare: literal mark; double-glitch; snakebite; <quotation marks>; <dieresis>; dirk; [rabbit-ears]; double prime.
-\item[{\ttfamily \#}] Common: number sign; pound; pound sign; hash; sharp; crunch ; hex; [mesh]. Rare: grid; crosshatch; octothorpe; flash; <square>, pig-pen; tictactoe; scratchmark; thud; thump; splat .
-\item[{\ttfamily \$}] Common: dollar; <dollar sign>. Rare: currency symbol; buck; cash; bling; string (from BASIC); escape (when used as the echo of ASCII ESC); ding; cache; [big money].
-\item[{\ttfamily \%}] Common: percent; <percent sign>; mod; grapes. Rare: [double-oh-seven].
-\item[{\ttfamily \&}] Common: <ampersand>; amp; amper; and, and sign. Rare: address (from C); reference (from C++); andpersand; bitand; background (from sh(1) ); pretzel. [INTERCAL called this ampersand ; what could be sillier?]
-\item[{\ttfamily '}] Common: single quote; quote; <apostrophe>. Rare: prime; glitch; tick; irk; pop; [spark]; <closing single quotation mark>; <acute accent>.
-\item[{\ttfamily ()}] Common: l/r paren; l/r parenthesis; left/right; open/close; paren/thesis; o/c paren; o/c parenthesis; l/r parenthesis; l/r banana. Rare: so/already; lparen/rparen; <opening/closing parenthesis>; o/c round bracket, l/r round bracket, [wax/wane]; parenthisey/unparenthisey; l/r ear.
-\item[{\ttfamily *}] Common: star; [ splat ]; <asterisk>. Rare: wildcard; gear; dingle; mult; spider; aster; times; twinkle; glob.
-\item[{\ttfamily +}] Common: <plus>; add. Rare: cross; [intersection].
-\item[{\ttfamily ,}] Common: <comma>. Rare: <cedilla>; [tail].
-\item[{\ttfamily -}] Common: dash; <hyphen>; <minus>. Rare: [worm]; option; dak; bithorpe.
-\item[{\ttfamily .}] Common: dot; point; <period>; <decimal point>. Rare: radix point; full stop; [spot].
-\item[{\ttfamily /}] Common: slash; stroke; <slant>; forward slash. Rare: diagonal; solidus; over; slak; virgule; [slat].
-\item[{\ttfamily :}] Common: <colon>. Rare: dots; [two-spot].
-\item[{\ttfamily ;}] Common: <semicolon>; semi. Rare: weenie; [hybrid], pit-thwong.
-\item[{\ttfamily <>}] Common: <less/greater than>; bra/ket; l/r angle; l/r angle bracket; l/r broket. Rare: from/{into, towards}; read from/write to; suck/blow; comes-from/gozinta; in/out; crunch/zap (all from UNIX); tic/tac; [angle/right angle].
-\item[{\ttfamily =}] Common: <equals>; gets; takes. Rare: quadrathorpe; [half-mesh].
-\item[{\ttfamily ?}] Common: query; <question mark>; ques . Rare: quiz; whatmark; [what]; wildchar; huh; hook; buttonhook; hunchback.
-\item[{\ttfamily @}] Common: at sign; at; strudel. Rare: each; vortex; whorl; [whirlpool]; cyclone; snail; ape; cat; rose; cabbage; <commercial at>.
-\item[{\ttfamily []}] Common: l/r square bracket; l/r bracket; <opening/closing bracket>; bracket/unbracket. Rare: square/unsquare; [U turn/U turn back].
-\item[{\ttfamily \textbackslash}] Common: backslash, hack, whack; escape (from C/UNIX); reverse slash; slosh; backslant; backwhack. Rare: bash; <reverse slant>; reversed virgule; [backslat].
-\item[{\ttfamily \textasciicircum}] Common: hat; control; uparrow; caret; <circumflex>. Rare: xor sign, chevron; [shark (or shark-fin)]; to the (`to the power of'); fang; pointer (in Pascal).
-\item[{\ttfamily \_}] Common: <underline>; underscore; underbar; under. Rare: score; backarrow; skid; [flatworm].
-\item[{\ttfamily `}] Common: backquote; left quote; left single quote; open quote; <grave accent>; grave. Rare: backprime; [backspark]; unapostrophe; birk; blugle; back tick; back glitch; push; <opening single quotation mark>; quasiquote.
-\item[{\ttfamily \{\}}] Common: o/c brace; l/r brace; l/r squiggly; l/r squiggly bracket/brace; l/r curly bracket/brace; <opening/closing brace>. Rare: brace/unbrace; curly/uncurly; leftit/rytit; l/r squirrelly; [embrace/bracelet]. A balanced pair of these may be called curlies.
-\item[{\ttfamily |}] Common: bar; or; or-bar; v-bar; pipe; vertical bar. Rare: <vertical line>; gozinta; thru; pipesinta (last three from UNIX); [spike].
-\item[{\ttfamily \textasciitilde}] Common: <tilde>; squiggle; twiddle ; not. Rare: approx; wiggle; swung dash; enyay; [sqiggle (sic)].
-
-\end{itemize}
+\noindent \begin{tabular}{ll}
+\texttt{tmux} & start new session \\
+\texttt{tmux new -s [name]} & start new session with name \\
+\texttt{tmux attach} & attach to most recent session \\
+\texttt{tmux attach -t [name]} & attach to named session \\
+\texttt{tmux ls} & list sessions \\
+\texttt{tmux kill-session -t [name]} & kill a named session \\
+& \\
+\texttt{C-b c} & create window \\
+\texttt{C-b w} & list windows \\
+\texttt{C-b n} & next window \\
+\texttt{C-b p} & previous window \\
+\texttt{C-b ,} & set name for window \\
+\texttt{C-b \&} & kill window \\
+\texttt{C-b d} & detach \\
+& \\
+\texttt{C-b \%} & split pane (vsplit) \\
+\texttt{C-b "} & split pane (hsplit) \\
+\texttt{C-b o} & switch panes \\
+\texttt{C-b x} & kill pane \\
+\texttt{C-b +} & change pane into window \\
+\texttt{C-b -} & restore pane from window \\
+\texttt{C-b [} & copy and scrollback mode \\
+\texttt{C-b ?} & show key commands \\
+\end{tabular}
 }
 
 
-\chapter{The Rise of ``Worse is Better'' (Richard Gabriel)}
+\chapter{Vim}
 
-I and just about every designer of Common Lisp and CLOS has had extreme exposure to the MIT/Stanford style of design. The essence of this style can be captured by the phrase ``the right thing.'' To such a designer it is important to get all of the following characteristics right:
+{\footnotesize
+\begin{tabular}{ll}
+\texttt{0 \^{} \$} & move to front of line, first char, end \\
+\texttt{h j k l} & move left, down, up, right \\
+\texttt{w W} & move forward to start of words w/wo punc \\
+\texttt{e E} & move forward to end of words w/wo punc \\
+\texttt{b B} & move backward by word w/wo punc \\
+\texttt{\} \{} & move forward/backward by paragraph \\
+\texttt{\%} & move to matching (), \{\}, [] \\
+\texttt{gg G} & move to top/bottom of file \\
+\texttt{:[num][enter]} & move to line number \\
+\texttt{/[regex]} & search forward for regex and move to first match \\
+\texttt{?[regex]} & search backward for regex and move to last match \\
+\texttt{n N} & repeat prior search in same / opposite direction \\
+& \\
+\texttt{i I} & insert at cursor, beginning of line \\
+\texttt{a A} & append after cursor, end of line \\
+\texttt{o O} & open blank line below, above current line \\
+& \\
+\texttt{c[move] cc} & change until move point, entire line \\
+\texttt{d[move] dd} & delete until move point, entire line \\
+\texttt{y[move] yy} & yank (copy) until move point, entire line \\
+\texttt{p P} & put (paste) yanked content after / before cursor \\
+\texttt{x X} & delete current / previous character \\
+\texttt{r R} & replace a single character, multiple characters\\
+\texttt{:s/[old]/[new]/g} & replace text on this line; \texttt{g} for all occurrences \\
+\texttt{:\%s/[old]/[new]/g} & replace text in file; \texttt{g} for all occurrences \\
+& \\
+\texttt{=[move] ==} & auto-indent lines \\
+\texttt{<[move] <{}<} & unindent one step \\
+\texttt{>[move] >{}>} & indent one step \\
+\texttt{:![cmd]} & pipe file through shell command, e.g., \texttt{:!sort} \\
+& \\
+\texttt{:w :wq ZZ} & write, write and quit, write and quit \\
+\texttt{:q :q!} & quit, quit even if unsaved changes \\
+\texttt{:e :ls :buf [num]} & edit another file, list buffers, switch to buffer \\
+\texttt{:vsplit :hsplit} & split window \\
+\texttt{Ctrl-w [hjkl]} & switch window \\
+\texttt{u Ctrl+r .} & undo, redo, repeat last action \\
+\end{tabular}
 
-\begin{itemize}  
-\item Simplicity -- the design must be simple, both in implementation and interface. It is more important for the interface to be simple than the implementation.
-\item Correctness -- the design must be correct in all observable aspects. Incorrectness is simply not allowed.
-\item Consistency -- the design must not be inconsistent. A design is allowed to be slightly less simple and less complete to avoid inconsistency. Consistency is as important as correctness.
-\item Completeness -- the design must cover as many important situations as is practical. All reasonably expected cases must be covered. Simplicity is not allowed to overly reduce completeness.
-\end{itemize}
-I believe most people would agree that these are good characteristics. I will call the use of this philosophy of design the ``MIT approach.'' Common Lisp (with CLOS) and Scheme represent the MIT approach to design and implementation.
-
-The worse-is-better philosophy is only slightly different:
-
-\begin{itemize}
-\item Simplicity -- the design must be simple, both in implementation and interface. It is more important for the implementation to be simple than the interface. Simplicity is the most important consideration in a design.
-\item Correctness -- the design must be correct in all observable aspects. It is slightly better to be simple than correct.
-\item Consistency -- the design must not be overly inconsistent. Consistency can be sacrificed for simplicity in some cases, but it is better to drop those parts of the design that deal with less common circumstances than to introduce either implementational complexity or inconsistency.
-\item Completeness -- the design must cover as many important situations as is practical. All reasonably expected cases should be covered. Completeness can be sacrificed in favor of any other quality. In fact, completeness must sacrificed whenever implementation simplicity is jeopardized. Consistency can be sacrificed to achieve completeness if simplicity is retained; especially worthless is consistency of interface.
-\end{itemize}
-Early Unix and C are examples of the use of this school of design, and I will call the use of this design strategy the ``New Jersey approach.'' I have intentionally caricatured the worse-is-better philosophy to convince you that it is obviously a bad philosophy and that the New Jersey approach is a bad approach.
-
-However, I believe that worse-is-better, even in its strawman form, has better survival characteristics than the-right-thing, and that the New Jersey approach when used for software is a better approach than the MIT approach.
-
-Let me start out by retelling a story that shows that the MIT/New-Jersey distinction is valid and that proponents of each philosophy actually believe their philosophy is better.
-
-Two famous people, one from MIT and another from Berkeley (but working on Unix) once met to discuss operating system issues. The person from MIT was knowledgeable about ITS (the MIT AI Lab operating system) and had been reading the Unix sources. He was interested in how Unix solved the PC loser-ing problem. The PC loser-ing problem occurs when a user program invokes a system routine to perform a lengthy operation that might have significant state, such as IO buffers. If an interrupt occurs during the operation, the state of the user program must be saved. Because the invocation of the system routine is usually a single instruction, the PC of the user program does not adequately capture the state of the process. The system routine must either back out or press forward. The right thing is to back out and restore the user program PC to the instruction that invoked the system routine so that resumption of the user program after the interrupt, for example, re-enters the system routine. It is called ``PC loser-ing'' because the PC is being coerced into ``loser mode,'' where ``loser'' is the affectionate name for ``user'' at MIT.
-
-The MIT guy did not see any code that handled this case and asked the New Jersey guy how the problem was handled. The New Jersey guy said that the Unix folks were aware of the problem, but the solution was for the system routine to always finish, but sometimes an error code would be returned that signaled that the system routine had failed to complete its action. A correct user program, then, had to check the error code to determine whether to simply try the system routine again. The MIT guy did not like this solution because it was not the right thing.
-
-The New Jersey guy said that the Unix solution was right because the design philosophy of Unix was simplicity and that the right thing was too complex. Besides, programmers could easily insert this extra test and loop. The MIT guy pointed out that the implementation was simple but the interface to the functionality was complex. The New Jersey guy said that the right tradeoff has been selected in Unix-namely, implementation simplicity was more important than interface simplicity.
-
-The MIT guy then muttered that sometimes it takes a tough man to make a tender chicken, but the New Jersey guy didn't understand (I'm not sure I do either).
-
-Now I want to argue that worse-is-better is better. C is a programming language designed for writing Unix, and it was designed using the New Jersey approach. C is therefore a language for which it is easy to write a decent compiler, and it requires the programmer to write text that is easy for the compiler to interpret. Some have called C a fancy assembly language. Both early Unix and C compilers had simple structures, are easy to port, require few machine resources to run, and provide about 50\%--80\% of what you want from an operating system and programming language.
-
-Half the computers that exist at any point are worse than median (smaller or slower). Unix and C work fine on them. The worse-is-better philosophy means that implementation simplicity has highest priority, which means Unix and C are easy to port on such machines. Therefore, one expects that if the 50\% functionality Unix and C support is satisfactory, they will start to appear everywhere. And they have, haven't they?
-
-Unix and C are the ultimate computer viruses.
-
-A further benefit of the worse-is-better philosophy is that the programmer is conditioned to sacrifice some safety, convenience, and hassle to get good performance and modest resource use. Programs written using the New Jersey approach will work well both in small machines and large ones, and the code will be portable because it is written on top of a virus.
-
-It is important to remember that the initial virus has to be basically good. If so, the viral spread is assured as long as it is portable. Once the virus has spread, there will be pressure to improve it, possibly by increasing its functionality closer to 90\%, but users have already been conditioned to accept worse than the right thing. Therefore, the worse-is-better software first will gain acceptance, second will condition its users to expect less, and third will be improved to a point that is almost the right thing. In concrete terms, even though Lisp compilers in 1987 were about as good as C compilers, there are many more compiler experts who want to make C compilers better than want to make Lisp compilers better.
-
-The good news is that in 1995 we will have a good operating system and programming language; the bad news is that they will be Unix and C++.
-
-There is a final benefit to worse-is-better. Because a New Jersey language and system are not really powerful enough to build complex monolithic software, large systems must be designed to reuse components. Therefore, a tradition of integration springs up.
-
-How does the right thing stack up? There are two basic scenarios: the ``big complex system scenario'' and the ``diamond-like jewel'' scenario.
-
-The ``big complex system'' scenario goes like this:
-
-First, the right thing needs to be designed. Then its implementation needs to be designed. Finally it is implemented. Because it is the right thing, it has nearly 100\% of desired functionality, and implementation simplicity was never a concern so it takes a long time to implement. It is large and complex. It requires complex tools to use properly. The last 20\% takes 80\% of the effort, and so the right thing takes a long time to get out, and it only runs satisfactorily on the most sophisticated hardware.
-
-The ``diamond-like jewel'' scenario goes like this:
-
-The right thing takes forever to design, but it is quite small at every point along the way. To implement it to run fast is either impossible or beyond the capabilities of most implementors.
-
-The two scenarios correspond to Common Lisp and Scheme.
-
-The first scenario is also the scenario for classic artificial intelligence software.
-
-The right thing is frequently a monolithic piece of software, but for no reason other than that the right thing is often designed monolithically. That is, this characteristic is a happenstance.
-
-The lesson to be learned from this is that it is often undesirable to go for the right thing first. It is better to get half of the right thing available so that it spreads like a virus. Once people are hooked on it, take the time to improve it to 90\% of the right thing.
-
-A wrong lesson is to take the parable literally and to conclude that C is the right vehicle for AI software. The 50\% solution has to be basically right, and in this case it isn't.
-
-But, one can conclude only that the Lisp community needs to seriously rethink its position on Lisp design. I will say more about this later.
+\vskip 0.1in
+\noindent
+Nearly all commands support a prefix number, e.g., \texttt{5dd} delete 5 lines.
+}
 
 
 \chapter{Emacs}
@@ -805,6 +391,162 @@ Note, \texttt{C-} means Ctrl- and \texttt{M-} means Meta- (Alt- or Esc-).
 Nearly all commands support a prefix number, e.g., \texttt{C-u 5 C-k} delete 5 lines.
 }
 
+
+
+\chapter{Editor war (Wikipedia)}
+
+Editor war is the common name for the rivalry between users of the Emacs and vi (Vim) text editors. The rivalry has become a lasting part of hacker culture and the free software community.
+
+The Emacs vs vi debate was one of the original ``holy wars'' conducted on Usenet groups, with many flame wars fought between those insisting that their editor of choice is the paragon of editing perfection, and insulting the other, since at least 1985. Related battles have been fought over operating systems, programming languages, version control systems, and even source code indent style. Notably, unlike other wars (ie, UNIX vs ITS vs VMS, C vs Pascal vs Fortran), the editor war has yet to be resolved with a clear winner, and the hacker community remains split roughly 50/50.
+
+\section{Differences between vi and Emacs}
+
+The most important differences between vi and Emacs are presented in the following list.
+
+\subsection{Keystroke execution}
+
+\textbf{vi} retains each permutation of typed keys. This creates a path in the decision tree which unambiguously identifies any command.
+
+\textbf{Emacs} commands are key combinations for which modifier keys are held down while other keys are pressed; a command gets executed once completely typed. This still forms a decision tree of commands, but not one of individual keystrokes. A vim-inspired Emacs package (undo-tree) provides a user interface to the tree.
+
+\subsection{Memory usage and customizability}
+
+\textbf{vi} is a smaller and faster program, but with less capacity for customization. The vim version of vi has evolved to provide significantly more functionality and customization than vi, making it comparable to Emacs. vi start-up time is near instantaneous for small text files, while vim is almost as fast.
+
+\textbf{Emacs} executes many actions on startup, many of which may execute arbitrary user code. This makes Emacs take longer to start up (even compared to vim) and require more memory. However, it is highly customizable and includes a large number of features, as it is essentially an execution environment for a Lisp program designed for text-editing. Emacs 18 (released in 1987) introduced a server mode designed to run continuously in the background. Various instances of Emacs can then be started in client mode, attaching to this server and sharing state. Emacs client startup time is practically instantaneous as all it does is provoke the existing Emacs process to redraw the display.
+
+\subsection{User environment}
+
+\textbf{vi} was originally exclusively used inside of a text-mode console, offering no graphical user interface (GUI). Most modern vi derivatives, e.g. MacVim and gVim, include GUIs. However, support for proportionally spaced fonts remains absent. Also lacking is support for different sized fonts in the same document.
+
+\textbf{Emacs}, while also initially designed for use on a console, grew a TUI fairly early on due to its Lisp machine heritage. X11 GUI support was added in Emacs 18, and made the default in version 19. Current Emacs GUIs include full support for proportionate spacing and font-size variation. Emacs also supports embedded images and hypertext.
+
+\subsection{Function/navigation interface}
+
+\textbf{vi} uses distinct editing modes. Under ``insert mode'', keys insert characters into the document. Under ``normal mode'' (also known as ``command mode''), bare keypresses execute vi commands.
+
+\textbf{Emacs} uses metakey chords. Keys or key chords can be defined as prefix keys, which put Emacs into a mode where it waits for additional key presses that constitute a key binding. Key bindings can be mode-specific, further customizing the interaction style. Emacs provides a command line accessed by M-x that can be configured to autocomplete in various ways. Emacs also provides a defalias macro, allowing alternate names for commands.
+
+\subsection{Keyboard}
+
+\textbf{vi} uses no <Alt> key and seldom uses the <Ctrl> key. vi's keyset is mainly restricted to the alphanumeric keys, and the escape key. This is an enduring relic of its teletype heritage, but has the effect of making most of vi's functionality accessible without frequent awkward finger reaches.
+
+The expansion of one of \textbf{Emacs}' backronyms is Escape, Meta, Alt, Control, Shift, which neatly summarizes most of the modifier keys it uses, only leaving out Super. Emacs was developed on Lisp Machines with Space-cadet keyboards that were more ergonomic with respect to modifiers than modern layouts. There are multiple Emacs packages, such as spacemacs or ergoemacs that replace these key combinations with ones easier to type, or customization can be done ad hoc by the user.
+
+\subsection{Language and script support}
+
+\textbf{vi} has rudimentary support for languages other than English. Vim is partially multilingual, with support for European, Arabic, Hebrew, and Far East Asian language support only. Notably, Indic language and script support is absent.
+
+\textbf{Emacs} has full support for all Unicode-compatible writing systems and allows multiple scripts to be freely intermixed.
+
+\section{Benefits of Emacs}
+
+\begin{itemize}
+\item Emacs has a non-modal interface
+\item One of the most ported computer programs. It runs in text mode and under graphical user interfaces on a wide variety of operating systems, including most Unix-like systems (Linux, the various BSDs, Solaris, AIX, IRIX, macOS, etc.), MS-DOS, Microsoft Windows, AmigaOS, and OpenVMS. Unix systems, both free and proprietary, frequently provide Emacs bundled with the operating system.
+\item Emacs server architecture allows multiple clients to attach to the same Emacs instance and share the buffer list, kill ring, undo history and other state.
+\item Pervasive online help system with keybindings, functions and commands documented on the fly.
+\item Extensible and customizable Lisp programming language variant (Emacs Lisp), with features that include:
+\begin{itemize}
+\item Ability to emulate vi and vim (using Evil, Viper or Vimpulse).
+\item A powerful and extensible file manager (dired), integrated debugger, and a large set of development and other tools.
+\item Having every command be an Emacs Lisp function enables commands to DWIM (Do What I Mean) by programmatically responding to past actions and document state. For example, a switch-or-split-window command could switch to another window if one exists, or create one if needed. This cuts down on the number of keystrokes and commands a user must remember.
+\item ``An OS inside an OS''. Emacs Lisp enables Emacs to be programmed far beyond editing features. Even a base install contains several dozen applications, including two web browsers, news readers, several mail agents, four IRC clients, a version of ELIZA, and a variety of games. All of these applications are available anywhere Emacs runs, with the same user interface and functionality. Starting with version 24, Emacs includes a package manager, making it easy to install additional applications including alternate web browsers, EMMS (Emacs Multimedia System), and more. Also available are numerous packages for programming, including some targeted at specific language/library combinations or coding styles.
+\end{itemize}
+\end{itemize}
+
+\section{Benefits of vi-like editors}
+\begin{itemize}
+\item Edit commands are composable
+\item Vi has a modal interface (which Emacs can emulate)
+\item Historically, vi loads faster than Emacs.
+\item While deeply associated with UNIX tradition, it runs on all systems that can implement the standard C library, including UNIX, Linux, AmigaOS, DOS, Windows, Mac, BeOS, OpenVMS, IRIX, AIX, HP-UX, BSD and POSIX-compliant systems.
+\item Extensible and customizable through VimScript or APIs for interpreted languages such as Python, Ruby, Perl, and Lua
+\item Ubiquitous. Essentially all Unix and Unix-like systems come with vi (or a variant) built-in. Vi (and ex, but not vim) is specified in the POSIX standard.
+\item System rescue environments, embedded systems (notably those with busybox) and other constrained environments often include vi, but not emacs.
+\end{itemize}
+
+\section{Today}
+
+In the past, many small editors modeled after or derived from vi flourished. This was due to the importance of conserving memory with the comparatively minuscule amount available at the time. As computers have become more powerful, many vi clones, Vim in particular, have grown in size and code complexity. These vi variants of today, as with the old lightweight Emacs variants, tend to have many of the perceived benefits and drawbacks of the opposing side. For example, Vim without any extensions requires about ten times the disk space required by vi, and recent versions of Vim can have more extensions and run slower than Emacs. In \emph{The Art of Unix Programming}, Eric S. Raymond called Vim's supposed light weight when compared with Emacs ``a shared myth.'' Moreover, with the large amounts of RAM in modern computers, both Emacs and vi are lightweight compared to large integrated development environments such as Eclipse, which tend to draw derision from Emacs and vi users alike.
+
+Tim O'Reilly said, in 1999, that O'Reilly Media's tutorial on vi sells twice as many copies as that on Emacs (but noted that Emacs came with a free manual). Many programmers use either Emacs and vi or their various offshoots, including Linus Torvalds who uses MicroEMACS. Also in 1999, vi creator Bill Joy said that vi was ``written for a world that doesn't exist anymore'' and stated that Emacs was written on much more capable machines with faster displays so they could have ``funny commands with the screen shimmering and all that, and meanwhile, I'm sitting at home in sort of World War II surplus housing at Berkeley with a modem and a terminal that can just barely get the cursor off the bottom line.''
+
+In addition to Emacs and vi workalikes, pico and its free and open source clone nano and other text editors such as ne often have their own third-party advocates in the editor wars, though not to the extent of Emacs and vi.
+
+As of 2014, both Emacs and vi can lay claim to being among the longest-lived application programs of all time, as well as being the two most commonly used text editors on Linux and Unix. Many operating systems, especially Linux and BSD derivatives, bundle multiple text editors with the operating system to cater to user demand. For example, a default installation of macOS contains Emacs, ed, nano, TextEdit, and Vim.
+
+
+
+\chapter{ASCII}
+
+{\footnotesize
+\begin{verbatim}
+     2 3 4 5 6 7       30 40 50 60 70 80 90 100 110 120
+   -------------      ---------------------------------
+  0:   0 @ P ` p     0:    (  2  <  F  P  Z  d   n   x
+  1: ! 1 A Q a q     1:    )  3  =  G  Q  [  e   o   y
+  2: " 2 B R b r     2:    *  4  >  H  R  \  f   p   z
+  3: # 3 C S c s     3: !  +  5  ?  I  S  ]  g   q   {
+  4: $ 4 D T d t     4: "  ,  6  @  J  T  ^  h   r   |
+  5: % 5 E U e u     5: #  -  7  A  K  U  _  i   s   }
+  6: & 6 F V f v     6: $  .  8  B  L  V  `  j   t   ~
+  7: ' 7 G W g w     7: %  /  9  C  M  W  a  k   u  DEL
+  8: ( 8 H X h x     8: &  0  :  D  N  X  b  l   v
+  9: ) 9 I Y i y     9: '  1  ;  E  O  Y  c  m   w
+  A: * : J Z j z
+  B: + ; K [ k {
+  C: , < L \ l |
+  D: - = M ] m }
+  E: . > N ^ n ~
+  F: / ? O _ o DEL  
+\end{verbatim}
+}
+
+\noindent From the Jargon File: \textbf{ASCII}: /as'kee/, n.
+
+[originally an acronym (American Standard Code for Information Interchange) but now merely conventional] The predominant character set encoding of present-day computers. The standard version uses 7 bits for each character, whereas most earlier codes (including early drafts of ASCII prior to June 1961) used fewer. This change allowed the inclusion of lowercase letters -- a major win -- but it did not provide for accented letters or any other letterforms not used in English (such as the German {\ss} or ligature {\ae} which is a letter in, for example, Norwegian). It could be worse, though. It could be much worse. See EBCDIC to understand how.
+
+Computers are much pickier and less flexible about spelling than humans; thus, hackers need to be very precise when talking about characters, and have developed a considerable amount of verbal shorthand for them. Every character has one or more names -- some formal, some concise, some silly. Common jargon names for ASCII characters are collected here. See also individual entries for bang, excl, open, ques, semi, shriek, splat, twiddle, and Yu-Shiang Whole Fish.
+
+This list derives from revision 2.3 of the Usenet ASCII pronunciation guide. Single characters are listed in ASCII order; character pairs are sorted in by first member. For each character, common names are given in rough order of popularity, followed by names that are reported but rarely seen; official ANSI/CCITT names are surrounded by brokets: <>. Square brackets mark the particularly silly names introduced by INTERCAL. The abbreviations ``l/r'' and ``o/c'' stand for left/right and ``open/close'' respectively. Ordinary parentheticals provide some usage information.
+
+\vskip 0.2in
+
+{\footnotesize
+\begin{itemize}
+
+\item[{\ttfamily !}] Common: bang; pling; excl; not; shriek; ball-bat; <exclamation mark>. Rare: factorial; exclam; smash; cuss; boing; yell; wow; hey; wham; eureka; [spark-spot]; soldier, control.
+\item[{\ttfamily "}] Common: double quote; quote. Rare: literal mark; double-glitch; snakebite; <quotation marks>; <dieresis>; dirk; [rabbit-ears]; double prime.
+\item[{\ttfamily \#}] Common: number sign; pound; pound sign; hash; sharp; crunch ; hex; [mesh]. Rare: grid; crosshatch; octothorpe; flash; <square>, pig-pen; tictactoe; scratchmark; thud; thump; splat.
+\item[{\ttfamily \$}] Common: dollar; <dollar sign>. Rare: currency symbol; buck; cash; bling; string (from BASIC); escape (when used as the echo of ASCII ESC); ding; cache; [big money].
+\item[{\ttfamily \%}] Common: percent; <percent sign>; mod; grapes. Rare: [double-oh-seven].
+\item[{\ttfamily \&}] Common: <ampersand>; amp; amper; and, and sign. Rare: address (from C); reference (from C++); andpersand; bitand; background (from sh(1)); pretzel. [INTERCAL called this ampersand; what could be sillier?]
+\item[{\ttfamily '}] Common: single quote; quote; <apostrophe>. Rare: prime; glitch; tick; irk; pop; [spark]; <closing single quotation mark>; <acute accent>.
+\item[{\ttfamily ()}] Common: l/r paren; l/r parenthesis; left/right; open/close; paren/thesis; o/c paren; o/c parenthesis; l/r parenthesis; l/r banana. Rare: so/already; lparen/rparen; <opening/closing parenthesis>; o/c round bracket, l/r round bracket, [wax/wane]; parenthisey/unparenthisey; l/r ear.
+\item[{\ttfamily *}] Common: star; [ splat ]; <asterisk>. Rare: wildcard; gear; dingle; mult; spider; aster; times; twinkle; glob.
+\item[{\ttfamily +}] Common: <plus>; add. Rare: cross; [intersection].
+\item[{\ttfamily ,}] Common: <comma>. Rare: <cedilla>; [tail].
+\item[{\ttfamily -}] Common: dash; <hyphen>; <minus>. Rare: [worm]; option; dak; bithorpe.
+\item[{\ttfamily .}] Common: dot; point; <period>; <decimal point>. Rare: radix point; full stop; [spot].
+\item[{\ttfamily /}] Common: slash; stroke; <slant>; forward slash. Rare: diagonal; solidus; over; slak; virgule; [slat].
+\item[{\ttfamily :}] Common: <colon>. Rare: dots; [two-spot].
+\item[{\ttfamily ;}] Common: <semicolon>; semi. Rare: weenie; [hybrid], pit-thwong.
+\item[{\ttfamily <>}] Common: <less/greater than>; bra/ket; l/r angle; l/r angle bracket; l/r broket. Rare: from/{into, towards}; read from/write to; suck/blow; comes-from/gozinta; in/out; crunch/zap (all from UNIX); tic/tac; [angle/right angle].
+\item[{\ttfamily =}] Common: <equals>; gets; takes. Rare: quadrathorpe; [half-mesh].
+\item[{\ttfamily ?}] Common: query; <question mark>; ques. Rare: quiz; whatmark; [what]; wildchar; huh; hook; buttonhook; hunchback.
+\item[{\ttfamily @}] Common: at sign; at; strudel. Rare: each; vortex; whorl; [whirlpool]; cyclone; snail; ape; cat; rose; cabbage; <commercial at>.
+\item[{\ttfamily []}] Common: l/r square bracket; l/r bracket; <opening/closing bracket>; bracket/unbracket. Rare: square/unsquare; [U turn/U turn back].
+\item[{\ttfamily \textbackslash}] Common: backslash, hack, whack; escape (from C/UNIX); reverse slash; slosh; backslant; backwhack. Rare: bash; <reverse slant>; reversed virgule; [backslat].
+\item[{\ttfamily \textasciicircum}] Common: hat; control; uparrow; caret; <circumflex>. Rare: xor sign, chevron; [shark (or shark-fin)]; to the (`to the power of'); fang; pointer (in Pascal).
+\item[{\ttfamily \_}] Common: <underline>; underscore; underbar; under. Rare: score; backarrow; skid; [flatworm].
+\item[\`{}] Common: backquote; left quote; left single quote; open quote; <grave accent>; grave. Rare: backprime; [backspark]; unapostrophe; birk; blugle; back tick; back glitch; push; <opening single quotation mark>; quasiquote.
+\item[{\ttfamily \{\}}] Common: o/c brace; l/r brace; l/r squiggly; l/r squiggly bracket/brace; l/r curly bracket/brace; <opening/closing brace>. Rare: brace/unbrace; curly/uncurly; leftit/rytit; l/r squirrelly; [embrace/bracelet]. A balanced pair of these may be called curlies.
+\item[{\ttfamily |}] Common: bar; or; or-bar; v-bar; pipe; vertical bar. Rare: <vertical line>; gozinta; thru; pipesinta (last three from UNIX); [spike].
+\item[{\ttfamily \textasciitilde}] Common: <tilde>; squiggle; twiddle; not. Rare: approx; wiggle; swung dash; enyay; [sqiggle (sic)].
+
+\end{itemize}
+}
 
 
 \chapter{Basics of the Unix Philosophy (Eric S. Raymond)}
@@ -1128,6 +870,305 @@ When you design code, organize it so future developers will be able to plug new 
 You'll be there in the future too, maintaining code you may have half forgotten under the press of more recent projects. When you design for the future, the sanity you save may be your own.
 
 
+
+\chapter{Linux base binaries}
+
+{\footnotesize
+\begin{longtable}{p{0.18\linewidth}p{0.77\linewidth}}
+apropos           & search the manual page names and descriptions \\
+base32            & base32 encode/decode data and print to standard output \\
+base64            & base64 encode/decode data and print to standard output \\
+basename          & strip directory and suffix from filenames \\
+bash              & GNU Bourne-Again SHell \\
+bashbug           & report a bug in bash \\
+bunzip2           & a block-sorting file compressor, v1.0.6 \\
+bzcat             & decompresses files to stdout \\
+bzip2             & a block-sorting file compressor, v1.0.6 \\
+bzip2recover      & recovers data from damaged bzip2 files \\
+cal               & display a calendar \\
+cat               & concatenate files and print on the standard output \\
+chage             & change user password expiry information \\
+chattr            & change file attributes on a Linux file system \\
+chcon             & change file security context \\
+chfn              & change your finger information \\
+chgrp             & change group ownership \\
+chmod             & change file mode bits \\
+chown             & change file owner and group \\
+chroot            & run command or interactive shell with special root directory \\
+chrt              & manipulate the real-time attributes of a process \\
+chsh              & change your login shell \\
+cksum             & checksum and count the bytes in a file \\
+cmp               & compare two files byte by byte \\
+col               & filter reverse line feeds from input \\
+colcrt            & filter nroff output for CRT previewing \\
+colrm             & remove columns from a file \\
+column            & columnate lists \\
+comm              & compare two sorted files line by line \\
+cp                & copy files and directories \\
+csplit            & split a file into sections determined by context lines \\
+cut               & remove sections from each line of files \\
+date              & print or set the system date and time \\
+dd                & convert and copy a file \\
+df                & report file system disk space usage \\
+diff              & compare files line by line \\
+diff3             & compare three files line by line \\
+dir               & list directory contents \\
+dircolors         & color setup for ls \\
+dirname           & strip last component from file name \\
+dmesg             & print or control the kernel ring buffer \\
+dnsdomainname     & show DNS domain name \\
+du                & estimate file space usage \\
+echo              & display a line of text \\
+edit              & text editor \\
+egrep             & print lines matching a pattern \\
+eject             & eject removable media \\
+env               & run a program in a modified environment \\
+envsubst          & substitutes environment variables in shell format strings \\
+ex                & text editor \\
+expand            & convert tabs to spaces \\
+expiry            & check and enforce password expiration policy \\
+expr              & evaluate expressions \\
+factor            & factor numbers \\
+fallocate         & preallocate or deallocate space to a file \\
+false             & do nothing, unsuccessfully \\
+fgrep             & print lines matching a pattern \\
+file              & determine file type \\
+find              & search for files in a directory hierarchy \\
+flock             & manage locks from shell scripts \\
+fmt               & simple optimal text formatter \\
+fold              & wrap each input line to fit in specified width \\
+free              & Display amount of free and used memory in the system \\
+ftp               & File Transfer Protocol client. \\
+fuser             & identify processes using files or sockets \\
+gawk              & pattern scanning and processing language \\
+getent            & get entries from Name Service Switch libraries \\
+getopt            & parse command options (enhanced) \\
+gettext           & translate message \\
+gettextize        & install or upgrade gettext infrastructure \\
+gpasswd           & administer /etc/group and /etc/gshadow \\
+grep              & print lines matching a pattern \\
+groups            & display current group names \\
+gunzip            & compress or expand files \\
+gzexe             & compress executable files in place \\
+gzip              & compress or expand files \\
+head              & output the first part of files \\
+hexdump           & display file contents in hexadecimal, decimal, octal, or ascii \\
+hostid            & print the numeric identifier for the current host \\
+hostname          & show or set system host name \\
+iconv             & convert text from one character encoding to another \\
+id                & print real and effective user and group IDs \\
+igawk             & gawk with include files \\
+info              & read Info documents \\
+init              & systemd system and service manager \\
+install           & copy files and set attributes \\
+install-info      & update info/dir entries \\
+ionice            & set or get process I/O scheduling class and priority \\
+ipcmk             & make various IPC resources \\
+ipcrm             & remove certain IPC resources \\
+ipcs              & show information on IPC facilities \\
+join              & join lines of two files on a common field \\
+kill              & terminate a process \\
+killall           & kill processes by name \\
+last              & show a listing of last logged in users \\
+lastb             & show a listing of last logged in users \\
+ldd               & print shared object dependencies \\
+less              & opposite of more \\
+lessecho          & expand metacharacters \\
+lesskey           & specify key bindings for less \\
+lexgrog           & parse header information in man pages \\
+link              & call the link function to create a link to a file \\
+ln                & make links between files \\
+locale            & get locale-specific information \\
+localedef         & compile locale definition files \\
+logger            & enter messages into the system log \\
+login             & begin session on the system \\
+logname           & print user's login name \\
+look              & display lines beginning with a given string \\
+ls                & list directory contents \\
+lsattr            & list file attributes on a Linux second extended file system \\
+lscpu             & display information about the CPU architecture \\
+lsipc             & show information on IPC facilities currently employed in the system \\
+lslogins          & display information about known users in the system \\
+mail              & send and receive Internet mail \\
+mailx             & send and receive Internet mail \\
+makeinfo          & translate Texinfo documents \\
+man               & an interface to the on-line reference manuals \\
+manpath           & determine search path for manual pages \\
+md5sum            & compute and check MD5 message digest \\
+mesg              & display (or do not display) messages from other users \\
+mkdir             & make directories \\
+mkfifo            & make FIFOs (named pipes) \\
+mknod             & make block or character special files \\
+mktemp            & create a temporary file or directory \\
+more              & file perusal filter for crt viewing \\
+mountpoint        & see if a directory or file is a mountpoint \\
+msgattrib         & attribute matching and manipulation on message catalog \\
+msgcat            & combines several message catalogs \\
+msgcmp            & compare message catalog and template \\
+msgcomm           & match two message catalogs \\
+msgconv           & character set conversion for message catalog \\
+msgen             & create English message catalog \\
+msgexec           & process translations of message catalog \\
+msgfilter         & edit translations of message catalog \\
+msgfmt            & compile message catalog to binary format \\
+msggrep           & pattern matching on message catalog \\
+msginit           & initialize a message catalog \\
+msgmerge          & merge message catalog and template \\
+msgunfmt          & uncompile message catalog from binary format \\
+msguniq           & unify duplicate translations in message catalog \\
+mtrace            & interpret the malloc trace log \\
+mv                & move (rename) files \\
+namei             & follow a pathname until a terminal point is found \\
+nano              & Nano's ANOther editor, an enhanced free Pico clone \\
+netctl            & Control the netctl network profile manager \\
+netctl-auto       & Control automatic selection of wireless netctl profiles \\
+newgidmap         & set the gid mapping of a user namespace \\
+newgrp            & log in to a new group \\
+newuidmap         & set the uid mapping of a user namespace \\
+ngettext          & translate message and choose plural form \\
+nice              & run a program with modified scheduling priority \\
+nl                & number lines of files \\
+nohup             & run a command immune to hangups, with output to a non-tty \\
+nproc             & print the number of processing units available \\
+nsenter           & run program with namespaces of other processes \\
+numfmt            & Convert numbers from/to human-readable strings \\
+od                & dump files in octal and other formats \\
+passwd            & change user password \\
+paste             & merge lines of files \\
+pathchk           & check whether file names are valid or portable \\
+pdftexi2dvi       & convert Texinfo documents to DVI or PDF \\
+peekfd            & peek at file descriptors of running processes \\
+pgrep             & look up or signal processes based on name and other attributes \\
+pidof             & find the process ID of a running program. \\
+pinky             & lightweight finger \\
+pkill             & look up or signal processes based on name and other attributes \\
+pldd              & display dynamic shared objects linked into a process \\
+pmap              & report memory map of a process \\
+pod2texi          & convert Pod to Texinfo \\
+pr                & convert text files for printing \\
+printenv          & print all or part of environment \\
+printf            & format and print data \\
+prlimit           & get and set process resource limits \\
+prtstat           & print statistics of a process \\
+ps                & report a snapshot of the current processes. \\
+pstree            & display a tree of processes \\
+ptx               & produce a permuted index of file contents \\
+pwd               & print name of current/working directory \\
+pwdx              & report current working directory of a process \\
+rcp               & Remote copy \\
+readlink          & print resolved symbolic links or canonical file names \\
+realpath          & print the resolved path \\
+rename            & rename files \\
+renice            & alter priority of running processes \\
+rev               & reverse lines characterwise \\
+rlogin            & Remote login \\
+rm                & remove files or directories \\
+rmdir             & remove empty directories \\
+rnano             & a restricted nano \\
+rsh               & Remote shell client \\
+runcon            & run command with specified security context \\
+runuser           & run a command with substitute user and group ID \\
+script            & make typescript of terminal session \\
+scriptreplay      & play back typescripts, using timing information \\
+sdiff             & side-by-side merge of file differences \\
+sed               & stream editor for filtering and transforming text \\
+seq               & print a sequence of numbers \\
+setsid            & run a program in a new session \\
+setterm           & set terminal attributes \\
+sg                & execute command as different group ID \\
+sha1sum           & compute and check SHA1 message digest \\
+sha224sum         & compute and check SHA224 message digest \\
+sha256sum         & compute and check SHA256 message digest \\
+sha384sum         & compute and check SHA384 message digest \\
+sha512sum         & compute and check SHA512 message digest \\
+shred             & overwrite a file to hide its contents, and optionally delete it \\
+shuf              & generate random permutations \\
+slabtop           & display kernel slab cache information in real time \\
+sleep             & delay for a specified amount of time \\
+sort              & sort lines of text files \\
+split             & split a file into pieces \\
+sprof             & read and display shared object profiling data \\
+stat              & display file or file system status \\
+stdbuf            & Run COMMAND, with modified buffering operations for its standard streams. \\
+stty              & change and print terminal line settings \\
+su                & run a command with substitute user and group ID \\
+sum               & checksum and count the blocks in a file \\
+sync              & Synchronize cached writes to persistent storage \\
+systool           & view system device information by bus, class, and topology \\
+tac               & concatenate and print files in reverse \\
+tail              & output the last part of files \\
+talk              & Talk client \\
+tar               & an archiving utility \\
+taskset           & set or retrieve a process's CPU affinity \\
+tee               & read from standard input and write to standard output and files \\
+telnet            & User interface to TELNET \\
+test              & check file types and compare values \\
+texi2any          & translate Texinfo documents \\
+texi2dvi          & convert Texinfo documents to DVI or PDF \\
+texi2pdf          & convert Texinfo documents to DVI or PDF \\
+texindex          & sort Texinfo index files \\
+timeout           & run a command with a time limit \\
+tload             & graphic representation of system load average \\
+top               & display Linux processes \\
+touch             & change file timestamps \\
+tr                & translate or delete characters \\
+true              & do nothing, successfully \\
+truncate          & shrink or extend the size of a file to the specified size \\
+tsort             & perform topological sort \\
+tty               & print the file name of the terminal connected to standard input \\
+ul                & do underlining \\
+uname             & print system information \\
+unexpand          & convert spaces to tabs \\
+uniq              & report or omit repeated lines \\
+unlink            & call the unlink function to remove the specified file \\
+unshare           & run program with some namespaces unshared from parent \\
+uptime            & Tell how long the system has been running. \\
+usb-devices       & print USB device details \\
+users             & print the user names of users currently logged in to the current host \\
+utmpdump          & dump UTMP and WTMP files in raw format \\
+uuidgen           & create a new UUID value \\
+vdir              & list directory contents \\
+vedit             & screen oriented (visual) display editor based on ex \\
+vi                & screen oriented (visual) display editor based on ex \\
+view              & screen oriented (visual) display editor based on ex \\
+w                 & Show who is logged on and what they are doing. \\
+wall              & write a message to all users \\
+watch             & execute a program periodically, showing output fullscreen \\
+wc                & print newline, word, and byte counts for each file \\
+whatis            & display one-line manual page descriptions \\
+whereis           & locate the binary, source, and manual page files for a command \\
+which             & shows the full path of (shell) commands. \\
+who               & show who is logged on \\
+whoami            & print effective userid \\
+write             & send a message to another user \\
+xargs             & build and execute command lines from standard input \\
+xgettext          & extract gettext strings from source \\
+yes               & output a string repeatedly until killed \\
+zcat              & compress or expand files \\
+zcmp              & compare compressed files \\
+zdiff             & compare compressed files \\
+zforce            & force a '.gz' extension on all gzip files \\
+zgrep             & search possibly compressed files for a regular expression \\
+zless             & file perusal filter for crt viewing of compressed text \\
+zmore             & file perusal filter for crt viewing of compressed text \\
+znew              & recompress .Z files to .gz files \\ 
+\end{longtable}
+}
+
+\vskip 0.2in
+
+{\footnotesize
+\begin{verbatim}
+for pkg in `pacman -Ss | grep '(base[ )]' | \
+  grep -o core/[-a-z0-9]* | sed 's/core\///'`; \
+  do pacman -Ql $pkg | grep -o '/usr/bin/.*' | \
+  sed 's/\/usr\/bin\///' | xargs whatis -s 1 | \
+  grep -v 1p | grep -v 1ssl | sed 's/(1)//'; \
+  done 2>/dev/null | grep -v "whatis what" | sort
+\end{verbatim}
+}
+
+
 \chapter{Bash}
 
 \section{Running commands}
@@ -1207,6 +1248,136 @@ You'll be there in the future too, maintaining code you may have half forgotten 
 }
 
 
+\chapter{Regex}
+
+\section{Bash globs}
+
+{\footnotesize
+\begin{tabular}{ll}
+\texttt{*} & match any character, zero or more \\
+\texttt{?} & match any one character \\
+\texttt{[abc]} & match one of \texttt{a}, \texttt{b}, \texttt{c} \\
+\texttt{[a-z]} & match one of range of characters \\
+\texttt{[!abc] [!a-z]} & inverse of \texttt{[\dots]} \\
+\end{tabular}
+}
+
+\section{Grep regex}
+
+{\footnotesize
+\begin{tabular}{ll}
+\texttt{\^{} \$} & match start, end of line \\
+\texttt{.} & match any one character \\
+\texttt{?~+ *} & match previous 0/1, 1+, 0+ times \\
+\texttt{[abc] [a-z]} & match one of list, range of characters \\
+\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
+\end{tabular}
+}
+
+\section{Vim regex}
+
+{\footnotesize
+\begin{tabular}{ll}
+\texttt{\^{} \$} & match start, end of line \\
+\texttt{.} & match any one character except newline \\
+\texttt{\textbackslash{}=~\textbackslash{}+ *} & match previous 0/1, 1+, 0+ times \\
+\texttt{[abc] [a-z]} & match one of list, range of characters \\
+\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
+\texttt{\textbackslash{}(\dots\textbackslash{})} & define group \\
+\texttt{\textbackslash{}1 \textbackslash{}2} & refer to first group, second group, etc. \\
+\texttt{\textbackslash{}(abc\textbackslash{}|xyz\textbackslash{})} & match \texttt{abc} or \texttt{xyz} \\
+\end{tabular}
+}
+
+\section{Emacs regex}
+
+{\footnotesize
+\begin{tabular}{ll}
+\texttt{\^{} \$} & match start, end of line \\
+\texttt{.} & match any one character \\
+\texttt{?~+ *} & match previous 0/1, 1+, 0+ times \\
+\texttt{[abc] [a-z]} & match one of list, range of characters \\
+\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
+\texttt{\textbackslash{}(\dots\textbackslash{})} & define group \\
+\texttt{\textbackslash{}1 \textbackslash{}2} & refer to first group, second group, etc. \\
+\texttt{\textbackslash{}(abc\textbackslash{}|xyz\textbackslash{})} & match \texttt{abc} or \texttt{xyz} \\
+\end{tabular}
+}
+
+
+
+\chapter{The Rise of ``Worse is Better'' (Richard Gabriel)}
+
+I and just about every designer of Common Lisp and CLOS has had extreme exposure to the MIT/Stanford style of design. The essence of this style can be captured by the phrase ``the right thing.'' To such a designer it is important to get all of the following characteristics right:
+
+\begin{itemize}  
+\item Simplicity -- the design must be simple, both in implementation and interface. It is more important for the interface to be simple than the implementation.
+\item Correctness -- the design must be correct in all observable aspects. Incorrectness is simply not allowed.
+\item Consistency -- the design must not be inconsistent. A design is allowed to be slightly less simple and less complete to avoid inconsistency. Consistency is as important as correctness.
+\item Completeness -- the design must cover as many important situations as is practical. All reasonably expected cases must be covered. Simplicity is not allowed to overly reduce completeness.
+\end{itemize}
+I believe most people would agree that these are good characteristics. I will call the use of this philosophy of design the ``MIT approach.'' Common Lisp (with CLOS) and Scheme represent the MIT approach to design and implementation.
+
+The worse-is-better philosophy is only slightly different:
+
+\begin{itemize}
+\item Simplicity -- the design must be simple, both in implementation and interface. It is more important for the implementation to be simple than the interface. Simplicity is the most important consideration in a design.
+\item Correctness -- the design must be correct in all observable aspects. It is slightly better to be simple than correct.
+\item Consistency -- the design must not be overly inconsistent. Consistency can be sacrificed for simplicity in some cases, but it is better to drop those parts of the design that deal with less common circumstances than to introduce either implementational complexity or inconsistency.
+\item Completeness -- the design must cover as many important situations as is practical. All reasonably expected cases should be covered. Completeness can be sacrificed in favor of any other quality. In fact, completeness must sacrificed whenever implementation simplicity is jeopardized. Consistency can be sacrificed to achieve completeness if simplicity is retained; especially worthless is consistency of interface.
+\end{itemize}
+Early Unix and C are examples of the use of this school of design, and I will call the use of this design strategy the ``New Jersey approach.'' I have intentionally caricatured the worse-is-better philosophy to convince you that it is obviously a bad philosophy and that the New Jersey approach is a bad approach.
+
+However, I believe that worse-is-better, even in its strawman form, has better survival characteristics than the-right-thing, and that the New Jersey approach when used for software is a better approach than the MIT approach.
+
+Let me start out by retelling a story that shows that the MIT/New-Jersey distinction is valid and that proponents of each philosophy actually believe their philosophy is better.
+
+Two famous people, one from MIT and another from Berkeley (but working on Unix) once met to discuss operating system issues. The person from MIT was knowledgeable about ITS (the MIT AI Lab operating system) and had been reading the Unix sources. He was interested in how Unix solved the PC loser-ing problem. The PC loser-ing problem occurs when a user program invokes a system routine to perform a lengthy operation that might have significant state, such as IO buffers. If an interrupt occurs during the operation, the state of the user program must be saved. Because the invocation of the system routine is usually a single instruction, the PC of the user program does not adequately capture the state of the process. The system routine must either back out or press forward. The right thing is to back out and restore the user program PC to the instruction that invoked the system routine so that resumption of the user program after the interrupt, for example, re-enters the system routine. It is called ``PC loser-ing'' because the PC is being coerced into ``loser mode,'' where ``loser'' is the affectionate name for ``user'' at MIT.
+
+The MIT guy did not see any code that handled this case and asked the New Jersey guy how the problem was handled. The New Jersey guy said that the Unix folks were aware of the problem, but the solution was for the system routine to always finish, but sometimes an error code would be returned that signaled that the system routine had failed to complete its action. A correct user program, then, had to check the error code to determine whether to simply try the system routine again. The MIT guy did not like this solution because it was not the right thing.
+
+The New Jersey guy said that the Unix solution was right because the design philosophy of Unix was simplicity and that the right thing was too complex. Besides, programmers could easily insert this extra test and loop. The MIT guy pointed out that the implementation was simple but the interface to the functionality was complex. The New Jersey guy said that the right tradeoff has been selected in Unix -- namely, implementation simplicity was more important than interface simplicity.
+
+The MIT guy then muttered that sometimes it takes a tough man to make a tender chicken, but the New Jersey guy didn't understand (I'm not sure I do either).
+
+Now I want to argue that worse-is-better is better. C is a programming language designed for writing Unix, and it was designed using the New Jersey approach. C is therefore a language for which it is easy to write a decent compiler, and it requires the programmer to write text that is easy for the compiler to interpret. Some have called C a fancy assembly language. Both early Unix and C compilers had simple structures, are easy to port, require few machine resources to run, and provide about 50\%--80\% of what you want from an operating system and programming language.
+
+Half the computers that exist at any point are worse than median (smaller or slower). Unix and C work fine on them. The worse-is-better philosophy means that implementation simplicity has highest priority, which means Unix and C are easy to port on such machines. Therefore, one expects that if the 50\% functionality Unix and C support is satisfactory, they will start to appear everywhere. And they have, haven't they?
+
+Unix and C are the ultimate computer viruses.
+
+A further benefit of the worse-is-better philosophy is that the programmer is conditioned to sacrifice some safety, convenience, and hassle to get good performance and modest resource use. Programs written using the New Jersey approach will work well both in small machines and large ones, and the code will be portable because it is written on top of a virus.
+
+It is important to remember that the initial virus has to be basically good. If so, the viral spread is assured as long as it is portable. Once the virus has spread, there will be pressure to improve it, possibly by increasing its functionality closer to 90\%, but users have already been conditioned to accept worse than the right thing. Therefore, the worse-is-better software first will gain acceptance, second will condition its users to expect less, and third will be improved to a point that is almost the right thing. In concrete terms, even though Lisp compilers in 1987 were about as good as C compilers, there are many more compiler experts who want to make C compilers better than want to make Lisp compilers better.
+
+The good news is that in 1995 we will have a good operating system and programming language; the bad news is that they will be Unix and C++.
+
+There is a final benefit to worse-is-better. Because a New Jersey language and system are not really powerful enough to build complex monolithic software, large systems must be designed to reuse components. Therefore, a tradition of integration springs up.
+
+How does the right thing stack up? There are two basic scenarios: the ``big complex system scenario'' and the ``diamond-like jewel'' scenario.
+
+The ``big complex system'' scenario goes like this:
+
+First, the right thing needs to be designed. Then its implementation needs to be designed. Finally it is implemented. Because it is the right thing, it has nearly 100\% of desired functionality, and implementation simplicity was never a concern so it takes a long time to implement. It is large and complex. It requires complex tools to use properly. The last 20\% takes 80\% of the effort, and so the right thing takes a long time to get out, and it only runs satisfactorily on the most sophisticated hardware.
+
+The ``diamond-like jewel'' scenario goes like this:
+
+The right thing takes forever to design, but it is quite small at every point along the way. To implement it to run fast is either impossible or beyond the capabilities of most implementors.
+
+The two scenarios correspond to Common Lisp and Scheme.
+
+The first scenario is also the scenario for classic artificial intelligence software.
+
+The right thing is frequently a monolithic piece of software, but for no reason other than that the right thing is often designed monolithically. That is, this characteristic is a happenstance.
+
+The lesson to be learned from this is that it is often undesirable to go for the right thing first. It is better to get half of the right thing available so that it spreads like a virus. Once people are hooked on it, take the time to improve it to 90\% of the right thing.
+
+A wrong lesson is to take the parable literally and to conclude that C is the right vehicle for AI software. The 50\% solution has to be basically right, and in this case it isn't.
+
+But, one can conclude only that the Lisp community needs to seriously rethink its position on Lisp design. I will say more about this later.
+
+
+
 
 \chapter{Object Oriented Programming}
 
@@ -1230,7 +1401,7 @@ During the course of history many authors tried to redefine the term to mean lot
 \item Ah, very clever observation -- if in fact you can follow up with what the street has decided the term means. Which you can't, because the street hasn't decided.
 \item \emph{Are you suggesting we go with the originator because the street has not reached a consensus? Generally dictionaries tend to rank the different definitions. Thus, if it fits the most popular variations, then it is more OO than something that only fits a lower definition. Hmmmm. Does something that fits 2 lower definitions get considered a better fit than something that only fits the top def?}
 \begin{itemize}
-\item (1) criticizing an argment that argues against topic A is not the same thing as supporting A (might or might not be). (2) Dictionaries sometimes, but not always, give an indication as to which definitions are more common. That does \textbf{NOT} make the less common usages less correct.
+\item (1) criticizing an argument that argues against topic A is not the same thing as supporting A (might or might not be). (2) Dictionaries sometimes, but not always, give an indication as to which definitions are more common. That does \textbf{NOT} make the less common usages less correct.
 \begin{itemize}
 \item Most contemporary dictionaries do not claim to tell which usages are correct; they tell which usages are or were in use.
 \end{itemize}
@@ -1239,7 +1410,7 @@ During the course of history many authors tried to redefine the term to mean lot
 \item Since we're talking about Romans, plebeians do not write history. Nygaard may not be popular among the large masses of people monkeying around with keyboards, but he certainly is relevant where it matters. Important books like \ul{SiCp} and \ul{TheoryOfObjects} subscribe to Nygaard's definition, and therefore generation of elite students are going to learn that. The books that popularize the other stuff for the consumption of the ``street'' are likely to be swallowed by the trash bin of history.
 \begin{itemize}
 \item Although not an air-tight argument, I'm inclined to agree with this. Unlike street dialects, technical jargon tends to have authoritative sources of judgements of correctness, as do technical issues in general. Mis-use of the technical jargon by the masses constitutes a borrowing with a shift in meaning, not a change in the original meaning. Classic example: ``quantum jump'' in common parlance does not mean the same thing that it does in physics. That does not make the physics meaning incorrect. It remains intact.
-\item \emph{But the masses in this case are not necessarily ``wrong''. Physics cannot be changed by the masses so there is a central point to compare. Software design has no objective core so far other than metrics such as run speed and code size, which most agree are only a portion of the picture. Plus, some "big names" disagree with Nygaard's definition, not just the ``masses''.}
+\item \emph{But the masses in this case are not necessarily ``wrong''. Physics cannot be changed by the masses so there is a central point to compare. Software design has no objective core so far other than metrics such as run speed and code size, which most agree are only a portion of the picture. Plus, some ``big names'' disagree with Nygaard's definition, not just the ``masses''.}
 \end{itemize}
 \end{itemize}
 I suggest the above be moved to \ul{DefinitionsForOo}.
@@ -1248,7 +1419,7 @@ The heart of OOP is the Refactor \ul{ReplaceConditionalWithPolymorphism}.
 
 \emph{I don't think this is a consensus opinion. \ul{OoBestFeaturePoll.}}
 
-Consider a procedural program with several `switch' statements, each switching on the same thing. Every 'switch' block has the same list of `case' statements in it.
+Consider a procedural program with several `switch' statements, each switching on the same thing. Every `switch' block has the same list of `case' statements in it.
 
 Topic and counter-arguments moved to \ul{SwitchStatementsSmell}.
 
@@ -1292,7 +1463,7 @@ See the Object FAQ at \ul{\footnotesize \texttt{http://www.cyberdyne-object-sys.
 
 \emph{Simula was the first object-oriented language providing objects, classes, inheritance, and dynamic typing in 1967 (in addition to its \ul{AlgolSixty} subset). It was intended as a conveyance of object-oriented design.}
 
-The Simula67 language [\ul{SimulaLanguage}], invented by \ul{OleJohanDahl} and \ul{KristenNygaard}, was the first \ul{ObjectOrientedProgramming} language - Simula did not invent the object oriented approach -- it implemented objects and so on. The original drafts called objects `processes', but Dahl decided to use the word ``object'' about a year before the release of Simula67 (which was in 1968 of course!). The modern terminology of classes and inheritance was all there in the language. The term Object was possibly coined by \ul{IvanSutherland} before this for something very similar, and the term \ul{ObjectOriented} was probably coined by \ul{AlanKay} (see \ul{AlanKayOnObjects} and \ul{HeDidntInventTheTerm} for further discussion).
+The Simula67 language [\ul{SimulaLanguage}], invented by \ul{OleJohanDahl} and \ul{KristenNygaard}, was the first \ul{ObjectOrientedProgramming} language -- Simula did not invent the object oriented approach -- it implemented objects and so on. The original drafts called objects `processes', but Dahl decided to use the word ``object'' about a year before the release of Simula67 (which was in 1968 of course!). The modern terminology of classes and inheritance was all there in the language. The term Object was possibly coined by \ul{IvanSutherland} before this for something very similar, and the term \ul{ObjectOriented} was probably coined by \ul{AlanKay} (see \ul{AlanKayOnObjects} and \ul{HeDidntInventTheTerm} for further discussion).
 
 In terms of programming (as opposed to design), an OOP language is usually taken to be one which supports
 \begin{itemize}
@@ -1352,13 +1523,13 @@ C++: ``virtual'' functions. (Or ``interfaces'' with \ul{AbstractBaseClass}-es an
 
 \emph{does this not apply to Java abstract methods, too?} [It applies to all object methods in Java.]
 
-Smalltalk: Run-time dispatching based on method name. (\emph{Any two classes that implement a common set of method names, with compatible "meanings" are polymorphic. No inheritance relationship is needed.})
+\ul{SmallTalk}: Run-time dispatching based on method name. (\emph{Any two classes that implement a common set of method names, with compatible "meanings" are polymorphic. No inheritance relationship is needed.})
 
 \textbf{Discussion:}
 
 I don't believe Java Interfaces have anything to do with Polymorphism, and ``Interface'' in CORBA is synonymous with ``Class'' in other ObjectOriented languages. Any two classes that share a common parent and provide alternate implementations of a single method defined on that parent are ``polymorphic''. \ul{AlanKay} describes the polymorphic style as ``\ul{CallByDesire}'' (as opposed to \ul{CallByValue} and \ul{CallByName}). -- \ul{TomStambaugh}
 
-\emph{Just because you don't believe it doesn't mean it's not so. Java interfaces allow for pure polymorphism (independent of inheritance). They do also have other uses, an you may never use them as a mechanism for including polymorphism in your designs, but the mechanism is there.}
+\emph{Just because you don't believe it doesn't mean it's not so. Java interfaces allow for pure polymorphism (independent of inheritance). They do also have other uses, and you may never use them as a mechanism for including polymorphism in your designs, but the mechanism is there.}
 
 Absolutely right for most OO implementation languages, like C++. \emph{But\dots}
 
@@ -1388,7 +1559,7 @@ This exclusivist discussion does great disservice to the OO community. Really, e
 
 Will anyone agree that there are several OO models, theories? And will anyone bother to give references to actual OO theory instead of going round in circles with Booch, Rumbaugh and the likes.
 
-And by the way, the distinction between \texttt{button.click()} and \texttt{click(button)} is really naive. ``Syntactic and ideological'', this gives feed to those who sustain that OO has nothing to do with ComputerScience, when in fact only a part of OO folks don't want to depart from overly simplistic intuition about what they think OO should be. -- \ul{AnonymousCoward}
+And by the way, the distinction between \texttt{button.click()} and \texttt{click(button)} is really naive. ``Syntactic and ideological'', this gives feed to those who sustain that OO has nothing to do with \ul{ComputerScience}, when in fact only a part of OO folks don't want to depart from overly simplistic intuition about what they think OO should be. -- \ul{AnonymousCoward}
 
 \vskip 0.1in
 \hrule
@@ -1424,7 +1595,7 @@ I was responding to the ``taxonomy'' statement, NOT saying that OO is all about 
 
 OO is not just syntax, it is also an approach. It is possible to implement OO principles without using OO syntax. The syntax is just there to encourage the principles. For an example of OO practices without syntax, look at \ul{\footnotesize \texttt{http://api.drupal.org/api /file/developer/topics/oop.html/6}}.
 
-[I just explained why.... Owns(person, company) forces me to remember that Owns is a valid command, if there are 300 messages in the system I must remember them all, and I simply can't remember that many commands, whereas aCompany.Owns(aPerson) forces me to remember nothing... I simply look and company and see what it can say to aPerson, or I look at person and see what it can say to aCompany. That little syntatic sugar of the . is everything, it provides scope to the set of messages an object can respond to and removes the burden of remembering those messages from me. There is a huge difference between method(arg, arg) and arg.method(arg) insofar as what the mind must comprehend and remember. It may all compile down to the same stuff, but who care's, its all 1's and 0's anyway. But at the language level that little . makes a massive difference in removing complexity from the programmers mind.]
+[I just explained why.... Owns(person, company) forces me to remember that Owns is a valid command, if there are 300 messages in the system I must remember them all, and I simply can't remember that many commands, whereas aCompany.Owns(aPerson) forces me to remember nothing... I simply look at company and see what it can say to aPerson, or I look at person and see what it can say to aCompany. That little syntatic sugar of the . is everything, it provides scope to the set of messages an object can respond to and removes the burden of remembering those messages from me. There is a huge difference between method(arg, arg) and arg.method(arg) insofar as what the mind must comprehend and remember. It may all compile down to the same stuff, but who care's, its all 1's and 0's anyway. But at the language level that little . makes a massive difference in removing complexity from the programmers mind.]
 
 \emph{And as \ul{ChrisDate}, \ul{FabianPascal} et al. say, a relational DBMS is a tool for organizing facts (i.e. declarative propositions like above) about a domain. Why would you hand-code your own incompatible and byzantine version of said tool, making it completely dependent on one particular application and architecture? (There are certainly legitimate reasons, I am just wondering what yours happen to be.)}
 
@@ -1561,41 +1732,6 @@ See Also: \ul{LearningObjectOrientedProgramming}, \ul{BenefitsOfOo}, \ul{Argumen
 
 \ul{CategoryObjectOrientation} \ul{CategoryDataOrientation}
 
-
-\chapter{tmux}
-
-{\footnotesize
-
-Note, \texttt{C-} means Ctrl, e.g., \texttt{C-b} is Ctrl-b.
-
-\vskip 0.2in
-
-\noindent \begin{tabular}{ll}
-\texttt{tmux} & start new session \\
-\texttt{tmux new -s [name]} & start new session with name \\
-\texttt{tmux attach} & attach to most recent session \\
-\texttt{tmux attach -t [name]} & attach to named session \\
-\texttt{tmux ls} & list sessions \\
-\texttt{tmux kill-session -t [name]} & kill a named session \\
-& \\
-\texttt{C-b c} & create window \\
-\texttt{C-b w} & list windows \\
-\texttt{C-b n} & next window \\
-\texttt{C-b p} & previous window \\
-\texttt{C-b ,} & set name for window \\
-\texttt{C-b \&} & kill window \\
-\texttt{C-b d} & detach \\
-& \\
-\texttt{C-b \%} & split pane (vsplit) \\
-\texttt{C-b "} & split pane (hsplit) \\
-\texttt{C-b o} & switch panes \\
-\texttt{C-b x} & kill pane \\
-\texttt{C-b +} & change pane into window \\
-\texttt{C-b -} & restore pane from window \\
-\texttt{C-b [} & copy and scrollback mode \\
-\texttt{C-b ?} & show key commands \\
-\end{tabular}
-}
 
 \chapter{Why do my compiles take so long?}
 
@@ -1785,205 +1921,8 @@ Read 1 MB from memory & 2.9 days & long weekend \\
 Round trip in datacenter & 5.8 days & vacation \\
 Read 1 MB from SSD & 11.6 days & long vacation \\
 Disk seek & 16.5 weeks & a semester in university \\
-Read 1 MB from disk & 7.8 months & nearly length of pregnancy \\
+Read 1 MB from disk & 7.8 months & a year in university \\
 Send packet CA$\rightarrow$NL$\rightarrow$CA & 4.8 years & time to bachelor's degree \\
-\end{tabular}
-}
-
-
-\chapter{Editor war (Wikipedia)}
-
-Editor war is the common name for the rivalry between users of the Emacs and vi (Vim) text editors. The rivalry has become a lasting part of hacker culture and the free software community.
-
-The Emacs vs vi debate was one of the original ``holy wars'' conducted on Usenet groups, with many flame wars fought between those insisting that their editor of choice is the paragon of editing perfection, and insulting the other, since at least 1985. Related battles have been fought over operating systems, programming languages, version control systems, and even source code indent style. Notably, unlike other wars (ie, UNIX vs ITS vs VMS, C vs Pascal vs Fortran), the editor war has yet to be resolved with a clear winner, and the hacker community remains split roughly 50/50.
-
-\section{Differences between vi and Emacs}
-
-The most important differences between vi and Emacs are presented in the following list.
-
-\subsection{Keystroke execution}
-
-\textbf{vi} retains each permutation of typed keys. This creates a path in the decision tree which unambiguously identifies any command.
-
-\textbf{Emacs} commands are key combinations for which modifier keys are held down while other keys are pressed; a command gets executed once completely typed. This still forms a decision tree of commands, but not one of individual keystrokes. A vim-inspired Emacs package (undo-tree) provides a user interface to the tree.
-
-\subsection{Memory usage and customizability}
-
-\textbf{vi} is a smaller and faster program, but with less capacity for customization. The vim version of vi has evolved to provide significantly more functionality and customization than vi, making it comparable to Emacs. vi start-up time is near instantaneous for small text files, while vim is almost as fast.
-
-\textbf{Emacs} executes many actions on startup, many of which may execute arbitrary user code. This makes Emacs take longer to start up (even compared to vim) and require more memory. However, it is highly customizable and includes a large number of features, as it is essentially an execution environment for a Lisp program designed for text-editing. Emacs 18 (released in 1987) introduced a server mode designed to run continuously in the background. Various instances of Emacs can then be started in client mode, attaching to this server and sharing state. Emacs client startup time is practically instantaneous as all it does is provoke the existing Emacs process to redraw the display.
-
-\subsection{User environment}
-
-\textbf{vi} was originally exclusively used inside of a text-mode console, offering no graphical user interface (GUI). Most modern vi derivatives, e.g. MacVim and gVim, include GUIs. However, support for proportionally spaced fonts remains absent. Also lacking is support for different sized fonts in the same document.
-
-\textbf{Emacs}, while also initially designed for use on a console, grew a TUI fairly early on due to its Lisp machine heritage. X11 GUI support was added in Emacs 18, and made the default in version 19. Current Emacs GUIs include full support for proportionate spacing and font-size variation. Emacs also supports embedded images and hypertext.
-
-\subsection{Function/navigation interface}
-
-\textbf{vi} uses distinct editing modes. Under ``insert mode'', keys insert characters into the document. Under ``normal mode'' (also known as ``command mode''), bare keypresses execute vi commands.
-
-\textbf{Emacs} uses metakey chords. Keys or key chords can be defined as prefix keys, which put Emacs into a mode where it waits for additional key presses that constitute a key binding. Key bindings can be mode-specific, further customizing the interaction style. Emacs provides a command line accessed by M-x that can be configured to autocomplete in various ways. Emacs also provides a defalias macro, allowing alternate names for commands.
-
-\subsection{Keyboard}
-
-\textbf{vi} uses no <Alt> key and seldom uses the <Ctrl> key. vi's keyset is mainly restricted to the alphanumeric keys, and the escape key. This is an enduring relic of its teletype heritage, but has the effect of making most of vi's functionality accessible without frequent awkward finger reaches.
-
-The expansion of one of \textbf{Emacs}' backronyms is Escape, Meta, Alt, Control, Shift, which neatly summarizes most of the modifier keys it uses, only leaving out Super. Emacs was developed on Lisp Machines with Space-cadet keyboards that were more ergonomic with respect to modifiers than modern layouts. There are multiple emacs packages, such as spacemacs or ergoemacs that replace these key combinations with ones easier to type, or customization can be done ad hoc by the user.
-
-\subsection{Language and script support}
-
-\textbf{vi} has rudimentary support for languages other than English. Vim is partially multilingual, with support for European, Arabic, Hebrew, and Far East Asian language support only. Notably, Indic language and script support is absent.
-
-\textbf{Emacs} has full support for all Unicode-compatible writing systems and allows multiple scripts to be freely intermixed.
-
-\section{Benefits of Emacs}
-
-\begin{itemize}
-\item Emacs has a non-modal interface
-\item One of the most ported computer programs. It runs in text mode and under graphical user interfaces on a wide variety of operating systems, including most Unix-like systems (Linux, the various BSDs, Solaris, AIX, IRIX, macOS, etc.), MS-DOS, Microsoft Windows, AmigaOS, and OpenVMS. Unix systems, both free and proprietary, frequently provide Emacs bundled with the operating system.
-\item Emacs server architecture allows multiple clients to attach to the same Emacs instance and share the buffer list, kill ring, undo history and other state.
-\item Pervasive online help system with keybindings, functions and commands documented on the fly.
-\item Extensible and customizable Lisp programming language variant (Emacs Lisp), with features that include:
-\begin{itemize}
-\item Ability to emulate vi and vim (using Evil, Viper or Vimpulse).
-\item A powerful and extensible file manager (dired), integrated debugger, and a large set of development and other tools.
-\item Having every command be an Emacs Lisp function enables commands to DWIM (Do What I Mean) by programmatically responding to past actions and document state. For example, a switch-or-split-window command could switch to another window if one exists, or create one if needed. This cuts down on the number of keystrokes and commands a user must remember.
-\item ``An OS inside an OS''. Emacs Lisp enables Emacs to be programmed far beyond editing features. Even a base install contains several dozen applications, including two web browsers, news readers, several mail agents, four IRC clients, a version of ELIZA, and a variety of games. All of these applications are available anywhere Emacs runs, with the same user interface and functionality. Starting with version 24, Emacs includes a package manager, making it easy to install additional applications including alternate web browsers, EMMS (Emacs Multimedia System), and more. Also available are numerous packages for programming, including some targeted at specific language/library combinations or coding styles.
-\end{itemize}
-\end{itemize}
-
-\section{Benefits of vi-like editors}
-\begin{itemize}
-\item Edit commands are composable
-\item Vi has a modal interface (which Emacs can emulate)
-\item Historically, vi loads faster than Emacs.
-\item While deeply associated with UNIX tradition, it runs on all systems that can implement the standard C library, including UNIX, Linux, AmigaOS, DOS, Windows, Mac, BeOS, OpenVMS, IRIX, AIX, HP-UX, BSD and POSIX-compliant systems.
-\item Extensible and customizable through VimScript or APIs for interpreted languages such as Python, Ruby, Perl, and Lua
-\item Ubiquitous. Essentially all Unix and Unix-like systems come with vi (or a variant) built-in. Vi (and ex, but not vim) is specified in the POSIX standard.
-\item System rescue environments, embedded systems (notably those with busybox) and other constrained environments often include vi, but not emacs.
-\end{itemize}
-
-\section{Today}
-
-In the past, many small editors modeled after or derived from vi flourished. This was due to the importance of conserving memory with the comparatively minuscule amount available at the time. As computers have become more powerful, many vi clones, Vim in particular, have grown in size and code complexity. These vi variants of today, as with the old lightweight Emacs variants, tend to have many of the perceived benefits and drawbacks of the opposing side. For example, Vim without any extensions requires about ten times the disk space required by vi, and recent versions of Vim can have more extensions and run slower than Emacs. In \emph{The Art of Unix Programming}, Eric S. Raymond called Vim's supposed light weight when compared with Emacs ``a shared myth.'' Moreover, with the large amounts of RAM in modern computers, both Emacs and vi are lightweight compared to large integrated development environments such as Eclipse, which tend to draw derision from Emacs and vi users alike.
-
-Tim O'Reilly said, in 1999, that O'Reilly Media's tutorial on vi sells twice as many copies as that on Emacs (but noted that Emacs came with a free manual). Many programmers use either Emacs and vi or their various offshoots, including Linus Torvalds who uses MicroEMACS. Also in 1999, vi creator Bill Joy said that vi was ``written for a world that doesn't exist anymore'' and stated that Emacs was written on much more capable machines with faster displays so they could have ``funny commands with the screen shimmering and all that, and meanwhile, I'm sitting at home in sort of World War II surplus housing at Berkeley with a modem and a terminal that can just barely get the cursor off the bottom line.''
-
-In addition to Emacs and vi workalikes, pico and its free and open source clone nano and other text editors such as ne often have their own third-party advocates in the editor wars, though not to the extent of Emacs and vi.
-
-As of 2014, both Emacs and vi can lay claim to being among the longest-lived application programs of all time, as well as being the two most commonly used text editors on Linux and Unix. Many operating systems, especially Linux and BSD derivatives, bundle multiple text editors with the operating system to cater to user demand. For example, a default installation of macOS contains Emacs, ed, nano, TextEdit, and Vim.
-
-
-\chapter{Powers of 2}
-
-{\footnotesize
-\begin{tabular}{rrrr}
-0 & 1 & 1 & 1 \\
-1 & 2 & 2 & 2 \\
-2 & 4 & 4 & 4 \\
-3 & 8 & 8 & 10 \\
-4 & 16 & 10 & 20 \\
-5 & 32 & 20 & 40 \\
-6 & 64 & 40 & 100 \\
-7 & 128 & 80 & 200 \\
-8 & 256 & 100 & 400 \\
-9 & 512 & 200 & 1000 \\
-10 & 1,024 & 400 & 2000 \\
-11 & 2,048 & 800 & 4000 \\
-12 & 4,096 & 1000 & 10000 \\
-13 & 8,192 & 2000 & 20000 \\
-14 & 16,384 & 4000 & 40000 \\
-15 & 32,768 & 8000 & 100000 \\
-16 & 65,536 & 10000 & 200000 \\
-17 & 131,072 & 20000 & 400000 \\
-18 & 262,144 & 40000 & 1000000 \\
-19 & 524,288 & 80000 & 2000000 \\
-20 & 1,048,576 & 100000 & 4000000 \\
-21 & 2,097,152 & 200000 & 10000000 \\
-22 & 4,194,304 & 400000 & 20000000 \\
-23 & 8,388,608 & 800000 & 40000000 \\
-24 & 16,777,216 & 1000000 & 100000000 \\
-25 & 33,554,432 & 2000000 & 200000000 \\
-26 & 67,108,864 & 4000000 & 400000000 \\
-27 & 134,217,728 & 8000000 & 1000000000 \\
-28 & 268,435,456 & 10000000 & 2000000000 \\
-29 & 536,870,912 & 20000000 & 4000000000 \\
-30 & 1,073,741,824 & 40000000 & 10000000000 \\
-31 & 2,147,483,648 & 80000000 & 20000000000 \\
-32 & 4,294,967,296 & 100000000 & 40000000000 \\
-\end{tabular}
-}
-
-\vskip 0.3in
-
-{\footnotesize
-\begin{verbatim}
-base =: dyad define
-syms =. ((48 + i. 10),(65 + i.0>.x-10)) { a.
-idxs =. ((1+>.x^.y)#x)#:y
-idxs { syms
-)
-b=:10 16 8
-n=:33
-(|:((#b),n)$n#b)base"0((n,#b)$(#b)#(2^i.n))
-\end{verbatim}
-}
-
-
-\chapter{Regex}
-
-\section{Bash globs}
-
-{\footnotesize
-\begin{tabular}{ll}
-\texttt{*} & match any character, zero or more \\
-\texttt{?} & match any one character \\
-\texttt{[abc]} & match one of \texttt{a}, \texttt{b}, \texttt{c} \\
-\texttt{[a-z]} & match one of range of characters \\
-\texttt{[!abc] [!a-z]} & inverse of \texttt{[\dots]} \\
-\end{tabular}
-}
-
-\section{Grep regex}
-
-{\footnotesize
-\begin{tabular}{ll}
-\texttt{\^{} \$} & match start, end of line \\
-\texttt{.} & match any one character \\
-\texttt{?~+ *} & match previous 0/1, 1+, 0+ times \\
-\texttt{[abc] [a-z]} & match one of list, range of characters \\
-\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
-\end{tabular}
-}
-
-\section{Vim regex}
-
-{\footnotesize
-\begin{tabular}{ll}
-\texttt{\^{} \$} & match start, end of line \\
-\texttt{.} & match any one character except newline \\
-\texttt{\textbackslash{}=~\textbackslash{}+ *} & match previous 0/1, 1+, 0+ times \\
-\texttt{[abc] [a-z]} & match one of list, range of characters \\
-\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
-\texttt{\textbackslash{}(\dots\textbackslash{})} & define group \\
-\texttt{\textbackslash{}1 \textbackslash{}2} & refer to first group, second group, etc. \\
-\texttt{\textbackslash{}(abc\textbackslash{}|xyz\textbackslash{})} & match \texttt{abc} or \texttt{xyz} \\
-\end{tabular}
-}
-
-\section{Emacs regex}
-
-{\footnotesize
-\begin{tabular}{ll}
-\texttt{\^{} \$} & match start, end of line \\
-\texttt{.} & match any one character \\
-\texttt{?~+ *} & match previous 0/1, 1+, 0+ times \\
-\texttt{[abc] [a-z]} & match one of list, range of characters \\
-\texttt{[\^{}abc] [\^{}a-z]} & inverse of \texttt{[\dots]} \\
-\texttt{\textbackslash{}(\dots\textbackslash{})} & define group \\
-\texttt{\textbackslash{}1 \textbackslash{}2} & refer to first group, second group, etc. \\
-\texttt{\textbackslash{}(abc\textbackslash{}|xyz\textbackslash{})} & match \texttt{abc} or \texttt{xyz} \\
 \end{tabular}
 }
 
@@ -2129,7 +2068,7 @@ the added effort varies linearly with the number of workers.
 
 Intercommunication is worse. If each part of the task must be 
 separately coordinated with each other part, the effort increases as 
-$n(n-I)/2$. Three workers require three times as much pairwise 
+$n(n-1)/2$. Three workers require three times as much pairwise 
 intercommunication as two; four require six times as much as two. 
 If, moreover, there need to be conferences among three, four, etc., 
 workers to resolve things jointly, matters get worse yet. The added 
@@ -2227,8 +2166,7 @@ such data.
 
 Until estimating is on a sounder basis, individual managers 
 will need to stiffen their backbones and defend their estimates 
-with the assurance that their poor hunches are better than wish- 
-derived estimates. 
+with the assurance that their poor hunches are better than wish-derived estimates. 
 
 \section{Regenerative Schedule Disaster}
 
@@ -2311,8 +2249,7 @@ takes a month, \emph{3 man-months will have been devoted to work not in the
 original estimate}. Furthermore, the task, originally partitioned three 
 ways, must be repartitioned into five parts; hence some work 
 already done will be lost, and system testing must be lengthened. 
-So at the end of the third month, substantially more than 7 man- 
-months of effort remain, and 5 trained people and one month are 
+So at the end of the third month, substantially more than 7 man-months of effort remain, and 5 trained people and one month are 
 available. As Fig.~\ref{fig:mmm-2-8} suggests, the product is just as late as if no 
 one had been added (Fig.~\ref{fig:mmm-2-6}).
 
@@ -2352,6 +2289,66 @@ combined.
 
 
 
+\chapter{Manifesto for Agile Software Development}
+
+We are uncovering better ways of developing software by doing it and helping others do it. Through this work we have come to value:
+
+\begin{itemize}
+\item \textbf{Individuals and interactions} over processes and tools
+\item \textbf{Working software} over comprehensive documentation
+\item \textbf{Customer collaboration} over contract negotiation
+\item \textbf{Responding to change} over following a plan
+\end{itemize}
+That is, while there is value in the items on
+the right, we value the items on the left more.
+
+\begin{verse}
+\poemtitle{Principles behind the Agile Manifesto}
+\emph{We follow these principles:}
+
+Our highest priority is to satisfy the customer \\
+through early and continuous delivery \\
+of valuable software.
+
+Welcome changing requirements, even late in \\
+development. Agile processes harness change for \\
+the customer's competitive advantage.
+
+Deliver working software frequently, from a \\
+couple of weeks to a couple of months, with a \\
+preference to the shorter timescale.
+
+Business people and developers must work \\
+together daily throughout the project.
+
+Build projects around motivated individuals. \\
+Give them the environment and support they need, \\
+and trust them to get the job done.
+
+The most efficient and effective method of \\
+conveying information to and within a development \\
+team is face-to-face conversation.
+
+Working software is the primary measure of progress.
+
+Agile processes promote sustainable development. \\
+The sponsors, developers, and users should be able \\
+to maintain a constant pace indefinitely.
+
+Continuous attention to technical excellence \\
+and good design enhances agility.
+
+Simplicity--the art of maximizing the amount \\
+of work not done--is essential.
+
+The best architectures, requirements, and designs \\
+emerge from self-organizing teams.
+
+At regular intervals, the team reflects on how \\
+to become more effective, then tunes and adjusts \\
+its behavior accordingly.  
+\end{verse}
+
 
 
 
@@ -2363,9 +2360,13 @@ This was posted to Usenet by its author, Ed Nather (<nather@astro.as.utexas.edu>
 
 \noindent A recent article devoted to the macho side of programming
 made the bald and unvarnished statement:
+\begin{center}
+Real Programmers write in FORTRAN.  
+\end{center}
+
+\vskip 0.2in
 
 {\small
-\poemtitle{Real Programmers write in FORTRAN.}
 \begin{verse}
 Maybe they do now, \\
 in this decadent era of \\
