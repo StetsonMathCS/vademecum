@@ -2622,4 +2622,106 @@ hacking up the code of a Real Programmer.
 
 [2002: A copy of the programming manual for the LGP-30 lives at {\footnotesize \texttt{http://ed-thelen.org/comp-hist/lgp-30-man.html}}]
 
+
+\chapter{K\&R}
+
+``What nobody tells people who are beginners -- and I really wish someone had told this to me\dots is that all of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, and it's just not that good. It's trying to be good, it has potential, but it's not.
+
+But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase. They quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn't have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know it's normal and the most important thing you can do is do a lot of work. Put yourself on a deadline so that every week you will finish one story.
+
+It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions. And I took longer to figure out how to do this than anyone I've ever met. It's gonna take awhile. It's normal to take awhile. You've just gotta fight your way through.''
+
+-- Ira Glass
+
+\vskip 0.4in
+
+{\footnotesize
+\begin{verbatim}
+typedef long Align; /* for alignment to long boundary */
+union header {      /* block header */
+  struct {
+    union header *ptr; /* next block if on free list */
+    unsigned size;     /* size of this block */
+  } s;
+  Align x;          /* force alignment of blocks */
+};
+typedef union header Header;
+
+static Header base; /* empty list to get started */
+static Header *freep = NULL; /* start of free list */
+
+/* malloc: general-purpose storage allocator */
+void *malloc(unsigned nbytes)
+{
+  Header *p, *prevp;
+  Header *morecore(unsigned);
+  unsigned nunits;
+   
+  nunits = (nbytes+sizeof(Header)-1)/sizeof(header) + 1;
+  if ((prevp = freep) == NULL) { /* no free list yet */
+    base.s.ptr = freep = prevp = &base;
+    base.s.size = 0;
+  }
+  for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) {
+    if (p->s.size >= nunits) { /* big enough */
+      if (p->s.size == nunits) /* exactly */
+        prevp->s.ptr = p->s.ptr;
+      else {   /* allocate tail end */
+        p->s.size -= nunits;
+        p += p->s.size;
+        p->s.size = nunits
+      }
+      freep = prevp;
+      return (void *)(p+1);
+    }
+    if (p == freep) /* wrapped around free list */
+      if ((p = morecore(nunits)) == NULL)
+        return NULL; /* none left */
+  }
+}
+
+#define NALLOC 1024 /* minimum #units to request */
+
+/* morecore: ask system for more memory */
+static Header *morecore(unsigned nu)
+{
+  char *cp, *sbrk(int);
+  Header *up;
+
+  if (nu < NALLOC)
+    nu = NALLOC;
+  cp = sbrk(nu * sizeof(Header));
+  if (cp == (char *) -1) /* no space at all */
+    return NULL;
+  up = (Header *) cp;
+  up->s.size = nu;
+  free((void *)(up+1));
+  return freep;
+}
+
+/* free: put block ap in free list */
+void free(void *ap) {
+  Header *bp, *p;
+  
+  bp = (Header *)ap - 1; /* point to block header */
+  for (p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
+    if (p >= p->s.ptr && (bp > p || bp < p->s.ptr))
+      break; /* freed block at start or end of arena */
+      
+  if (bp + bp->size == p->s.ptr) { /* join to upper nbr */
+    bp->s.size += p->s.ptr->s.size;
+    bp->s.ptr = p->s.ptr->s.ptr;
+  } else
+      bp->s.ptr = p->s.ptr;
+  if (p + p->size == bp) {         /* join to lower nbr */
+    p->s.size += bp->s.size;
+    p->s.ptr = bp->s.ptr;
+  } else
+    p->s.ptr = bp;
+  freep = p;
+}  
+\end{verbatim}
+}
+
+
 \end{document}
