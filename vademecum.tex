@@ -196,6 +196,51 @@ In January 2003, Yahoo released a new version of the editor written in C++ and P
 [6] As a result, comparisons of programming languages either take the form of religious wars or undergraduate textbooks so determinedly neutral that they're really works of anthropology. People who value their peace, or want tenure, avoid the topic. But the question is only half a religious one; there is something there worth studying, especially if you want to design new languages.
 
 
+\chapter{Lisp Metacircular Evaluator}
+
+\begin{center}
+\includegraphics[scale=0.25]{figures/eval-apply.pdf}
+\end{center}
+
+{\footnotesize
+\begin{verbatim}
+(define (eval exp env)
+  (cond ((self-evaluating? exp) exp)
+        ((variable? exp) (lookup-variable-value exp env))
+        ((quoted? exp) (text-of-quotation exp))
+        ((assignment? exp) (eval-assignment exp env))
+        ((definition? exp) (eval-definition exp env))
+        ((if? exp) (eval-if exp env))
+        ((lambda? exp)
+         (make-procedure (lambda-parameters exp)
+                         (lambda-body exp)
+                         env))
+        ((begin? exp) 
+         (eval-sequence (begin-actions exp) env))
+        ((cond? exp) (eval (cond->if exp) env))
+        ((application? exp)
+         (apply (eval (operator exp) env)
+                (list-of-values (operands exp) env)))
+        (else
+         (error "Unknown expression type - EVAL" exp))))  
+
+(define (apply procedure arguments)
+  (cond ((primitive-procedure? procedure)
+         (apply-primitive-procedure procedure arguments))
+        ((compound-procedure? procedure)
+         (eval-sequence
+           (procedure-body procedure)
+           (extend-environment
+             (procedure-parameters procedure)
+             arguments
+             (procedure-environment procedure))))
+        (else
+         (error
+          "Unknown procedure type - APPLY" procedure))))  
+\end{verbatim}
+}
+
+
 \chapter{Powers of 2}
 
 {\footnotesize
@@ -1927,6 +1972,617 @@ Send packet CA$\rightarrow$NL$\rightarrow$CA & 4.8 years & time to bachelor's de
 }
 
 
+\chapter{Locating Hidden Servers}
+
+{
+\centering
+\includegraphics[scale=0.24]{figures/onion-routing.png}
+}
+
+\vskip 0.4in
+
+\noindent First the Hidden Server connects (1) to a node in the Tor network and asks if it is OK for the node to act as an Introduction Point for his service. If the node accepts, we keep the circuit open and continue; otherwise HS tries another node until successful. These connections are kept open forever. Next, the Hidden Server contacts (2) the Directory Server and asks it to publish the contact information of its hidden service. The hidden service is now ready to receive connection requests from clients. In order to retrieve data from the service the Client connects (3) to DS and asks for the contact information of the identified service and retrieves it if it exists (including the addresses of Introduction Points). The Client then selects a node in the network to act as a Rendezvous Point, connects (4) to it and asks it to listen for connections from a hidden service on C's behalf. The Client repeats this until a Rendezvous Point has accepted, and then contacts (5) the Introduction Point and asks it to forward the information about the selected RP. The Introduction Point forwards (6) this message to the Hidden Server who determines whether to connect to the Rendezvous Point or not. If OK, the Hidden Server connects (7) to RP and asks to be connected to the waiting rendezvous circuit, and RP then forwards (8) this connection request to the Client. Now RP can start passing data between the two connections and the result is an anonymous data tunnel (9) from C to HS through RP.
+
+\vskip 0.2in 
+
+\noindent L. {\O}verlier and P. Syverson. ``Locating Hidden Servers.'' \textit{IEEE Symposium on Security and Privacy}, May 2006.
+
+
+\chapter{LamdaMOO}
+
+{\footnotesize
+\ttfamily
+\parindent0pt
+\parskip6pt
+telnet lambda.moo.mud.org 8888
+
+Trying 209.181.94.35...
+
+Connected to lambda.moo.mud.org.
+
+\begin{verbatim}
+                ***************************
+                *  Welcome to LambdaMOO!  *
+                ***************************
+
+
+           Running Version 1.8.3+47 of LambdaMOO
+\end{verbatim}
+
+PLEASE NOTE:
+
+LambdaMOO is a new kind of society, where thousands of people voluntarily
+come together from all over the world.  What these people say or do may not
+always be to your liking; as when visiting any international city, it is wise
+to be careful who you associate with and what you say.
+
+The operators of LambdaMOO have provided the materials for the buildings of
+this community, but are not responsible for what is said or done in them.  In
+particular, you must assume responsibility if you permit minors or others to
+access LambdaMOO through your facilities.  The statements and viewpoints
+expressed here are not necessarily those of the wizards, Pavel Curtis,
+or Roger Crew, and those parties disclaim any responsibility for them.
+
+For assistance either now or later, type `help'.
+The lag is low; there are 64 connected.
+connect Guest
+
+*** Connected ***
+
+The Coat Closet
+
+The closet is a dark, cramped space.  It appears  to be very crowded in here; you keep bumping into what feels like coats,  boots, and other people (apparently sleeping).  One useful thing that you've  discovered in your bumbling about is a metal doorknob set at waist level into  what might be a door.  Next to it is a spring lever labeled 'QUIET!'.
+
+There is new news.  Type `news' to read all news or `news new' to read just new news.
+
+Type `@tutorial' for an introduction to basic MOOing.  If you have not already done so, please type `help manners' and read the text carefully.  It outlines the community standard of conduct, which each player is expected to follow while in LambdaMOO.
+
+open door
+
+You open the closet door and leave the darkness for the living room, closing the door behind you so as not to wake the sleeping people inside.
+
+The Living Room
+
+It is very bright, open, and airy here, with large plate-glass windows looking southward over the pool to the gardens beyond.  On the north wall, there is a rough stonework fireplace.  The east and west walls are almost completely covered with large, well-stocked bookcases.  An exit in the northwest corner leads to the kitchen and, in a more northerly direction, to the entrance hall.  The door into the coat closet is at the north end of the east wall, and at the south end is a sliding glass door leading out onto a wooden deck.  There are two sets of couches, one clustered around the fireplace and one with a view out the windows.
+
+You see Welcome Poster, a fireplace, the living room couch, Statue, The Birthday Machine, Helpful Person Finder, lag meter, a map of LambdaHouse, and Cockatoo here.
+
+Tessier (out on his feet), Sage (smitten), Jed (out on his feet), Rusty (distracted), Sleeper (in deep meditation), and Fox-In-Sox (out on his feet) are here.
+
+The cuckoo clock begins making a small whirring noise.
+
+ >~>~Cuckoo!~<~<
+
+You hear a small click coming from the cuckoo clock.
+
+look at statue
+
+A large statue of the Roman Goddess, Minerva. Made of white marble, she stands seven feet tall, chin held high, and draped in long flowing gowns of stone. In her left hand, palm upward, rests a carefully carved tome; in her right, clenched in a stony grip, is a spear.  The artisan who crafted her obviously spent a great deal of time on the eyes: they exude a fierceness expected of the goddess of war, but at the same time, the chiselled stone bleeds that sadness that is borne of wisdom.
+
+She watches over the Living Room with her unending gaze, and, like so many other anthropomorphic oddities on the MOO, gives help when and where she can.  To find out something from Minerva:
+
+Directed speech requests(``to <this thing>''):
+
+news <subject> : News headlines about subject
+
+weather <zipcode> : current weather
+
+whatis <something> : Wikipedia info
+
+summarize <url> : summarize contents of page
+
+For more information regarding `MOORadio', type help \#26270  (Statue of Minerva).
+
+The Statue of Minerva also uses the aliases: helper, min, mini and statue.
+
+north
+
+The Entrance Hall
+
+This small foyer is the hub of the currently-occupied portion of the house.  To the north are the double doors forming the main entrance to the house.  There is a mirror at about head height on the east wall, just to the right of a corridor leading off into the bedroom area.  The south wall is all rough stonework, the back of the living room fireplace; at the west end of the wall is the opening leading south into the living room and southwest into the kitchen.  Finally, to the west is an open archway leading into the dining room.
+
+You see mirror at about head height, a globe, Edgar the Footman, MOO population meter, and an antique suit of armour here.
+
+look at mirror
+
+You look into the mirror and feel yourself being drawn into it, as if gravity had suddenly turned 90 degrees.
+
+Looking Glass Tavern Bar
+
+The bar of the Looking Glass Tavern is one vast, smooth expanse of primeval wood (from the primeval forest) against the north wall, polished to a high sheen by the never-ending efforts of a not-quite-human bartender.  Behind the bar is a mirror that doesn't appear to be reflecting the contents of the room accurately...
+
+Steps lead up, to the second floor and down, to the cellar.  A stack of cases of Old Frothing Slosh beer rest in the southwest corner.
+
+You see drunken stupor, a long mirror that looks kind of hazy and doesn't quite reflect the contents of the room, PacMOO Video Game, a dart board, Kombat Arena II arcade game, Portable Full Length Mirror, Spacewar Video Game, Bottle of Mist, Jake, bar, Bert the Boojum, Bill, and Lou Carol here.
+
+Heliosa (asleep) is here.
+
+You suddenly realize you're somewhere else.
+
+up
+
+You climb up the spiral staircase to the second floor.
+
+Tavern Second Floor
+
+This is the second floor of the Looking Glass Tavern, where rooms are
+rented to steady customers on a long-term basis.  There are several doors on
+either side of the hallway, some marked vacant, many bearing room numbers and
+the names of the occupants.  The hallway extends back to the east, leading
+to what appears to be a less-used area.
+
+The spiral staircase leading to the first floor is at the west end of the
+ hallway.
+
+Contents:
+
+~ ~plaque titled Directory
+
+read Directory
+
+The following is engraved on the plaque:
+
+~ ~Looking Glass Tavern Room Directory
+
+Beginning exit transfer thingie run, invoked by player Fawn\_Guest (\#92111)
+
+\begin{verbatim}
+Room 06, Legion  Room 10, Hookleg     Room 12, Xatrix
+Room 13, antox   Room 16, ring        Room 48, Violetta
+Room 60, Anxis   Room 69, Wintermute  Room 93, Hookleg
+\end{verbatim}
+
+Space is available.  Please feel free to add a room for yourself.
+Please do not use compass directions for exit names from the hallway.
+Please use some two-digit number as the NAME of the exit.
+Please use @add-entrance and @add-exit to link in.  This room is link\_ok.
+Oh yes... please remember to put OARRIVES and OLEAVES on your exit.
+
+- The Mgt.
+
+The following door numbers are available:
+
+00, 01, 02, 03, 04, 05, 07, 08, 09, 11, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 94, 95, 96, 97, 98, and 99
+
+down
+
+look at long mirror
+
+north
+
+You open the front door and walk outside.
+
+Driveway
+
+A circular driveway, in front of LambdaHouse. The LambdaHouse front door is to
+ the south. The drive curves away to the northeast and northwest.
+
+You see springboard, Information Center, a copy of the MidNite-MOO, Foodmart shopping cart, and a brand new shiny penny here.
+
+You carefully shut the door behind you.
+
+take penny
+
+You take a brand new shiny penny.
+
+look at penny
+
+A brand new shiny copper penny, with the words "For your thoughts" engraved on
+ both sides.
+
+northeast
+
+You wander out toward the street.
+
+Street in front of LambdaHouse
+
+A quiet east-west street that runs in front of LambdaHouse. There's a large
+ tree, with a white painted trunk, in the middle of the road.  On the south
+ side of the street, a manhole leads down. There is a rope ladder here which
+ leads up into a cardboard box at the top of the tree.
+
+You see Road Construction Warning Sign here.
+
+down
+
+You lift the manhole cover and climb down, closing the manhole behind
+ yourself.  You climb a rusty metal ladder down into a sewage pipe and land in
+ a stink of sludge.
+
+Sewage pipe
+
+This is a large east-west sewage pipe.  Debris from a recent earthquake blocks
+ the west passageway.  Roots from a large tree have pentrated the pipe from
+ the north and have spread out to the west.  A small passage to the north has
+ been hacked from the mass of roots.  Sticky sludge sucks at your feet.  There
+ is some graffiti reading ``Monday, March 24, 1997  Control of the thumb
+ requires more of the brain's gray matter than does the control of the chest
+ and abdomen.'' scrawled on the interior of the pipe.  A smaller pipe drains
+ into this one from the south.  A rusty ladder leads up.
+
+south
+
+You step into the smaller pipe to the south, your feet squishing in the sludge.
+Sewage pipe
+
+This is a north-south sewage pipe.  Sticky sludge sucks at your feet.  This
+ pipe drains into a larger east-west pipe to the north.  There is a lot of
+ graffiti on the interior of the pipe.  The first of it reads: A.Word.A.Day
+ -lollygag.  You could read the rest of it, if you want to read dozens of
+ lines.
+
+south
+
+You go south, your feet squishing in the sludge.
+
+Sewage pipe
+
+This is a north-south sewage pipe.  The passage south is blocked by a rusty
+ grille.  Sticky sludge sucks at your feet.  There is some graffiti reading
+ ``XRX: Last 116 \&nbsp; 1/8 High 117 \&nbsp; 5/8 Low 115 \&nbsp; 13/16 Volume
+ 1,246,600 Div \$0.36 As of  2:15 PM EST on Jan 19 Change - \&nbsp; 1/4
+ \&nbsp;0.21\% YearHigh 123.37 YearLow 71.25 P/E 168 Yield 1.24\% Exchange NYSE''
+ scrawled on the interior of the pipe.  A tunnel with rungs leading up is
+ above.
+ 
+up
+
+You climb up the tunnel and reach the grating.  You push the grating aside and
+ climb into a cramped space.  The grating clangs back into place.
+
+Underneath the desk
+
+It's the space below the desk.  It's even more cramped than the office.  Lots
+ of junk, apparently spilled from the desk, clutter this area.  When you're
+ through looking around here, you can exit to the office, or you can explore
+ the grating on the floor.
+
+You see IRC cable, hypodermic needle, LambdaMOO hallucinogen, and JaysHouseMOO hallucinogen here.
+
+exit
+
+You leave for the (relative) spaciousness of the office.
+
+Messy, cramped office
+
+This room is cramped and cluttered, and clearly unsafe.  A bare light bulb
+ hangs down from between the pipes and ducts on the ceiling.  The concrete
+ walls are slightly damp and covered with a thin layer of mold.  The
+ ventilation is almost nonexistent, and the southern door leading to the rest
+ of the basement is half-blocked by the desk.  At the desk, qpliu is asleep,
+ his head planted on the keyboard in front of him.  The desk occupies most of
+ the floorspace.  On the desk is a cheap BW X terminal surrounded by empty
+ coke cans, and pile of printouts and photocopied papers.  On the back part of
+ the desk, a book\-case sags under the weight of old textbooks.  A muddy\\
+ bicycle is leaning against the bookcase, making a mess of \\ the papers beneath is, as well as making most of the desk \\ unusable.  In addition, Revolving Door Maze,
+ Room with dy\-namic graffiti, Revolving Door Maze, Revolving Door Maze, \\
+ Revolving Door Maze, Revolving Door Maze, Revolving Door \\ Maze, Revolving Door
+ Maze, Revolving Door Maze, Revolving \\ Door Maze, Revolving Door Maze,
+ Revolving Door Maze, \\ Revolving Door Maze, Revolving Door Maze, Revolving Door \\
+ Maze, Revolving Door Maze, Revolving Door Maze, Sewage \\ pipe, Sewage pipe,
+ Sewage pipe, and generic multichannel \\ IRC headphones are on the desk.  There
+ is a little space \\ underneath the desk.  You probably could crawl there.
+
+You see a red wagon (carrying picture of Scutmonkey), simple IRC headphones, and multichannel IRC headphones here.
+
+qpliu (asleep) is here.
+
+out
+
+The door bangs into the desk as you open it, leaving only a narrow crack.  You
+ manage to sqeeze through, though.
+
+Basement
+
+It's a basement. A fireproof door of steel-reinforced construction is to the
+ east. There is a banged up door in the north wall.  There is a rat-sized hole
+ in the southern wall.  Furnace is sitting in here.  About 4 feet up on the
+ west wall is a board with a hinge at the top.
+
+You see thermostat and tool box here.
+
+west
+
+You pull the board towards you and crawl up into the hole in the wall.
+
+Crawl Space
+
+A dark cramped space no more than five feet high.  Joists run overhead
+ supporting the floor under the Family Room and Kitchen; underneath is bare
+ dirt.  The sound of humming machinery can be heard to the east.  You feel the
+ draft of a door to the west.
+
+It takes a moment for your eyes to adjust to the darkness.
+
+west
+
+You push aside the crawlspace door and hop down onto the basement landing.
+
+Basement Landing
+
+The iron spiral staircase heads up into the light, and down, but you can only
+ see darkness below.  Four feet up from the landing on the east wall is an
+ entrance to the crawl space under the Family Room.
+
+up
+
+The Family Room
+
+It is comfortably crowded here with plush couches and easy chairs, several
+ large bookcases and a free-standing round fireplace.  To the east is the
+ kitchen.  There is a doorway leading to the north and a sliding glass door to
+ the south, through which you can see the gardens.  In the southwest corner of
+ the room is an ironwork spiral staircase leading up and down.  A plywood
+ board used to block downward access, but some vandal has ripped it off the
+ staircase.
+
+You see a display case hanging on the wall, bookcase, a toy box, a postcard from France, couch, VCR/TV, and Weather Map here.
+
+south
+
+The Yard
+
+The yard has ankle-high grass that turns to weeds next to the rosebushes to
+ the east, and extends southward a ways toward what appears to be an old
+ gazebo.  Off to the west, the yard becomes even less well tended.  To the
+ north is a crooked sliding glass door into the house.   Lights from the
+ family room light the area.
+
+You see Kilik's Dog House (a light is on inside), a rusty barrel, Kilik's Patented Fireworks Show, The Lawnmower, frisbee, and a bright orange spark here.
+
+You hear soft snoring from inside the doghouse.
+
+west
+
+West of the Yard
+
+Jupiter, Mars, Venus and Mercury join in the southern skies to form a
+ fantastic display.
+
+The grounds are slightly better kept to the east. A few trees stand beyond the
+ low, split-rail fence which runs along the western border of the property.
+
+You see Chapel here.
+
+look at Chapel
+
+A very large box-shaped wooden structure; it looks large enough that a few
+ people could fit inside it. Its richly colored wooden surfaces show off
+ intricate carvings. Stained glass windows are set in its sides. There seems
+ to be a door you can enter.
+
+enter Chapel
+
+You enter the chapel respectfully.
+
+Chapel
+
+A quiet place with wood panelling. Light filters in from muted stained-glass
+ windows. Here you may sit, stand, kneel, prostrate, levitate, pray, meditate,
+ shout, whine, flame, chant, cower, pout, contemplate, sigh, confess, float,
+ plead, relax, officiate, sermonize, listen, recline, rant, wait, idle, sleep,
+ lag, respond, nap, or genuflect as your inclinations dictate.
+
+Chaplain is here.
+
+out
+
+You exit from the chapel with quiet dignity.
+
+West of the Yard
+
+Jupiter, Mars, Venus and Mercury join in the southern skies to form a
+ fantastic display.
+
+The grounds are slightly better kept to the east. A few trees stand beyond the
+ low, split-rail fence which runs along the western border of the property.
+
+You see Chapel here.
+
+west
+
+Meadow
+
+The eastern end of a vast meadow, where a Gypsy band has built its camp. The
+ air is cool and damp and smells of onion grass. Colorful Gypsy wagons are
+ scattered in all directions. A light green wagon sits to the Northwest.
+
+Moonlight bathes the meadow in a silvery glow as a chorus of crickets fill the
+ damp night air.
+
+An old well sits in the center of this part of the meadow. A soft west breeze
+ carries the odors of wood smoke and cooking from the center of camp. An oddly
+ smaller wagon stands invitingly open to the southwest. Between two wagons to
+ the north, something gleams briefly. A sign on the wagon to the south reads
+ `BonJarleycorn.' And east, through some trees and over a low, split-rail
+ fence, are the gardens of the main house.
+
+north
+
+Landing Site
+
+A large grassy field to the west of LambdaHouse occasionally utilized as a
+ landing site for various aircraft. To the south is a similar field surrounded
+ by gypsy caravans, and to the north, the elusive Lambda Street runs by. To
+ the east, a small section of driveway bends around from the front of the
+ house and goes into the garage.  It is freezing cold out here.  The morning
+ sun is easily seen.
+
+You see windsock and helicopter N001LM here.
+
+enter helicopter
+
+You climb into the helicopter.
+
+Helicopter N001LM
+
+You are inside a luxuriously appointed helicopter, just waiting to be flown.
+ There seems to be a placard with some basic instructions.
+  Through the canopy you see Landing Site.
+
+read instructions
+
+From outside:
+
+look helicopter\\
+preflight helicopter\\
+enter/board helicopter\\
+
+From inside:
+
+look\\
+start\\
+hover\\
+fly\\
+faster\\
+slower\\
+higher\\
+lower\\
+look out\\
+look down\\
+look hobbs\\
+look chart\\
+scrutinize chart\\
+land\\
+land <location>\\
+overfly <location>\\
+wave\\
+stop\\
+shutdown\\
+exit/jump/disem*bark
+
+The helicopter itself can only land at locations that have a wind sock.  You
+ can specify where you would like to land:  Type `look chart' to see the
+ available locations.  You  *can*  get to the other places you see, but you
+ have to jump....
+
+For overflying:  You can only overfly locations that the helicopter knows
+ about.  You can specify the location you want to overfly either by its
+ number, or by its name in your @rooms database.  To find out what locations
+ the helicopter knows about, you have to scrutinize the chart.
+
+Group sky diving:  The best way to sky dive in a group is to pull the
+ helicopter into a hover over your chosen destination.  Then everyone who
+ jumps will land in the same place.
+
+For detailed technical information about the helicopter, type `notes on
+ <helicopter>.
+
+You consult the chart and see that the following locations can accomodate a helicopter:
+
+\begin{verbatim}
+#5809     Asphalt Roof
+#6295     Airport Helipad
+#24641    A Decent Piece of Turf
+#66468    Glenrock Station
+#58923    Open Field
+#19434    Garden
+#5468     Landing Site
+#88543    Mundania International Heliport (MIH)
+#26512    Yib's Helicopter Towing Company
+#16043    Treehouse Helipad
+#74864    Ski Resort
+#9995     Radio KSLP Field
+#14077    Zurkian International Runway
+#107900   Grassy plateau
+#109084   Solitary Glade
+#37892    Artic Tundra
+#84594    The Eyrie
+#68249    Garden
+#80723    Inexplicable Meadow
+#118284   Grey Stone Roof
+\end{verbatim}
+
+start
+
+You follow the checklist and start up the engine.
+
+The roar of the engine is so loud that you can no longer hear what anyone outside is saying.
+
+fly
+
+You start flying the helicopter.
+
+Through the canopy you see The Sky.
+
+As you fly along, you see Glenrock Station.
+
+As you fly along, you see The Deck.
+
+As you fly along, you see Street in front of the Pet Store.
+
+As you fly along, you see Garden.
+
+As you fly along, you see Street in front of LambdaHouse.
+
+land Ski Resort
+
+You land the helicopter.
+
+Through the canopy you see Ski Resort.
+
+out
+
+Please shut down the engine first.
+
+stop
+
+You follow the checklist and shut down the engine.
+
+out
+
+You climb out of the helicopter.
+
+Ski Resort
+
+The snow is at its best for skiing! The runs are well packed and fast. The
+ beauty of the panoramic views of snow covered mountains are only rivalled by
+ the blue Pacific ocean in the west. The ski lift is taking people up to the
+ top of the mountain. Lots of people from all over the world are here skiing,
+ sledding and having snowball play fights.
+ 
+You see a Greyhound Bus, Chopper(helicopter), and a Ski Lift here.
+
+Exits: Board->the bus; Lift->top of mountain; Enter->chopper; Walk -> takes you along a path to a peaceful valley in the west.
+
+Everywhere you look there are snow capped mountains reflecting the bright
+ moonlight. People are laughing and enjoying the night skiing as the runs are
+ lit up too tonight.
+
+You see Wind Sock, Chopper, and helicopter N001LM here.
+
+Lift
+
+As you go higher on the lift you turn as the people are waving and calling,
+ good-bye Guest , come on back, okay?
+
+Coastal Mountain Range Public Park
+
+You're on a mountain 1000 meters high with a view of the Pacific Coast
+ mountain range and the Pacific ocean in the west. Its cold up here but theres
+ a natural hot springs pool and a campfire beside the ledge. The ledge
+ shelters the pool from winds and creates an ecology where wild flowers grow
+ year round in the steam from the pool. The wind is wonderful for the
+ hanggliders here and you're welcome to use them, as well as the guest cabin
+ and pool. Park rangers keep the picnic basket(bar) filled with food for
+ visitors. This is your park, please don't feed the wildlife.
+
+For directions on the hanggliders type Look Sign. You're welcome to sit in the
+ hot springs pool.
+
+Exits: in~->~guest cabin. ski~->~ski ramp. open~->~hole in the ground. down~->~the rainforest.
+
+The moonlight reflects off all the snowcapped mountains and lights a path
+ along the ocean in the west.
+ 
+You see a campfire, a hole in the ground, and down here.
+
+You get to the top, jump off the lift and go over to the campfire to warm up.
+
+...
+}
+
+
 \chapter{The Mythical Man-Month (Fred Brooks)}
 
 \begin{quote}
@@ -2623,17 +3279,225 @@ hacking up the code of a Real Programmer.
 [2002: A copy of the programming manual for the LGP-30 lives at {\footnotesize \texttt{http://ed-thelen.org/comp-hist/lgp-30-man.html}}]
 
 
+\chapter{Things Every Hacker Once Knew (Eric Raymond)}
+
+One fine day in January 2017 I was reminded of something I had half-noticed a few times over the previous decade. That is, younger hackers don't know the bit structure of ASCII and the meaning of the odder control characters in it.
+
+This is knowledge every fledgling hacker used to absorb through their pores. It's nobody's fault this changed; the obsolescence of hardware terminals and the near-obsolescence of the RS-232 protocol is what did it. Tools generate culture; sometimes, when a tool becomes obsolete, a bit of cultural commonality quietly evaporates. It can be difficult to notice that this has happened.
+
+This document is a collection of facts about ASCII and related technologies, notably hardware serial terminals and RS-232 and modems. This is lore that was at one time near-universal and is no longer. It's not likely to be directly useful today -- until you trip over some piece of still-functioning technology where it's relevant (like a GPS puck), or it makes sense of some old-fart war story. Even so, it's good to know anyway, for cultural-literacy reasons.
+
+One thing this collection has that tends to be indefinite in the minds of older hackers is \textit{calendar dates}. Those of us who lived through all this tend to have remembered order and dependencies but not exact timing; here, I did the research to pin a lot of that down. I've noticed that people have a tendency to retrospectively back-date the technologies that interest them, so even if you did live through the era it describes you might get a few surprises from reading this.
+
+There are lots of references to Unix in here because I am mainly attempting to educate younger open-source hackers working on Unix-derived systems such as Linux and the BSDs. If those terms mean nothing to you, the rest of this document probably won't either.
+
+\section{Hardware Context}
+
+Nowadays, when two computers talk to each other, it's usually via TCP/IP over some physical layer you seldom need to care much about. And a ``terminal'' is actually a ``terminal emulator,'' a piece of software that manages part of your display and itself speaks TCP/IP.
+
+Before ubiquitous TCP/IP and bit-mapped displays things were very different. For most hackers that transition took place within a few years of 1992 -- perhaps somewhat earlier if you had access to then-expensive workstation hardware.
+
+Before then there were video display terminals -- VDTs for short. In the mid-1970s these had displaced an earlier generation of printing terminals derived from really old technology called a ``teletype,'' which had evolved around 1900 from Victorian telegraph networks. The very earliest versions of Unix in the late 1960s were written for these printing terminals, in particular for the Teletype Model 33 (aka ASR-33); the ``tty'' that shows up in Unix device names was a then-common abbreviation for ``teletype.''
+
+(This is not the only Unix device name that is a fossil from a bygone age. There's also {\texttt /dev/lp} for the system default printer; every hacker once knew that the ``lp'' stood for ``line printer,'' a type of line-at-a-time electromechanical printer associated with mainframe computers of roughly the same vintage as the ASR-33.)
+
+In those pre-Internet days computers didn't talk to each other much, and the way teletypes and terminals talked to computers was a hardware protocol called ``RS-232'' (or, if you're being pedantic, ``EIA RS-232C''). Before USB, when people spoke of a ``serial'' link, they meant RS-232, and sometimes referred to the equipment that spoke it as ``serial terminals.''
+
+RS-232 had a very long service life; it was developed in the early 1960s, not originally for computer use but as a way for teletypewriters to talk to modems. Though it has passed out of general use and is no longer common knowledge, it's not quite dead even today.
+
+I've been simplifying a bit here. There were other things besides RS-232 and serial terminals going on, notably on IBM mainframes. But they've left many fewer traces in current technology and its folklore. This is because the lineage of modern Unix passes back through a now-forgotten hardware category called a ``minicomputer,'' especially minicomputers made by the Digital Equipment Corporation. ASCII, RS-232 and serial terminals were part of the technology cluster around minicomputers -- as was, for that matter, Unix itself.
+
+Minicomputers were wiped out by workstations and workstations by descendants of the IBM PC, but many hackers old enough to remember the minicomputer era (mid-1960s to mid-1980s) tend still to get a bit misty-eyed about the DEC hardware they cut their teeth on.
+
+Often, however, nostalgia obscures how very underpowered those machines were. For example: a DEC VAX 11-780 minicomputer in the mid-1980s, used for timesharing and often supporting a dozen simultaneous users, had less than 1/1000 the processing power and less than 1/5000 times as much storage available as a low-end smartphone does in 2017.
+
+In fact, until well into the 1980s microcomputers ran slowly enough (and had poor enough RF shielding) that this was common knowledge: you could put an AM radio next to one and get a clue when it was doing something unusual, because either fundamentals or major subharmonics of the clock frequencies were in the range of human audibility. Nothing has run that slowly since the turn of the 21st century.
+
+\section{The strange afterlife of the Hayes smartmodem}
+
+About those modems: the word is a portmanteau for ``modulator/demodulator.'' Modems allowed digital signals to pass over copper phone wires -- ridiculously slowly by today's standards, but that's how we did our primitive wide-area networking in pre-Internet times. It was not generally known back then that modems had first been invented in the late 1950s for use in military communications, notably the SAGE air-defense network; we just took them for granted.
+
+Today modems that speak over copper or optical fiber are embedded invisibly in the Internet access point in your basement; other varieties perform over-the-air signal handling for smartphones and tablets. A variety every hacker used to know about (and most of us owned) was the ``outboard'' modem, a separate box wired to your computer and your telephone line.
+
+Inboard modems (expansion cards for your computer) were also known, but never sold as well because being located inside the case made them vulnerable to RF noise, and the blinkenlights on an outboard were useful for diagnosing problems. Also, most hackers learned to interpret (at least to some extent) modem song -- the beeping and whooshing noises the outboards made while attempting to establish a connection. The happy song of a successful connect was identifiably different from various sad songs of synchronization failure.
+
+One relic of modem days is the name of the Unix SIGHUP signal, indicating that the controlling terminal of the user's process has disconnected. HUP stands for ``HangUP'' and this originally indicated a serial line drop (specifically, loss of Data Carrier Detect) as produced by a modem hangup.
+
+These old-fashioned modems were, by today's standards, unbelievably slow. Modem speeds increased from 110 bits per second back at the beginning of interactive computing to 56 kilobits per second just before the technology was effectively wiped out by wide-area Internet around the end of the 1990s, which brought in speeds of a megabit per second and more (20 times faster). For the longest stable period of modem technology after 1970, about 1984 to 1991, typical speed was 9600bps. This has left some traces; it's why surviving serial-protocol equipment tends to default to a speed of 9600bps.
+
+There was a line of modems called ``Hayes Smartmodems'' that could be told to dial a number, or set parameters such as line speed, with command codes sent to the modem over its serial link from the machine. Every hacker used to know the ``AT'' prefix used for commands and that, for example, ATDT followed by a phone number would dial the number. Other modem manufacturers copied the Hayes command set and variants of it became near universal after 1981.
+
+What was not commonly known then is that the ``AT'' prefix had a helpful special property. That bit sequence ({\texttt 1+0 1000 0010 1+0 0010 1010 1+}, where the plus suffix indicates one or more repetitions of the preceding bit) has a shape that makes it as easy as possible for a receiver to recognize it even if the receiver doesn't know the transmit-line speed; this, in turn, makes it possible to automatically synchronize to that speed.
+
+That property is still useful, and thus in 2017 the AT convention has survived in some interesting places. AT commands have been found to perform control functions on 3G and 4G cellular modems used in smartphones. On one widely deployed variety, ``AT+QLINUXCMD='' is a prefix that passes commands to an instance of Linux running in firmware on the chip itself (separately from whatever OS might be running visibly on the phone).
+
+\section{Preserving core values}
+
+From about 1955 to 1975 -- before semiconductor memory -- the dominant technology in computer memory used tiny magnetic doughnuts strung on copper wires. The doughnuts were known as ``ferrite cores'' and main memory thus known as ``core memory'' or ``core.''
+
+Unix terminology was formed in the early 1970s, and compounds like ``in core'' and ``core dump'' survived into the semiconductor era. Until as late as around 1990 it could still be assumed that every hacker knew from where these terms derived; even microcomputer hackers for which memory had always been semiconductor RAM tended to pick up this folklore rapidly on contact with Unix.
+
+After 2000, however, as multiprocessor systems became increasingly common even on desktops, ``core'' increasingly took on a conflicting meaning as shorthand for ``processor core.'' In 2017 ``core'' can still mean either thing, but the reason for the older usage is no longer generally understood and idioms like ``in core'' may be fading.
+
+\section{36-bit machines and the persistence of octal}
+
+There's a power-of-two size hierarchy in memory units that we now think of as normal -- 8 bit bytes, 16 or 32 or 64-bit words. But this did not become effectively universal until after 1983. There was an earlier tradition of designing computer architectures with 36-bit words.
+
+There was a time when 36-bit machines loomed large in hacker folklore and some of the basics about them were ubiquitous common knowledge, though cultural memory of this era began to fade in the early 1990s. Two of the best-known 36-bitters were the DEC PDP-10 and the Symbolics 3600 Lisp machine. The cancellation of the PDP-10 in '83 proved to be the death knell for this class of machine, though the 3600 fought a rear-guard action for a decade afterwards.
+
+Hexadecimal is a natural way to represent raw memory contents on machines with the power-of-two size hierarchy. But octal (base-8) representations of machine words were common on 36-bit machines, related to the fact that a 36-bit word naturally divides into 12 3-bit fields naturally represented as octal. In fact, back then we generally assumed you could tell which of the 32- or 36-bit phyla a machine belonged in by whether you could see digits greater than 7 in a memory dump.
+
+Here are a few things every hacker used to know that related to these machines:
+\begin{itemize}
+\item 36 bits was long enough to represent positive and negative integers to an accuracy of ten decimal digits, as was expected on mechanical calculators of the era. Standardization on 32 bits was unsuccessfully resisted by numerical analysts and people in scientific computing, who really missed that last 4 bits of accuracy.
+\item A ``character'' might be 9 bits on these machines, with 4 packed to a word. Consequently, keyboards designed for them might have both a meta key to assert bit 8 and a now-extinct extra modifier key (usually but not always called ``Super'') that asserted bit 9. Sometimes this selected a tier of non-ASCII characters including Greek letters and mathematical symbols.
+\item Alternatively, 6-bit characters might be packed 6 to a word. There were many different 6-bit character encodings; not only did they differ across a single manufacturer's machines, but some individual machines used multiple incompatible encodings. This is why older non-Unix minicomputers like the PDP-10 had a six-character limit on filenames -- this allowed an entire filename to be packed in a single 36-bit word. If you ever see the following acronyms it is a clue that you may have wandered into this swamp: SIXBIT, FIELDATA, RADIX-50, BCDIC.
+\end{itemize}
+It used also to be generally known that 36-bit architectures explained some unfortunate features of the C language. The original Unix machine, the PDP-7, featured 18-bit words corresponding to half-words on larger 36-bit computers. These were more naturally represented as six octal (3-bit) digits.
+
+The immediate ancestor of C was an interpreted language written on the PDP-7 and named B. In it, a numeric literal beginning with 0 was interpreted as octal.
+
+The PDP-7's successor, and the first workhorse Unix machine was the PDP-11 (first shipped in 1970). It had 16-bit words -- but, due to some unusual peculiarities of the instruction set, octal made more sense for its machine code as well. C, first implemented on the PDP-11, thus inherited the B octal syntax. And extended it: when an in-string backslash has a following digit, that was expected to lead an octal literal.
+
+The Interdata 32, VAX, and other later Unix platforms didn't have those peculiarities; their opcodes expressed more naturally in hex. But C was never adjusted to prefer hex, and the surprising interpretation of leading 0 wasn't removed.
+
+Because many later languages (Java, Python, etc) copied C's low-level lexical rules for compatibility reasons, the relatively useless and sometimes dangerous octal syntax besets computing platforms for which three-bit opcode fields are wildly inappropriate, and may never be entirely eradicated.
+
+The PDP-11 was so successful that architectures strongly influenced by it (notably, including Intel and ARM microprocessors) eventually took over the world, killing off 36-bit machines.
+
+\section{RS232 and its discontents}
+
+A TCP/IP link generally behaves like a clean stream of 8-bit bytes (formally, octets). You get your data as fast as the network can run, and error detection/correction is done somewhere down below the layer you can see.
+
+RS-232 was not like that. Two devices speaking it had to agree on a common line speed -- also on how the byte framing works (the latter is why you'll see references to ``stop bits'' in related documentation). Finally, error detection and correction was done in-stream, sort of. RS232 devices almost always spoke ASCII, and used the fact that ASCII only filled 7 bits. The top bit might be, but was not always, used as a parity bit for error detection. If not used, the top bit could carry data.
+
+You had to set your equipment at both ends for a specific combination of all of these. After about 1984 anything other than ``8N1'' -- eight bits, no parity, one stop bit -- became increasingly rare. Before that, all kinds of weird combinations were in use. Even parity (E) was more common than odd (O) and 1 stop bit more common than 2, but you could see anything come down a wire. And if you weren't properly set up for it, all you got was ``baud barf'' -- random 8-bit garbage rather than the character data you were expecting.
+
+This, in particular, is one reason the API for the POSIX/Unix terminal interface, termios(3), has a lot of complicated options with no obvious modern-day function. It had to be able to manipulate all these settings, and more.
+
+Another consequence was that passing binary data over an RS-232 link wouldn't work if parity was enabled -- the high bits would get clobbered. Other now-forgotten wide-area network protocols reacted even worse, treating in-band characters with 0x80 on as control codes with results ranging from amusing to dire. We had a term, ``8-bit clean,'' for networks and software that didn't clobber the 0x80 bit. And we needed that term\dots
+
+The fragility of the 0x80 bit back in those old days is the now largely forgotten reason that the MIME encoding for email was invented (and within it the well-known MIME64 encoding). Even the version of SMTP current as I write (RFC 5321) is still essentially a 7-bit protocol, though modern end points can now optionally negotiate 8-bit data.
+
+But before MIME there was uuencode/uudecode, a pair of filters for rendering 8-bit data in 7 bits that is still occasionally used today in Unixland. In this century uuencoding has largely been replaced by MIME64, but there are places you can still trip over uuencoded binary archives.
+
+Even the RS-232 physical connector varied. Standard RS-232 as defined in 1962 used a roughly D-shaped shell with 25 physical pins (DB-25), way more than the physical protocol actually required (you can support a minimal version with just three wires, and this was actually common). Twenty years later, after the IBM PC-AT introduced it in 1984, most manufacturers switched to using a smaller DB-9 connector (which is technically a DE-9 but almost nobody ever called it that). If you look at a PC with a serial port it is most likely to be a DB-9; confusingly, DB-25 came to be used for printer parallel ports (which originally had a very different connector) before those too were obsolesced by USB and Ethernet.
+
+Anybody who worked with this stuff had to keep around a bunch of specialized hardware -- gender changers, DB-25-to-DB-9 adapters (and the reverse), breakout boxes, null modems, and other gear I won't describe in detail because it's left almost no traces in today's tech. Hackers of a certain age still tend to have these things cluttering their toolboxes or gathering dust in a closet somewhere.
+
+The main reason to still care about any of this (other than understanding greybeard war stories) is that some kinds of sensor and control equipment and IoT devices still speak RS-232, increasingly often wrapped inside a USB emulation. The most common devices that do the latter are probably GPS sensors designed to talk to computers (as opposed to handheld GPSes or car-navigation systems).
+
+Because of devices like GPSes, you may still occasionally need to know what an RS-232 ``handshake line'' is. These were originally used to communicate with modems; a terminal, for example, could change the state of the DTR (Data Terminal Ready) line to indicate that it was ready to receive, initiate, or continue a modem session.
+
+Later, handshake lines were used for other equipment-specific kinds of out-of-band signals. The most commonly re-used lines were DCD (data carrier detect) and RI (Ring Indicator).
+
+Three-wire versions of RS-232 omitted these handshake lines entirely. A chronic source of frustration was equipment at one end of your link that failed to supply an out-of-band signal that the equipment at the other end needed. The modern version of this is GPSes that fail to supply their 1PPS (a high-precision top-of-second pulse) over one of the handshake lines.
+
+Another significant problem was that an RS-232 device not actually sending data was undetectable without analog-level monitoring equipment. You couldn't tell a working but silent device from one that had come unplugged or suffered a connection fault in its wiring. This caused no end of complications when troubleshooting and is a major reason USB was able to displace RS-232 after 1994.
+
+A trap for the unwary that opened up after about the year 2000 is that peripheral connectors labeled RS232 could have one of two different sets of voltage levels. If they're pins or sockets in a DB9 or DB25 shell, the voltage swing between 1 and 0 bits can be as much as 50 volts, and is usually about 26. Bare connectors on a circuit board, or chip pins, increasingly came to use what's called ``TTL serial'' -- same signaling with a swing of 3.3 or (less often) 5 volts. You can't wire standard RS232 to TTL serial directly; the link needs a device called a ``level shifter.'' If you connect without one, components on the TTL side will get fried.
+
+RS-232 passed out of common knowledge in the mid- to late 1990s, but didn't finally disappear from general-purpose computers until around 2010. Standard RS-232 is still widely used not just in the niche applications previously mentioned, but also in point-of-sale systems and diagnostic consoles on commercial-grade routers. The TTL serial variant is often used on maker devices.
+
+\section{WAN time gone: The forgotten pre-Internets}
+
+Today, the TCP/IP Internet is very nearly the only WAN (Wide-Area-Network) left standing. It was not always so. From the late '70s to the mid-1990s -- but especially between 1981 and 1991 -- there were a profusion of WANs of widely varying capability. You are most likely to trip over references to these in email archives from that time; one characteristic of it is that people sometimes advertised multiple different network addresses in their signatures.
+
+Every hacker over a certain age remembers either UUCP or the BBS scene. Many participated in both. In those days access to to the ``real'' net (ARPANET, which became Internet) was difficult if you weren't affiliated with one of a select group of federal agencies, military contractors, or university research labs. So we made do with what we had, which was modems and the telephone network.
+
+UUCP stands for Unix to Unix Copy Program. Between its escape from Bell Labs in 1979 and the mass-market Internet explosion of the mid-1990s, it provided slow but very low-cost networking among Unix sites using modems and the phone network.
+
+UUCP was a store-and-forward system originally intended for propagating software updates, but its major users rapidly became email and a thing called USENET (launched 1981) that was the ur-ancestor of Stack Overflow and other modern web fora. It supported topic groups for messages which, propagated from their point of origin through UUCP, would eventually flood to the whole network.
+
+In part, UUCP and USENET were a hack around the two-tier rate structure that then existed for phone calls, with ``local'' being flat-rate monthly and ``long-distance'' being expensively metered by the minute. UUCP traffic could be relayed across long distances by local hops.
+
+A direct descendant of USENET still exists, as Google Groups, but was much more central to the hacker culture before cheap Internet. Open source as we now know it germinated in USENET groups dedicated to sharing source code. Several conventions still in use today, like having project metadata files named README and NEWS and INSTALL, became established there in the early 1980s -- though at least README was older, having been seen in the wild back on the PDP-10.
+
+Two key dates in USENET history were universally known. One was the Great Renaming in 1987, when the name hierarchy of USENET topic groups was reorganized. The other was the ``September that never ended'' in 1993, when the AOL commercial timesharing services gave its users access to USENET. The resulting vast flood of newbies proved difficult to acculturate.
+
+UUCP explains a quirk you may run across in old mailing-list archives: the bang-path address. UUCP links were point-to-point and you had to actually specify the route of your mail through the UUCP network; this led to people publishing addresses of the form ``\dots!bigsite!foovax!barbox!user'', presuming that people who wanted to reach them would know how to reach bigsite. As Internet access became more common in the early 1990s, addresses of the form user@hostname displaced bang paths. During this transition period there were some odd hybrid mail addresses that used a ``\%'' to weld bang-path routing to Internet routing.
+
+UUCP was notoriously difficult to configure, enough so that people who knew how often put that skill on their CVs in the justified expectation that it could land them a job.
+
+Meanwhile, in the microcomputer world, a different kind of store-and-forward evolved -- the BBS (Bulletin-Board System). This was software running on a computer (after 1991 usually an MS-DOS machine) with one (or, rarely, more) attached modems that could accept incoming phone calls. Users (typically, just one user at a time!) would access the BBS using a their own modem and a terminal program; the BBS software would allow them to leave messages for each other, upload and download files, and sometimes play games.
+
+The first BBS, patterned after the community notice-board in a supermarket, was fielded in Chicago in 1978. Over the next eighteen years over a hundred thousand BBSes flashed in and out of existence, typically run out of the sysop's bedroom or garage with a spare computer.
+
+From 1984 the BBS culture evolved a primitive form of internetworking called ``FidoNet'' that supported cross-site email and a forum system broadly resembling USENET.
+
+During a very brief period after 1990, just before mass-market Internet, software with BBS-like capabilities but supporting multiple simultaneous modem users (and often offeing USENET access) got written for low-cost Unix systems. The end-stage BBSes, when they survived, moved to the Web and dropped modem access. The history of cellar.org chronicles this period.
+
+A handful of BBSes are still run by nostalgicists, and some artifacts from the culture are still preserved. But, like the UUCP network, the BBS culture as a whole collapsed when inexpensive Internet became widely available.
+
+Almost the only cultural memory of BBSes left is around a family of file-transfer protocols -- XMODEM, YMODEM, and ZMODEM -- developed shortly before BBSes and primarily used on them. For hackers of that day who did not cut their teeth on minicomputers with native TCP/IP, these were a first introduction to concepts like packetization, error detection, and retransmission. To this day, hardware from at least one commercial router vendor (Cisco) accepts software patches by XMODEM upload through a serial port.
+
+Also roughly contemporaneous with USENET and the BBS culture, and also destroyed or absorbed by cheap Internet, were some commercial timesharing services supporting dialup access by modem, of which the best known were AOL (America Online) CompuServe, and GEnie; others included The Source and Prodigy. These provided BBS-like facilities. Every hacker knew of these, though few used them. They have left no traces at all in today's hacker culture.
+
+One last tier of pre-Internets, operating from about 1981 to about 1991 with isolated survivals into the 2000s, was various academic wide-area networks using leased-line telephone links: CSNET, BITNET, EARN, VIDYANET, and others. These generally supported email and file-transfer services that would be recognizable to Internet users, though with different addressing schemes and some odd quirks (such as not being 8-bit clean). They have left some traces today. Notably, the term ``listserv'' for an electronic mailing list, still occasionally used today, derives from an email reflector used on BITNET.
+
+\section{FTP and the forgotten pre-Web}
+
+The World Wide Web went from nowhere to ubiquity during a few short years in the early 1990s. Before that, from 1971 onwards, file transfer between Internet sites was normally done with a tool named ftp, for the File Transfer Protocol it used. Every hacker once knew how to use this tool.
+
+Eventually ftp was mostly subsumed by web browsers speaking the FTP protocol themselves. This is why you may occasionally still see URLs with an ``ftp:'' service prefix; this informs the browser that it should expect to speak to an FTP server rather than an HTTP/HTTPS server.
+
+\section{Terminal confusion}
+
+The software terminal emulators on modern Unix systems are the near-end -- and probably final -- manifestations of a long and rather confused history. It began with early displays sometimes called ``glass TTYs'' because they emulated teletypes -- but less expensively, because they didn't require consumables like paper. The phrase ``dumb terminal'' is equivalent. The first of these was shipped in 1969. The best-remembered of them is probably still the ADM-3 from 1975.
+
+The very earliest VDTs, like the ASR-33 before them, could form only upper-case letters. An interesting hangover from that these devices was that, even though most VDTs made after 1975 could form lower-case letters, for many years afterwards Unix and Linux responded to an all-upper-case login by switching to an mode which upcased all input. If you created an account with an all-upper-case login name and a mixed-case password, hilarity ensued. If the password was also upper-case the hilarity was less desperate but still confusing for the user.
+
+The classic ``smart terminal'' VDT designs that have left a mark on later computing appeared during a relatively short period beginning in 1975. Devices like the Lear-Siegler ADM-3A (1976) and the DEC VT-100 (1978) inherited the 80-character line width of punched cards (longer than the 72-character line length of teletypes) and supported as many lines as could fit on an approximately 4:3 screen (and in 2K bytes of display memory); they are the reason your software terminal emulator has a 24x80 or 25x80 default size.
+
+These terminals were called ``smart'' because they could interpret control codes to do things like addressing the cursor to any point on the screen in order to produce truly 2-dimensional displays. The ability to do bold, underline or reverse-video highlighting also rapidly became common. Colored text and backgrounds, however, only became available a few years before VDTs were obsolesced; before that displays were monochromatic. Some had crude, low-resolution dot graphics; a few types supported black-and-white vector graphics.
+
+Early VDTs used a crazy variety of control codes. One of the principal relics of this era is the Unix terminfo database, which tracked these codes so terminal-using applications could do abstracted operations like ``move the cursor'' without being restricted to working with just one terminal type. The curses(3) library still used with software terminal emulators was originally intended to make this sort of thing easier.
+
+After 1979 there was an ANSI standard for terminal control codes, based on the DEC VT-100 (being supported in the IBM PC's original screen driver gave it a boost). By the early 1990s ANSI conformance was close to universal in VDTs, which is why that's what your software terminal emulator does.
+
+This whole technology category was rapidly wiped out in general-purpose computing, like dinosaurs after the Alvarez strike, when bit-mapped color displays on personal computers that could match the dot pitch of a monochrome VDT became relatively inexpensive, around 1992. The legacy VDT hardware lingered longest in dedicated point-of-sale systems, remaining not uncommon until as late as 2010 or so.
+
+It's not true, as is sometime suggested, that heritage from the VDT era explains the Unix command line -- that actually predated VDTs, going back to the last generation of printing terminals in the late 1960s and early 1970s. Every hacker once knew that this is why we often speak of of ``printing'' output when we mean sending it to standard output that is normally connected to a terminal emulator.
+
+What the VDT era does explain is some of our heritage games (see next section) and a few surviving utility programs like vi(1), top(1) and mutt(1). These are what advanced visual interfaces looked like in the VDT era, before bitmapped displays.
+
+It also explains ``screensavers.'' These are so called because software to randomly vary the image(s) on your display was originally written to prevent phosphor burn-in on VDTs, which could permanently damage the screen's ability to display information. Flatscreens don't have this problem; the secondary purpose of doing something visually interesting with that blank space took over.
+
+\section{Games before GUIs}
+
+Before bit-mapped color displays became common and made graphics-intensive games the norm, there was a vigorous tradition of games that required only textual interfaces or the character-cell graphics on a VDT.
+
+These VDT games often found their way to early microcomputers as well. In part this way because some of those early micros themselves had weak or nonexistent graphical capabilities, and in part because textual games were relatively easy to port and featured as type-in projects in magazines and books.
+
+The oldest group of games that were once common knowledge are the Trek family, a clade of games going back to 1971 in which the player flew the starship Enterprise through the Federation fighting Klingons and Romulans and other enemies. Every hacker over a certain age remembers spending hours playing these.
+
+The history of the Trek clade is too complex to summarize here. The thing to notice about them is that the extremely crude interface (designed not even for VDTs but for teletypes!) hid what was actually a relatively sophisticated wargame in which initiative, tactical surprise, and logistics all played significant roles.
+
+Every hacker once knew what the phrase ``You are in a maze of twisty little passages, all alike'' meant, and often used variants about confusing situations in real life (For example, ``You are in a maze of twisty little technical standards, all different''). It was from the very first dungeon-crawling adventure game, Colossal Cave Adventure (1976). People who knew this game from its beginnings often thought of it as ADVENT, after its 6-character filename on the PDP-10 where it first ran.
+
+When the original author of ADVENT wasn't inventing an entire genre of computer games, he was writing the low-level firmware for some of the earliest ARPANET routers. This was not generally known at the time, but illustrates how intimate the connection between these early games and the cutting edge of serious programming was. ``Game designer'' was not yet a separate thing, then.
+
+You might occasionally encounter ``xyzzy'' as a nonce variable name. Every hacker used to know that xyzzy was a magic word in ADVENT.
+
+ADVENT had a direct successor that was even more popular -- Zork, first released in 1979 by hackers at MIT on a PDP-10 (initially under the name ``Dungeon'') and later successfully commercialized. This game is why every hacker once knew that a zorkmid was the currency of the Great Underground Empire, and that if you wander around in dark places without your lantern lit you might be eaten by a grue.
+
+There was another family of games that took a different, more visual approach to dungeon-crawling. They are generally called ``roguelikes,'' after one of the earliest widely-distributed games in this group, Rogue from 1980. They featured top-down, maplike views of dungeon levels through which the player would wander battling monsters and seeking treasure.
+
+The most widely played games in this group were Hack (1982) and Nethack (1987). Nethack is notable for having been one of the earliest programs in which the development group was consciously organized as a distributed collaboration over the Internet; at the time, this was a sufficiently novel idea to be advertised in the project's name.
+
+These games gradually passed out of universal common knowledge after the mid-1990s, but they retain devoted minority followings today. Their fans accurately point out that the primitive state of interface design encouraged concentration on plot and story values, leading to a surprisingly rich imaginative experience.
+
 \chapter{K\&R}
 
 ``What nobody tells people who are beginners -- and I really wish someone had told this to me\dots is that all of us who do creative work, we get into it because we have good taste. But there is this gap. For the first couple years you make stuff, and it's just not that good. It's trying to be good, it has potential, but it's not.
 
-But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase. They quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn't have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know it's normal and the most important thing you can do is do a lot of work. Put yourself on a deadline so that every week you will finish one story.
+But your taste, the thing that got you into the game, is still killer. And your taste is why your work disappoints you. A lot of people never get past this phase. They quit. Most people I know who do interesting, creative work went through years of this. We know our work doesn't have this special thing that we want it to have. We all go through this. And if you are just starting out or you are still in this phase, you gotta know it's normal and the most important thing you can do is do a lot of work.
 
 It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions. And I took longer to figure out how to do this than anyone I've ever met. It's gonna take awhile. It's normal to take awhile. You've just gotta fight your way through.''
 
 -- Ira Glass
 
-\vskip 0.4in
+\vskip 0.5in
 
 {\footnotesize
 \begin{verbatim}
@@ -2723,5 +3587,57 @@ void free(void *ap) {
 \end{verbatim}
 }
 
+
+\chapter{J (Arthur Whitney)}
+
+``One summer weekend in 1989, Arthur Whitney visited Ken Iverson at Kiln Farm and produced -- on one page and in one afternoon -- an interpreter fragment on the AT\&T 3B1 computer. I studied this interpreter for about a week for its organization and programming style; and on Sunday, August 27, 1989, at about four o'clock in the afternoon, wrote the first line of code that became the implementation described in this document.'' -- \textit{An Implementation of J}, Roger Hui
+
+
+{\tiny
+\begin{verbatim}
+typedef char C;typedef long I;
+typedef struct a{I t,r,d[3],p[2];}*A;
+#define P printf
+#define R return
+#define V1(f) A f(w)A w;
+#define V2(f) A f(a,w)A a,w;
+#define DO(n,x) {I i=0,_n=(n);for(;i<_n;++i){x;}}
+I *ma(n){R(I*)malloc(n*4);}mv(d,s,n)I *d,*s;{DO(n,d[i]=s[i]);}
+tr(r,d)I *d;{I z=1;DO(r,z=z*d[i]);R z;}
+A ga(t,r,d)I *d;{A z=(A)ma(5+tr(r,d));z->t=t,z->r=r,mv(z->d,d,r);
+ R z;}
+V1(iota){I n=*w->p;A z=ga(0,1,&n);DO(n,z->p[i]=i);R z;}
+V2(plus){I r=w->r,*d=w->d,n=tr(r,d);A z=ga(0,r,d);
+ DO(n,z->p[i]=a->p[i]+w->p[i]);R z;}
+V2(from){I r=w->r-1,*d=w->d+1,n=tr(r,d);
+ A z=ga(w->t,r,d);mv(z->p,w->p+(n**a->p),n);R z;}
+V1(box){A z=ga(1,0,0);*z->p=(I)w;R z;}
+V2(cat){I an=tr(a->r,a->d),wn=tr(w->r,w->d),n=an+wn;
+ A z=ga(w->t,1,&n);mv(z->p,a->p,an);mv(z->p+an,w->p,wn);R z;}
+V2(find){}
+V2(rsh){I r=a->r?*a->d:1,n=tr(r,a->p),wn=tr(w->r,w->d);
+ A z=ga(w->t,r,a->p);mv(z->p,w->p,wn=n>wn?wn:n);
+ if(n-=wn)mv(z->p+wn,z->p,n);R z;}
+V1(sha){A z=ga(0,1,&w->r);mv(z->p,w->d,w->r);R z;}
+V1(id){R w;}V1(size){A z=ga(0,0,0);*z->p=w->r?*w->d:1;R z;}
+pi(i){P("%d ",i);}nl(){P("\n");}
+pr(w)A w;{I r=w->r,*d=w->d,n=tr(r,d);DO(r,pi(d[i]));nl();
+ if(w->t)DO(n,P("< ");pr(w->p[i]))else DO(n,pi(w->p[i]));nl();}
+
+C vt[]="+{~<#,";
+A(*vd[])()={0,plus,from,find,0,rsh,cat},
+ (*vm[])()={0,id,size,iota,box,sha,0};
+I st[26]; qp(a){R  a>='a'&&a<='z';}qv(a){R a<'a';}
+A ex(e)I *e;{I a=*e;
+ if(qp(a)){if(e[1]=='=')R st[a-'a']=ex(e+2);a= st[ a-'a'];}
+ R qv(a)?(*vm[a])(ex(e+1)):e[1]?(*vd[e[1]])(a,ex(e+2)):(A)a;}
+noun(c){A z;if(c<'0'||c>'9')R 0;z=ga(0,0,0);*z->p=c-'0';R z;}
+verb(c){I i=0;for(;vt[i];)if(vt[i++]==c)R i;R 0;}
+I *wd(s)C *s;{I a,n=strlen(s),*e=ma(n+1);C c;
+ DO(n,e[i]=(a=noun(c=s[i]))?a:(a=verb(c))?a:c);e[n]=0;R e;}
+
+main(){C s[99];while(gets(s))pr(ex(wd(s)));}
+\end{verbatim}
+}
 
 \end{document}
